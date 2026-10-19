@@ -75,6 +75,18 @@ export function Nav() {
   return (
     <>
       <header className={classes}>
+        <button
+          type="button"
+          className="nav__toggle"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span />
+          <span />
+          <b>Menu</b>
+        </button>
         <Link href="/#top" className="nav__logo" aria-label={`${site.name} — home`}>
           <LogoMark />
           <span>{site.shortName}</span>
@@ -86,20 +98,9 @@ export function Nav() {
             </Link>
           ))}
         </nav>
-        <Link href="/#contact" className="btn btn--sm btn--accent nav__cta magnetic">
-          Book a visit
+        <Link href="/#contact" className="nav__cta magnetic">
+          Enquire <span aria-hidden="true">↗</span>
         </Link>
-        <button
-          type="button"
-          className="nav__toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span />
-          <span />
-        </button>
       </header>
 
       <div className="mobile-menu" id="mobile-menu" aria-hidden={!open} inert={!open}>

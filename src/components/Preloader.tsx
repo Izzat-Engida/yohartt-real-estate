@@ -38,7 +38,7 @@ export function Preloader() {
     }
 
     const start = performance.now();
-    const minDuration = 1500;
+    const minDuration = 1050;
     let loaded = document.readyState === 'complete';
     let p = 0;
     const onLoad = () => {
