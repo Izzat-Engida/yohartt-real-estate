@@ -1,12 +1,14 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { gsap } from 'gsap';
 import { photos, type Photo } from '@/data/projects';
 import { delay } from '@/lib/style';
+import { usePinnedSequence, useRevealText } from '@/lib/scroll/hooks';
 import { FloorExplorer } from '../FloorExplorer';
-import { BuildingIcon, ClockIcon, LockIcon, PinIcon, ArrowDown, ArrowRight } from '../icons';
+import { BuildingIcon, ClockIcon, LockIcon, PinIcon, ArrowRight } from '../icons';
 import { LightboxLink } from '../LightboxLink';
 import { ProcessScroller } from '../ProcessScroller';
 
@@ -74,38 +76,50 @@ export function About() {
       className: 'about-slide--delivered',
     },
   ];
-  const [progress, setProgress] = useState(0);
+  const { sectionRef, progress, activeIndex: active, direction } = usePinnedSequence<HTMLElement>(slides.length);
+  const revealRef = useRevealText<HTMLDivElement>();
+  const sequenceRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const section = document.getElementById('about');
-      if (!section) return;
-      const distance = Math.max(1, section.offsetHeight - window.innerHeight);
-      setProgress(Math.min(1, Math.max(0, -section.getBoundingClientRect().top / distance)));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+  useLayoutEffect(() => {
+    const sequence = sequenceRef.current;
+    if (!sequence || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const currentSlide = sequence.querySelector<HTMLElement>(`.about-slide:nth-child(${active + 1})`);
+    if (!currentSlide) return;
+
+    const textParts = Array.from(currentSlide.querySelectorAll<HTMLElement>(
+      '.about-slide__eyebrow, h2, .about-slide__description, .about-slide__cta',
+    ));
+    const visual = currentSlide.querySelector<HTMLElement>('.about-slide__visual');
+    const largeCard = currentSlide.querySelector<HTMLElement>('.about-slide__image--large');
+    const smallCard = currentSlide.querySelector<HTMLElement>('.about-slide__image--small');
+    const incomingX = direction === 1 ? 90 : -90;
+
+    const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    gsap.killTweensOf([...textParts, visual, largeCard, smallCard].filter(Boolean));
+
+    gsap.set(textParts, { autoAlpha: 0, y: 42 });
+    if (visual) gsap.set(visual, { autoAlpha: 0, x: incomingX, scale: 1.06 });
+    if (largeCard) gsap.set(largeCard, { x: direction === 1 ? 26 : -26, y: direction === 1 ? 12 : -12, rotate: direction === 1 ? 2 : -2, scale: 1.04 });
+    if (smallCard) gsap.set(smallCard, { x: direction === 1 ? 44 : -44, y: direction === 1 ? -18 : 18, rotate: direction === 1 ? 5 : -5, scale: 0.88 });
+
+    timeline
+      .to(visual, { autoAlpha: 1, x: 0, scale: 1, duration: 1.25 }, 0)
+      .to(largeCard, { x: 0, y: 0, rotate: 0, scale: 1, duration: 1.1 }, 0.08)
+      .to(smallCard, { x: 0, y: 0, rotate: 0, scale: 1, duration: 1.2 }, 0.16)
+      .to(textParts, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.11 }, 0.16);
+
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
+      timeline.kill();
     };
-  }, []);
-
-  const active = Math.min(slides.length - 1, Math.floor(progress * slides.length));
+  }, [active, direction]);
 
   return (
-    <section className="about about-sequence" id="about">
+    <section className="about about-sequence" id="about" ref={sectionRef}>
       <div className="about-pin">
-        <div className="about-slides" aria-live="polite">
+        <div className={`about-slides ${direction === 1 ? 'about-slides--forward' : 'about-slides--backward'}`} aria-live="polite" ref={(node) => { sequenceRef.current = node; revealRef.current = node; }}>
           {slides.map((slide, index) => (
-            <article className={`about-slide ${slide.className} ${index === active ? 'is-active' : ''}`} key={slide.title}>
+            <article className={`about-slide ${slide.className} ${index === active ? 'is-active' : ''} ${index === active ? (direction === 1 ? 'is-forward' : 'is-backward') : ''}`} key={slide.title}>
               <div className="about-slide__text">
                 <p className="about-slide__eyebrow">{slide.eyebrow}</p>
                 <h2>{slide.title}</h2>
@@ -192,7 +206,7 @@ export function TowerSection() {
 
 /* ---------- Process ---------- */
 
-const STAGES: { photo: Photo; title: string; text: string; wide?: boolean }[] = [
+const STAGES: { photo: Photo; title: string; text: string }[] = [
   {
     photo: photos.structure,
     title: 'The structure rises',
@@ -202,64 +216,46 @@ const STAGES: { photo: Photo; title: string; text: string; wide?: boolean }[] = 
     photo: photos.rebar,
     title: 'Every slab, engineered',
     text: 'Reinforcement is laid and tied to the structural drawings, with conduits and services set in place before any concrete arrives.',
-    wide: true,
   },
   {
     photo: photos.pour,
     title: 'Poured with precision',
     text: 'Ready-mix concrete is pumped, spread and vibrated across the slab by a dedicated crew for a solid, monolithic floor.',
-    wide: true,
+  },
+  {
+    photo: photos.completed,
+    title: 'Finished & handed over',
+    text: 'Clean facades, generous glazing and a secure gated entry — homes ready for families to move in.',
   },
 ];
 
 export function ProcessSection() {
   return (
-    <ProcessScroller count={STAGES.length + 1}>
-      <div className="process__intro">
-        <p className="eyebrow">
-          <span>(03)</span> Built in the open
-        </p>
-        <h2 className="display">
-          From rebar
-          <br />
-          to <em>rooftop.</em>
-        </h2>
-        <p>Every Yohartt building moves through the same disciplined sequence. Keep scrolling to walk the site with us.</p>
-        <span className="process__hint" aria-hidden="true">
-          Scroll
-          <ArrowRight />
-        </span>
-      </div>
-
+    <ProcessScroller count={STAGES.length} labels={STAGES.map((stage) => stage.title)}>
       {STAGES.map((stage, i) => (
-        <article className={stage.wide ? 'stage stage--wide' : 'stage'} key={stage.title}>
+        <article className="stage" key={stage.title}>
+          <div className="stage__background" aria-hidden="true">
+            <Image src={stage.photo.src} alt="" fill sizes="100vw" placeholder="blur" />
+          </div>
+          <div className="stage__shade" aria-hidden="true" />
+          <div className="stage__content">
+            <p className="stage__eyebrow">Process</p>
+            <div className="stage__body">
+              <span className="stage__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.text}</p>
+            </div>
+          </div>
           <LightboxLink photo={stage.photo} className="stage__media">
             <Image
               src={stage.photo.src}
               alt={stage.photo.alt}
-              sizes={stage.wide ? '(max-width: 899px) 92vw, 840px' : '(max-width: 899px) 92vw, 480px'}
+              sizes="(max-width: 899px) 0px, 300px"
               placeholder="blur"
             />
           </LightboxLink>
-          <div className="stage__body">
-            <span className="stage__num">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{stage.title}</h3>
-            <p>{stage.text}</p>
-          </div>
         </article>
       ))}
-
-      <article className="stage stage--final">
-        <a className="stage__final" href="#delivered">
-          <span className="stage__num">{String(STAGES.length + 1).padStart(2, '0')}</span>
-          <h3>Finished &amp; handed over</h3>
-          <p>Clean facades, generous glazing and a secure gated entry — homes ready for families to move in.</p>
-          <span className="stage__final-link">
-            See a delivered building
-            <ArrowDown />
-          </span>
-        </a>
-      </article>
     </ProcessScroller>
   );
 }

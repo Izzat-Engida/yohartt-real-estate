@@ -7,6 +7,7 @@ import { MotionEffects } from '@/components/MotionEffects';
 import { Nav } from '@/components/Nav';
 import { PointerFx } from '@/components/PointerFx';
 import { Preloader } from '@/components/Preloader';
+import { SmoothScroll } from '@/components/SmoothScroll';
 import { Footer } from '@/components/sections/Footer';
 import { site } from '@/data/site';
 import './globals.css';
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <Preloader />
+        <SmoothScroll />
         <PointerFx />
         <MotionEffects />
         <Nav />

@@ -14,7 +14,7 @@ export function Nav() {
   const [active, setActive] = useState('');
   const openRef = useRef(false);
 
-  // glass background once scrolled; hide on scroll down, show on scroll up
+ 
   useEffect(() => {
     let lastY = window.scrollY;
     let raf = 0;
@@ -51,7 +51,7 @@ export function Nav() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
-  // highlight the section in view (home page only)
+
   useEffect(() => {
     if (pathname !== '/') return;
     const sections = navLinks
