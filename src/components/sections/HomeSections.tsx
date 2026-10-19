@@ -1,11 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { photos, type Photo } from '@/data/projects';
 import { delay } from '@/lib/style';
 import { FloorExplorer } from '../FloorExplorer';
 import { BuildingIcon, ClockIcon, LockIcon, PinIcon, ArrowDown, ArrowRight } from '../icons';
 import { LightboxLink } from '../LightboxLink';
-import { Manifesto } from '../Manifesto';
 import { ProcessScroller } from '../ProcessScroller';
 
 /* ---------- Marquee ---------- */
@@ -37,35 +39,96 @@ export function Marquee() {
 
 /* ---------- About ---------- */
 
-const PRINCIPLES = [
-  { title: 'Engineered', text: 'Reinforced-concrete structures, built strictly to the engineered drawings — floor after floor.' },
-  { title: 'Transparent', text: 'Progress you can see. We document every stage, from slab reinforcement to the finished facade.' },
-  { title: 'Delivered', text: 'Finished, gated and ready to live in. Our track record is standing buildings, not just renderings.' },
-];
-
 export function About() {
+  const slides = [
+    {
+      eyebrow: 'About Yohartt',
+      title: 'We believe a home should be built as carefully as it is sold.',
+      text: 'From the first tied rebar to the final key handover, we stay on site — so the building you move into is the building we promised.',
+      large: photos.towerRender,
+      small: photos.structure,
+      className: 'about-slide--statement',
+    },
+    {
+      eyebrow: 'About Yohartt',
+      title: 'Engineered',
+      text: 'Reinforced-concrete structures, built strictly to the engineered drawings — floor after floor.',
+      large: photos.rebar,
+      small: photos.towerRender,
+      className: 'about-slide--engineered',
+    },
+    {
+      eyebrow: 'About Yohartt',
+      title: 'Transparent',
+      text: 'Progress you can see. We document every stage, from slab reinforcement to the finished facade.',
+      large: photos.structure,
+      small: photos.pour,
+      className: 'about-slide--transparent',
+    },
+    {
+      eyebrow: 'About Yohartt',
+      title: 'Delivered',
+      text: 'Finished, gated and ready to live in. Our track record is standing buildings, not just renderings.',
+      large: photos.completed,
+      small: photos.towerRender,
+      className: 'about-slide--delivered',
+    },
+  ];
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const section = document.getElementById('about');
+      if (!section) return;
+      const distance = Math.max(1, section.offsetHeight - window.innerHeight);
+      setProgress(Math.min(1, Math.max(0, -section.getBoundingClientRect().top / distance)));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  const active = Math.min(slides.length - 1, Math.floor(progress * slides.length));
+
   return (
-    <section className="about section--light" id="about">
-      <div className="container">
-        <p className="eyebrow" data-reveal="">
-          <span>(01)</span> About Yohartt
-        </p>
-        <Manifesto
-          segments={[
-            {
-              text: 'We believe a home should be built as carefully as it is sold. From the first tied rebar to the final key handover, we stay on site — so the building you move into is the building we',
-            },
-            { text: 'promised.', em: true },
-          ]}
-        />
-        <div className="principles">
-          {PRINCIPLES.map((p, i) => (
-            <article className="principle" data-reveal="" style={delay(i * 0.1)} key={p.title}>
-              <span className="principle__num">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
+    <section className="about about-sequence" id="about">
+      <div className="about-pin">
+        <div className="about-slides" aria-live="polite">
+          {slides.map((slide, index) => (
+            <article className={`about-slide ${slide.className} ${index === active ? 'is-active' : ''}`} key={slide.title}>
+              <div className="about-slide__text">
+                <p className="about-slide__eyebrow">{slide.eyebrow}</p>
+                <h2>{slide.title}</h2>
+                <p className="about-slide__description">{slide.text}</p>
+                <Link href="/projects/yohartt-tower" className="about-slide__cta">
+                  View the project page
+                  <ArrowRight />
+                </Link>
+              </div>
+              <div className="about-slide__visual" aria-hidden="true">
+                <div className="about-slide__image about-slide__image--large">
+                  <Image src={slide.large.src} alt="" fill sizes="(max-width: 899px) 90vw, 52vw" placeholder="blur" />
+                </div>
+                <div className="about-slide__image about-slide__image--small">
+                  <Image src={slide.small.src} alt="" fill sizes="(max-width: 899px) 42vw, 22vw" placeholder="blur" />
+                </div>
+              </div>
             </article>
           ))}
+        </div>
+        <div className="about-progress" aria-label={`About slide ${String(active + 1).padStart(2, '0')} of 04`}>
+          <span className="about-progress__track"><i style={{ transform: `scaleX(${progress})` }} /></span>
+          <span>{String(active + 1).padStart(2, '0')}</span>
         </div>
       </div>
     </section>

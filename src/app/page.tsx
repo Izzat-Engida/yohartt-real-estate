@@ -4,7 +4,6 @@ import { Hero } from '@/components/sections/Hero';
 import {
   About,
   DeliveredSection,
-  Marquee,
   ProcessSection,
   TowerSection,
   WhySection,
@@ -14,7 +13,6 @@ export default function HomePage() {
   return (
     <EnquiryProvider>
       <Hero />
-      <Marquee />
       <About />
       <TowerSection />
       <ProcessSection />
