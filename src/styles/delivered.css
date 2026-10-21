@@ -1,0 +1,50 @@
+/* -- delivered.css -- */
+
+/* ---------- Delivered ---------- */
+.delivered { padding: var(--section-y) 0; border-top: 1px solid var(--line); }
+.delivered__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 120px);
+}
+.delivered__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--ink-3);
+}
+.delivered__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate3d(0, var(--py, 0px), 0) scale(1.14);
+}
+.delivered__stamp {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.delivered__lead { max-width: 48ch; margin: 28px 0 36px; color: var(--sand); font-size: clamp(16px, 1.25vw, 18.5px); }
+
+.spec-list { border-top: 1px solid var(--line); }
+.spec-list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spec-list dt { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.spec-list dd { text-align: right; }
+

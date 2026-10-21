@@ -1,0 +1,19 @@
+/* -- section-heads.css -- */
+
+/* ---------- Section heads ---------- */
+.section-head { margin-bottom: clamp(56px, 7vw, 100px); }
+.section-head__lead {
+  max-width: 52ch;
+  margin-top: 28px;
+  font-size: clamp(16px, 1.25vw, 18.5px);
+  color: var(--sand);
+}
+.section--light .section-head__lead { color: var(--muted-dark); }
+.section-head--row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+}
+.section-head--row .section-head__lead { max-width: 38ch; margin: 0 0 8px; }
+

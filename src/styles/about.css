@@ -1,0 +1,5 @@
+/* About section styles
+ * Shared typography classes (.wrapper, .hero, .heading-2, .kicker, .paragraph,
+ * .button, .link, .menu, .small) are defined in globals.css @layer components.
+ * Do NOT redefine them here — add About-specific overrides below only. */
+

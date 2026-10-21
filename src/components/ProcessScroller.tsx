@@ -1,6 +1,6 @@
 'use client';
 
-import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, useRef, type MutableRefObject, type ReactElement, type ReactNode } from 'react';
 import { usePinnedSequence, useRevealText } from '@/lib/scroll/hooks';
 
 export function ProcessScroller({
@@ -12,13 +12,17 @@ export function ProcessScroller({
   labels: string[];
   children: ReactNode;
 }) {
-  const { sectionRef, progress, activeIndex, scrollTo } = usePinnedSequence<HTMLElement>(count);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { sectionRef, progress, activeIndex, scrollTo } = usePinnedSequence<HTMLElement>(count, trackRef);
   const revealRef = useRevealText<HTMLDivElement>();
 
   return (
     <section className="process" id="process" ref={sectionRef}>
       <div className="process__sticky">
-        <div className="process__track" ref={revealRef}>
+        <div className="process__track" ref={(node) => {
+          trackRef.current = node;
+          (revealRef as MutableRefObject<HTMLDivElement | null>).current = node;
+        }}>
           {Children.map(children, (child, index) => {
             if (!isValidElement(child)) return child;
             const element = child as ReactElement<{ className?: string }>;

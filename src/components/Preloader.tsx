@@ -1,95 +1,250 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from "react";
+const amenitiesVideo = "/media/home/amenities/amenities.mp4";
+const businessVideo = "/media/home/business/business.mp4";
+const heroMobileVideo = "/media/home/hero-m.webm";
+const heroVideo = "/media/home/hero.mp4";
+const locationVideo = "/media/home/location/location.mp4";
+const residencesVideo = "/media/home/residences/interior.mp4";
+const rootsVideo = "/media/home/roots/image1.mp4";
 
 declare global {
   interface Window {
-    __yohartt?: boolean;
+    __introDone?: boolean;
+    __lenis: import("lenis").default | null;
   }
 }
 
-const clamp = (v: number) => Math.min(1, Math.max(0, v));
+type Cleanup = () => void;
+type EasingFunction = (t: number) => number;
+type FrameCallback = (progress: number) => void;
+type DoneCallback = () => void;
 
-/** Wordmark + load counter, then lifts away and triggers the hero intro (html.is-loaded). */
-export function Preloader() {
-  const ref = useRef<HTMLDivElement>(null);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const [done, setDone] = useState(false);
 
+const SECTION_VIDEOS: Array<[string, string]> = [
+  ["w-[200%]", amenitiesVideo],
+  ["w-[180%]", businessVideo],
+  ["w-[160%]", residencesVideo],
+  ["w-[150%]", locationVideo],
+  ["translate-y-1/10", rootsVideo],
+];
+
+const easeInOutQuad: EasingFunction = (t) =>
+  t < 0.5
+    ? 2 * t * t
+    : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+const easeOutQuad: EasingFunction = (t) =>
+  1 - (1 - t) * (1 - t);
+
+function animate(
+  duration: number,
+  easing: EasingFunction,
+  onFrame: FrameCallback,
+  onDone?: DoneCallback
+): Cleanup {
+  const start = performance.now();
+  let raf = 0;
+
+  const frame = (now: number): void => {
+    const t = Math.min((now - start) / duration, 1);
+
+    onFrame(easing(t));
+
+    if (t < 1) {
+      raf = requestAnimationFrame(frame);
+    } else {
+      onDone?.();
+    }
+  };
+
+  raf = requestAnimationFrame(frame);
+
+  return () => cancelAnimationFrame(raf);
+}
+
+export default function Intro() {
   useEffect(() => {
-    window.__yohartt = true; // tells the failsafe in <head> that scripts are running
-    const root = document.documentElement;
-    const el = ref.current;
-    const timers: number[] = [];
-    let raf = 0;
+    const cleanups: Cleanup[] = [];
 
-    document.querySelectorAll<HTMLElement>('[data-hero]').forEach((node, i) => {
-      node.style.transitionDelay = `${0.25 + i * 0.09}s`;
-    });
+    // 1–4: loader and hero video.
+    const hero = document.querySelector<HTMLVideoElement>(
+      "video.block.h-full.w-full.object-cover"
+    );
 
-    const finish = () => {
-      root.classList.add('is-loaded');
-      timers.push(window.setTimeout(() => setDone(true), 1400));
-    };
+    const loader = document.querySelector<HTMLElement>(".loader");
 
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      finish();
-      return () => timers.forEach(clearTimeout);
+    const bar = document.querySelector<HTMLElement>(
+      ".loader .bg-golden"
+    );
+
+    const percent = document.querySelector<HTMLElement>(
+      ".loader p.heading-3"
+    );
+
+    if (hero) {
+      hero.muted = true;
+
+      hero.src = window.matchMedia("(max-width: 600px)").matches
+        ? heroMobileVideo
+        : heroVideo;
+
+      hero.load();
+
+      const onEnded = (): void => {
+        
+        const title = document.querySelector<HTMLElement>(
+          "div.flex.items-end.opacity-0"
+        );
+
+        if (!title) return;
+
+        const h1 = title.querySelector<HTMLHeadingElement>("h1");
+
+        if (!h1) return;
+
+        if (!h1.dataset.split) {
+          const text = h1.textContent ?? "";
+          h1.textContent = "";
+
+          const fragment = document.createDocumentFragment();
+
+          [...text].forEach((ch, i) => {
+            const span = document.createElement("span");
+
+            span.textContent = ch === " " ? "\u00A0" : ch;
+            span.style.display = "inline-block";
+            span.style.opacity = "0";
+            span.style.transform = "translateY(2rem)";
+
+            span.style.transition =
+              `opacity .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms,` +
+              ` transform .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms`;
+
+            fragment.appendChild(span);
+          });
+
+          h1.appendChild(fragment);
+          h1.dataset.split = "1";
+        }
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            title.style.transition = "opacity .8s ease-out";
+            title.style.opacity = "1";
+
+            Array.from(h1.children).forEach((child) => {
+              if (!(child instanceof HTMLElement)) return;
+
+              child.style.opacity = "1";
+              child.style.transform = "translateY(0)";
+            });
+          });
+        });
+      };
+
+      hero.addEventListener("ended", onEnded);
+
+      cleanups.push(() => {
+        hero.removeEventListener("ended", onEnded);
+      });
     }
 
-    const start = performance.now();
-    const minDuration = 1050;
-    let loaded = document.readyState === 'complete';
-    let p = 0;
-    const onLoad = () => {
-      loaded = true;
-    };
-    window.addEventListener('load', onLoad, { once: true });
-    timers.push(window.setTimeout(onLoad, 4000)); // never hold the page hostage
-
-    const tick = (now: number) => {
-      const t = clamp((now - start) / minDuration);
-      const target = loaded ? t : Math.min(t, 0.86);
-      p += (target - p) * 0.12;
-      if (countRef.current) countRef.current.textContent = String(Math.round(p * 100));
-      el.style.setProperty('--p', p.toFixed(3));
-      if (t >= 1 && loaded && p > 0.995) {
-        if (countRef.current) countRef.current.textContent = '100';
-        el.style.setProperty('--p', '1');
-        timers.push(window.setTimeout(finish, 180));
-      } else {
-        raf = requestAnimationFrame(tick);
+    const finish = (): void => {
+      if (hero) {
+        hero.play().catch(() => {
+          // Autoplay may be blocked by the browser.
+        });
       }
+
+      // Resume Lenis, which ScrollAnimations initially creates stopped.
+      window.__introDone = true;
+      window.dispatchEvent(new Event("intro:done"));
     };
-    raf = requestAnimationFrame(tick);
+
+    if (loader && bar && percent) {
+      cleanups.push(
+        animate(
+          2000,
+          easeInOutQuad,
+          (v) => {
+            const n = Math.round(v * 100);
+
+            bar.style.width = `${n}%`;
+
+            // Update the percentage while preserving the existing markup.
+            if (percent.firstChild) {
+              percent.firstChild.nodeValue = `${n}%`;
+            }
+          },
+          () => {
+            cleanups.push(
+              animate(
+                500,
+                easeOutQuad,
+                (v) => {
+                  if (loader) {
+                    loader.style.opacity = String(1 - v);
+                  }
+                },
+                () => {
+                  if (loader) {
+                    loader.style.display = "none";
+                  }
+
+                  finish();
+                }
+              )
+            );
+          }
+        )
+      );
+    } else {
+      // No loader in the markup.
+      finish();
+    }
+
+    // 5: Lazy-load section videos when they approach the viewport.
+    for (const [frag, src] of SECTION_VIDEOS) {
+      const videos = document.querySelectorAll<HTMLVideoElement>(
+        `video[class*="${frag}"]`
+      );
+
+      videos.forEach((video) => {
+        const io = new IntersectionObserver(
+          ([entry]) => {
+            if (!entry?.isIntersecting) return;
+
+            io.disconnect();
+
+            video.muted = true;
+            video.src = src;
+            video.load();
+
+            video.play().catch(() => {
+              // Autoplay may be blocked by the browser.
+            });
+          },
+          {
+            rootMargin: "400px",
+          }
+        );
+
+        io.observe(video);
+
+        cleanups.push(() => {
+          io.disconnect();
+        });
+      });
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
-      timers.forEach(clearTimeout);
-      window.removeEventListener('load', onLoad);
+      cleanups.forEach((cleanup) => {
+        cleanup();
+      });
     };
   }, []);
 
-  if (done) return null;
-
-  return (
-    <div className="preloader" ref={ref} aria-hidden="true">
-      <div className="preloader__inner">
-        <div className="preloader__word">
-          {'Yohartt'.split('').map((ch, i) => (
-            <span key={i}>{ch}</span>
-          ))}
-        </div>
-        <div className="preloader__meta">
-          <span>Real Estate · Addis Ababa</span>
-          <span className="preloader__count" ref={countRef}>
-            0
-          </span>
-        </div>
-        <div className="preloader__bar">
-          <i />
-        </div>
-      </div>
-    </div>
-  );
+  return null;
 }

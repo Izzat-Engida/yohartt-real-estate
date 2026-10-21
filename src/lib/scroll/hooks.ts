@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { parallaxDuration, revealDuration, revealStagger, scrollEase } from './constants';
@@ -62,7 +62,7 @@ export function useParallax<T extends HTMLElement>(amount = 6) {
   return ref;
 }
 
-export function usePinnedSequence<T extends HTMLElement>(count: number) {
+export function usePinnedSequence<T extends HTMLElement>(count: number, trackRef?: RefObject<HTMLElement | null>) {
   const sectionRef = useRef<T>(null);
   const triggerRef = useRef<ScrollTrigger | null>(null);
   const [progress, setProgress] = useState(0);
@@ -71,8 +71,15 @@ export function usePinnedSequence<T extends HTMLElement>(count: number) {
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-    if (!section || reducedMotion()) return;
+    const track = trackRef?.current;
+    const desktopMotion = window.matchMedia('(min-width: 900px) and (prefers-reduced-motion: no-preference)').matches;
+    if (!section || !track || !desktopMotion) return;
     registerScrollTrigger();
+
+    const updateTrack = (progress: number) => {
+      const distance = Math.max(0, track.scrollWidth - window.innerWidth);
+      track.style.transform = `translate3d(${-distance * progress}px, 0, 0)`;
+    };
 
     const context = gsap.context(() => {
       triggerRef.current = ScrollTrigger.create({
@@ -85,6 +92,7 @@ export function usePinnedSequence<T extends HTMLElement>(count: number) {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const next = Math.min(count - 1, Math.floor(self.progress * count));
+          updateTrack(self.progress);
           setProgress(self.progress);
           setDirection(self.direction >= 0 ? 1 : -1);
           setActiveIndex((current) => (current === next ? current : next));
@@ -98,7 +106,7 @@ export function usePinnedSequence<T extends HTMLElement>(count: number) {
       triggerRef.current = null;
       context.revert();
     };
-  }, [count]);
+  }, [count, trackRef]);
 
   const scrollTo = (index: number) => {
     const trigger = triggerRef.current;

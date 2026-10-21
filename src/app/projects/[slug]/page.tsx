@@ -151,7 +151,7 @@ export default async function ProjectPage({ params }: Params) {
         </section>
       )}
 
-      <ContactSection label={project.floorExplorer ? '(04)' : '(03)'} />
+      <ContactSection />
 
       {others.length > 0 && (
         <section className="more-projects">
