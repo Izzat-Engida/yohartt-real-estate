@@ -6,14 +6,6 @@ import amenityRooftop from '@/assets/home/amenities-options/rooftop.webp';
 import amenityGarage from '@/assets/home/amenities-options/parking.webp';
 import amenityRestaurant from '@/assets/home/amenities-options/interior.webp';
 import amenityFitness from '@/assets/home/amenities-options/fitness.webp';
-import { Instrument_Serif } from 'next/font/google';
-
-const amenitiesFont = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-amenities',
-});
 type Amenity = {
   name: string;
   label: string;
@@ -62,7 +54,7 @@ export function AmenitiesDetailsSection() {
   const activeAmenity = amenities[activeIndex];
 
   return (
-    <section className={`amenities-details ${amenitiesFont.variable}`} aria-labelledby="amenities-details-title">
+    <section className="amenities-details" aria-labelledby="amenities-details-title">
       <div className="amenities-details__navigation" role="tablist" aria-label="Amenities">
         {amenities.map((amenity, index) => {
           const tabId = `amenity-tab-${amenity.name.toLowerCase()}`;

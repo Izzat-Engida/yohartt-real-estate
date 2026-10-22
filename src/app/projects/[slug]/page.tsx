@@ -7,7 +7,7 @@ import { FloorExplorer } from '@/components/FloorExplorer';
 import { ArrowLeft, ArrowRight } from '@/components/icons';
 import { LightboxLink } from '@/components/LightboxLink';
 import { ContactSection } from '@/components/sections/Contact';
-import { TowerFacts } from '@/components/sections/HomeSections';
+import { TowerFacts } from '@/components/sections/Tower/Tower';
 import { getProject, projects } from '@/data/projects';
 import { delay } from '@/lib/style';
 
