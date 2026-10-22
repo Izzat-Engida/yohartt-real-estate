@@ -1,0 +1,15 @@
+/* -- scroll-progress.css -- */
+
+/* ---------- Scroll progress ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+}
+

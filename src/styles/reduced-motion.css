@@ -1,0 +1,28 @@
+/* -- reduced-motion.css -- */
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+  }
+  body::after { animation: none; }
+  .marquee__track { animation: none; }
+  .js [data-reveal],
+  .js [data-hero],
+  .js .hero__title [data-hero] { opacity: 1; transform: none; clip-path: none; }
+  .js .manifesto .w { opacity: 1; }
+}
+
+/* NOTE: the former homepage-hero block (`.hero`, `.hero__visual`,
+   `.hero__overlay`, `.hero__content`, `.hero__bottom`, `.hero__wordmark`)
+   was removed. Those rules were unlayered, so they beat the layered
+   `@layer components` typography class `.hero` (Framer's display heading,
+   used by About/AboutMobile/Location) and turned it into a 100svh block.
+   The Framer typography class is now the only `.hero` definition. */
+

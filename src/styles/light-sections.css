@@ -1,0 +1,12 @@
+/* -- light-sections.css -- */
+
+/* ---------- Light sections ---------- */
+.section--light {
+  margin-inline: clamp(6px, 1vw, 14px);
+  border-radius: clamp(24px, 3vw, 44px);
+  background: var(--bone-2);
+  color: var(--ink);
+}
+.section--light .eyebrow { color: var(--muted-dark); }
+.section--light .eyebrow span { color: var(--accent-dark); }
+

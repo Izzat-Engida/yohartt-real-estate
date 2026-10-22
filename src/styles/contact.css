@@ -1,0 +1,106 @@
+/* -- contact.css -- */
+
+/* ---------- Contact ---------- */
+.contact {
+  position: relative;
+  padding: var(--section-y) 0;
+  overflow: hidden;
+}
+.contact__glow {
+  position: absolute;
+  left: -20%;
+  bottom: -30%;
+  width: 80vw;
+  max-width: 1100px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76, 199, 154, 0.16), transparent 62%);
+  pointer-events: none;
+}
+.contact__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(48px, 7vw, 120px);
+  align-items: start;
+}
+.contact__lead { max-width: 42ch; margin: 30px 0 40px; color: var(--sand); font-size: clamp(16px, 1.25vw, 18.5px); }
+.contact__list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.contact__list li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.contact__list span { font-size: 12.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.contact__list a,
+.contact__list p { font-family: var(--serif); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
+.contact__list a { background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease), color 0.3s; justify-self: start; }
+.contact__list a:hover { background-size: 100% 1px; color: var(--accent-2); }
+
+.form {
+  display: grid;
+  gap: 8px;
+  padding: clamp(24px, 3.4vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(16, 23, 20, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+
+.field { position: relative; display: block; }
+.field input,
+.field select,
+.field textarea {
+  display: block;
+  width: 100%;
+  padding: 28px 0 10px;
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234cc79a' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 2px bottom 12px / 18px;
+}
+.field select option { background: var(--ink-2); color: var(--bone); }
+.field > span {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  font-size: 16px;
+  color: var(--muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 0.35s var(--ease), color 0.3s;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--accent); }
+.field input:focus + span,
+.field input:not(:placeholder-shown) + span,
+.field textarea:focus + span,
+.field textarea:not(:placeholder-shown) + span,
+.field--select > span {
+  transform: translateY(-22px) scale(0.78);
+  color: var(--accent);
+}
+.field.is-invalid input { border-color: #e2836f; }
+.field.is-invalid > span { color: #e2836f; }
+
+.form__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.form__note { min-height: 1.6em; margin-top: 6px; font-size: 14px; color: var(--muted); }
+.form__note.is-success { color: var(--accent-2); }
+.form__note.is-error { color: #e2836f; }
+

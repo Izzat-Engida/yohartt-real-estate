@@ -1,0 +1,12 @@
+/* -- forms.css -- */
+
+/* ---------- Form extras ---------- */
+.form__hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.btn:disabled { opacity: 0.6; cursor: progress; }
+
