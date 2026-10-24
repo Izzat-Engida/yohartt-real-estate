@@ -1295,24 +1295,26 @@ export default function ScrollAnimations() {
 
         setMarkers();
 
-        gsap.set(heading.chars, {
-          opacity: 0,
-          y: "15%",
-          filter: "blur(10px)",
-        });
-
-        gsap.to(heading.chars, {
-          opacity: 1,
-          y: "0%",
-          filter: "blur(0px)",
-          duration: 0.6,
-          stagger: 0.04,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: ".trigger",
-            start: "top 80%",
+        gsap.fromTo(
+          heading.chars,
+          {
+            opacity: 0,
+            y: "15%",
+            filter: "blur(10px)",
           },
-        });
+          {
+            opacity: 1,
+            y: "0%",
+            filter: "blur(0px)",
+            duration: 0.6,
+            stagger: 0.04,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: ".trigger",
+              start: "top 80%",
+            },
+          }
+        );
 
         gsap.to(".reveal", {
           width: "0%",
@@ -1364,17 +1366,22 @@ export default function ScrollAnimations() {
             { left: "-=10%", ease: "power1.inOut", duration: 1 },
             0
           )
-          .to(
+          .fromTo(
             heading.chars,
             {
-              opacity: 0,
-              scale: 0.7,
-              filter: "blur(10px)",
-              stagger: 0.04,
-              ease: "power1.inOut",
-              duration: 0.4,
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
             },
-            0.3
+            {
+              opacity: 0,
+              scale: 0.85,
+              filter: "blur(10px)",
+              stagger: 0.02,
+              ease: "power1.in",
+              duration: 0.2,
+            },
+            0.8
           );
 
         if (!(img.complete && img.naturalWidth !== 0)) {

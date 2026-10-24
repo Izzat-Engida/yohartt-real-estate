@@ -5,7 +5,7 @@ const amenitiesVideo = "/media/home/amenities/amenities.mp4";
 const businessVideo = "/media/home/business/business.mp4";
 const heroMobileVideo = "/media/home/hero-m.webm";
 const heroVideo = "/media/home/hero.mp4";
-const locationVideo = "/media/home/location/location.mp4";
+const locationVideo = "/media/home/location/location.mp4?v=2";
 const residencesVideo = "/media/home/residences/interior.mp4";
 const rootsVideo = "/media/home/roots/image1.mp4";
 
