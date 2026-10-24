@@ -64,9 +64,9 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-0 flex items-end justify-center bg-transparent py-20 opacity-0 max-md:py-10">
-        <h1 className="heading huge text-sand text-center text-[10.5vw] font-normal uppercase max-md:text-[17vw]">
-          Belgrade Arbor
-        </h1>
+   <h1 className="heading huge bg-gradient-to-r from-[#0E7C86] via-[#0A5262] to-[#083244] bg-clip-text text-transparent text-center text-[9.5vw] font-normal uppercase max-md:text-[17vw]">
+  YOHART PROPERTIES
+</h1>
       </div>
     </div>
   );
