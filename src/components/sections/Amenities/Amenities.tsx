@@ -14,7 +14,7 @@ export default function Amenities() {
       <video muted loop playsInline preload="none" className="portrait absolute -top-35 left-1/2 h-auto w-[200%] max-w-none -translate-x-1/2 object-cover"></video>
       </div>
       <p className="paragraph text-sand w-3/4 max-xl:w-full max-lg:mb-40 max-md:hidden">
-      Belgrade Arbor is more than a residence. It features two private gyms, two exclusive rooftop parks for residents and their guests, and a top-floor café-restaurant. These are curated spaces for unwinding and socializing a true sanctuary from the urban hustle, right at your doorstep.
+      Thoughtfully planned living with dedicated resident parking across semi-basement and ground levels, welcoming entrance lobbies, green spaces, private balconies, and round-the-clock security facilities designed for modern urban comfort.
       </p>
       </div>
       <div className="flex w-2/3 flex-col items-end justify-end gap-5 py-30 max-lg:items-start max-lg:pt-55 max-lg:pb-8 max-md:w-full max-md:flex-1 max-md:pt-0">
@@ -22,7 +22,7 @@ export default function Amenities() {
         Amenities
         </h2>
         <p className="paragraph text-sand mt-auto hidden w-3/4 pt-10 max-md:block">
-        Belgrade Arbor is more than a residence. It features two private gyms, two exclusive rooftop parks for residents and their guests, and a top-floor café-restaurant. These are curated spaces for unwinding and socializing a true sanctuary from the urban hustle, right at your doorstep.
+        Thoughtfully planned living with dedicated resident parking across semi-basement and ground levels, welcoming entrance lobbies, green spaces, private balconies, and round-the-clock security facilities designed for modern urban comfort.
         </p>
         </div>
         </div>
