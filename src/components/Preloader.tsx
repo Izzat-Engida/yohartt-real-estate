@@ -76,7 +76,7 @@ export default function Intro() {
     const loader = document.querySelector<HTMLElement>(".loader");
 
     const bar = document.querySelector<HTMLElement>(
-      ".loader .bg-golden"
+      ".loader .loader-bar"
     );
 
     const percent = document.querySelector<HTMLElement>(
