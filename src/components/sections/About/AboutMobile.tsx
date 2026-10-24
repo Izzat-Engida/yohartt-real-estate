@@ -20,11 +20,11 @@ return(
     <div className="screen1 absolute inset-0 h-full w-full">
     <div className="wrapper flex h-full flex-col justify-center">
     <p className="kicker mobile-preheading1 text-accent mb-5 uppercase">
-    BELGRADE ARBOR DESIGN
+    YOHARTT PROPERTIES VISION
     </p>
     <h2 className="heading-2 mobile-heading1 text-cream text-[2.25rem]">
-        The visual identity of Belgrade Arbor is defined by an elegant facade inspired by the form of a tree canopy,
-         a symbol of growth, balance, and longevity.
+        The visual identity of Yohartt Properties is defined by architectural elegance and generous light,
+         creating homes that elevate the skyline of Addis Ababa.
     </h2>
     </div>
     </div>
@@ -80,7 +80,7 @@ return(
     <div className="screen3 absolute inset-0 h-full w-full">
     <div className="wrapper flex h-full items-center">
     <h2 className="heading-2 mobile-heading2 text-cream text-[2.25rem]">
-        Belgrade Arbor isn&#x27;t just another addition to the skyline; it&#x27;s a curated urban ecosystem that evolves with the rhythm of the city.
+        Yohartt isn&#x27;t just building for the skyline; we engineer enduring homes designed around structural precision, quality materials, and transparent craftsmanship.
     </h2>
 
     </div>
@@ -141,8 +141,8 @@ return(
     <div className="wrapper flex h-full flex-col justify-center gap-15 px-2">
     <h2 className="hero mobile-heading3 text-cream leading-[1.1] uppercase">A New Chapter in Prestigious Living</h2>
     <div className="w-3/4 self-end">
-    <p className="paragraph mobile-paragraph1 text-cream">A clear architectural vision, a carefully selected location, and thoughtfully curated amenities make Belgrade Arbor a residential destination where quality, comfort, and long-term value naturally converge.</p>
-    <a className="mobile-link link text-accent mt-10 inline-block uppercase" href="">Explore Our Apartments</a>
+    <p className="paragraph mobile-paragraph1 text-cream">A clear architectural vision, prime Addis Ababa locations, and carefully engineered residences make Yohartt Properties a destination where quality, comfort, and long-term value naturally converge.</p>
+    <a className="mobile-link link text-accent mt-10 inline-block uppercase" href="/#tower">Explore Yohartt Tower</a>
     </div>
     </div>
     </div>

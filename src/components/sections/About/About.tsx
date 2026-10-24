@@ -117,13 +117,13 @@ export function About(){
             <div className="wrapper">
             <div className="w-5/12 space-y-10 max-xl:w-1/2 max-lg:w-full">
                 <p className="kicker preheading1 text-accent uppercase">
-                    BELGRADE ARBOR DESIGN
+                    YOHARTT PROPERTIES VISION
                 </p>
                 <h2 className="heading-2 heading1" >
-                  The visual identity of Belgrade Arbor is defined by an elegant facade inspired by the form of a tree canopy, a symbol of growth, balance, and longevity.  
+                  The visual identity of Yohartt Properties is defined by architectural elegance and generous light, creating homes that elevate the skyline of Addis Ababa.  
                 </h2>
                 <div className="button1Wrap mt-20 max-xl:mt-10">
-                  <a href="/en/3d">
+                  <a href="/#tower">
                     <button
                       data-slot="button"
                       data-variant="darkOutline"
@@ -132,7 +132,7 @@ export function About(){
                     >
                       <span className="relative z-1 block w-full overflow-hidden">
                         <span className="flex w-full items-center justify-center gap-6 transition-all duration-600 group-hover:-translate-y-full has-[>svg]:justify-between">
-                          Explore in 3d
+                          Explore The Tower
                           <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8">
                             <path d="M15.1939 4.70031L7.95751 8.66988C7.48423 8.9295 7.19067 9.42216 7.19067 9.95675V18.2779C7.19067 18.8125 7.48423 19.3051 7.95751 19.5648L15.1939 23.5343C15.6442 23.7814 16.1917 23.7814 16.6419 23.5343L23.8783 19.5648C24.3517 19.3051 24.6452 18.8125 24.6452 18.2779V9.95675C24.6452 9.42216 24.3517 8.9295 23.8783 8.66988L16.6419 4.70031C16.1917 4.45331 15.6442 4.45331 15.1939 4.70031Z" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M8.64526 10.3409L15.918 14.7727L23.1907 10.3409" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -143,7 +143,7 @@ export function About(){
                           </svg>
                         </span>
                         <span className="absolute top-full left-0 flex w-full items-center justify-center gap-6 transition-all duration-600 group-hover:top-0 has-[>svg]:justify-between">
-                          Explore in 3d
+                          Explore The Tower
                           <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8">
                             <path d="M15.1939 4.70031L7.95751 8.66988C7.48423 8.9295 7.19067 9.42216 7.19067 9.95675V18.2779C7.19067 18.8125 7.48423 19.3051 7.95751 19.5648L15.1939 23.5343C15.6442 23.7814 16.1917 23.7814 16.6419 23.5343L23.8783 19.5648C24.3517 19.3051 24.6452 18.8125 24.6452 18.2779V9.95675C24.6452 9.42216 24.3517 8.9295 23.8783 8.66988L16.6419 4.70031C16.1917 4.45331 15.6442 4.45331 15.1939 4.70031Z" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M8.64526 10.3409L15.918 14.7727L23.1907 10.3409" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -164,9 +164,9 @@ export function About(){
         <div className="screen2 absolute inset-0 h-full w-full pt-20">
         <div className="wrapper max flex justify-end">
         <div className="w-1/2 pt-15 max-lg:w-full max-lg:pt-[40vh]">
-        <h2 className="heading-2 heading2">Belgrade Arbor isn&#x27;t just another addition to the skyline; it&#x27;s a curated urban ecosystem that evolves with the rhythm of the city.</h2>
+        <h2 className="heading-2 heading2">Yohartt isn&#x27;t just building for the skyline; we engineer enduring homes designed around structural precision, quality materials, and transparent craftsmanship.</h2>
         <div className="button2Wrap mt-30 max-xl:mt-20 max-lg:mt-10">
-          <a href="/en/3d">
+          <a href="/projects">
             <button
               data-slot="button"
               data-variant="darkOutline"
@@ -175,7 +175,7 @@ export function About(){
             >
               <span className="relative z-1 block w-full overflow-hidden">
                 <span className="flex w-full items-center justify-center gap-6 transition-all duration-600 group-hover:-translate-y-full has-[>svg]:justify-between">
-                  Explore in 3d
+                  View Projects
                   <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8">
                     <path d="M15.1939 4.70031L7.95751 8.66988C7.48423 8.9295 7.19067 9.42216 7.19067 9.95675V18.2779C7.19067 18.8125 7.48423 19.3051 7.95751 19.5648L15.1939 23.5343C15.6442 23.7814 16.1917 23.7814 16.6419 23.5343L23.8783 19.5648C24.3517 19.3051 24.6452 18.8125 24.6452 18.2779V9.95675C24.6452 9.42216 24.3517 8.9295 23.8783 8.66988L16.6419 4.70031C16.1917 4.45331 15.6442 4.45331 15.1939 4.70031Z" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M8.64526 10.3409L15.918 14.7727L23.1907 10.3409" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -186,7 +186,7 @@ export function About(){
                   </svg>
                 </span>
                 <span className="absolute top-full left-0 flex w-full items-center justify-center gap-6 transition-all duration-600 group-hover:top-0 has-[>svg]:justify-between">
-                  Explore in 3d
+                  View Projects
                   <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8">
                     <path d="M15.1939 4.70031L7.95751 8.66988C7.48423 8.9295 7.19067 9.42216 7.19067 9.95675V18.2779C7.19067 18.8125 7.48423 19.3051 7.95751 19.5648L15.1939 23.5343C15.6442 23.7814 16.1917 23.7814 16.6419 23.5343L23.8783 19.5648C24.3517 19.3051 24.6452 18.8125 24.6452 18.2779V9.95675C24.6452 9.42216 24.3517 8.9295 23.8783 8.66988L16.6419 4.70031C16.1917 4.45331 15.6442 4.45331 15.1939 4.70031Z" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M8.64526 10.3409L15.918 14.7727L23.1907 10.3409" stroke="currentColor" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -209,10 +209,10 @@ export function About(){
         <h2 className="hero heading3 w-full uppercase max-xl:text-[7.5rem] max-lg:text-[5.375rem]">A New Chapter in Prestigious Living</h2>
         <div className="w-1/2 self-end pt-25 max-xl:w-5/12 max-xl:pt-0 max-lg:w-1/2 max-lg:pt-20" >
         <p className="paragraph1 paragraph w-1/2 max-xl:w-3/5 max-lg:w-full">
-        A clear architectural vision, a carefully selected location, and thoughtfully curated amenities make Belgrade Arbor a residential destination where quality, comfort, and long-term value naturally converge.
+        A clear architectural vision, prime Addis Ababa locations, and carefully engineered residences make Yohartt Properties a destination where quality, comfort, and long-term value naturally converge.
         </p>
-        <a className="link text-accent mt-10 inline-block" href="/en/residences">
-        Explore Our Apartments
+        <a className="link text-accent mt-10 inline-block" href="/#tower">
+        Explore Yohartt Tower
         </a>
         </div>
         </div>

@@ -6,14 +6,15 @@ import { useEffect, useState } from 'react';
 
 const links = [
   ['Home', '/'],
-  ['3D Experience', '/#tower'],
+  ['Projects', '/projects'],
+  ['The Tower', '/#tower'],
   ['Residences', '/#Residences'],
   ['Business', '/#BusinessSpaces'],
   ['Retail Spaces', '/#BusinessSpaces'],
   ['Location', '/#Location'],
   ['Amenities', '/#Amenities'],
   ['Contact', '/#contact'],
-  ['About the investor', '/#about'],
+  ['About Yohartt', '/#about'],
 ] as const;
 
 export default function Header() {

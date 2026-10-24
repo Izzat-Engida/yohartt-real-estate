@@ -96,7 +96,19 @@ export default function Footer() {
             </form>
           </div>
           <div className="w-1/12 max-2xl:hidden" />
-          <div className="w-1/6 max-lg:w-1/3 max-md:flex max-md:w-full max-md:flex-col max-md:items-center"><ul className="space-y-3"><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en">Home</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/3d">3D Experience</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/residences">Residences</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/business">Business</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/retail-spaces">Retail Spaces</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en#Around">Location</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en#Amenities">Amenities</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/contact">Contact</a></li><li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/en/about-the-investor">About the investor</a></li></ul><a className="paragraph fadeElement hover:text-green transitionfont-normal mt-10 inline-block max-md:mt-4" href="/en/privacy-policy">Privacy policy</a></div>
+          <div className="w-1/6 max-lg:w-1/3 max-md:flex max-md:w-full max-md:flex-col max-md:items-center">
+            <ul className="space-y-3">
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/">Home</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/projects">Projects</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#tower">The Tower</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Residences">Residences</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#BusinessSpaces">Business</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Location">Location</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Amenities">Amenities</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#contact">Contact</a></li>
+              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#about">About Yohartt</a></li>
+            </ul>
+          </div>
           <div className="w-1/12 max-lg:w-1/6 max-md:w-full">
             <ul className="space-y-3 max-md:flex max-md:flex-col max-md:items-center">
               {socialLinks.map((social) => (
