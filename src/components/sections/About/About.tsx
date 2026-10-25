@@ -1,9 +1,9 @@
 import Image from "next/image"
 import leafs from '@/assets/home/introduction/leafs.webp';
-import Image1 from '@/assets/home/introduction/image1.webp';
-import Image2 from  '@/assets/home/introduction/image2.webp';
-import Image3 from '@/assets/home/introduction/image3.webp';
-import Image4 from '@/assets/home/introduction/image4.webp';
+import tower from '@/assets/home/introduction/tower.webp';
+import residence from '@/assets/home/introduction/residence.webp';
+import craft from '@/assets/home/introduction/craft.webp';
+import lobby from '@/assets/home/introduction/lobby.webp';
 export function About(){
     return (
         <section id="about"
@@ -46,21 +46,21 @@ export function About(){
             
   <image
     className="morph1ImgA"
-    href={Image1.src}
-    x="-200"
-    y="-50"
-    width="900"
-    height="900"
-    preserveAspectRatio="xMaxYMax slice"
+    href={tower.src}
+    x="-10"
+    y="-10"
+    width="632"
+    height="851"
+    preserveAspectRatio="xMidYMid slice"
     clipPath="url(#morphClip1)"
   />
   <image
   className="morph1ImgB"
-  href={Image2.src}
-  x="0"
-  y="0"
-  width="612"
-  height="824"
+  href={residence.src}
+  x="-10"
+  y="-10"
+  width="632"
+  height="851"
   preserveAspectRatio="xMidYMid slice"
   clipPath="url(#morphClip1)"
   style={{"opacity":"0"}}
@@ -85,22 +85,22 @@ export function About(){
             </defs> 
             <image
             className="morph2ImgA"
-            href={Image4.src}
-            x="-750"
-            y="0"
-            width="1500"
-            height="800"
+            href={lobby.src}
+            x="-10"
+            y="-10"
+            width="583"
+            height="755"
             preserveAspectRatio="xMidYMid slice" 
             clipPath="url(#morphClip2)" 
             style={{"opacity":"1"}}
             />
             <image
             className="morph2ImgB"
-            href={Image3.src}
-            x="-1400"
-            y="-370"
-            width="2000"
-            height="1000"
+            href={craft.src}
+            x="-10"
+            y="-10"
+            width="583"
+            height="755"
             preserveAspectRatio="xMidYMid slice" 
             clipPath="url(#morphClip2)" 
             style={{"opacity":"0"}}

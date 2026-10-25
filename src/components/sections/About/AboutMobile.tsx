@@ -1,9 +1,9 @@
 import Image from "next/image"
 import leafs from '@/assets/home/introduction/leafs.webp';
-import Image1 from '@/assets/home/introduction/image1.webp';
-import Image2 from  '@/assets/home/introduction/image2.webp';
-import Image3 from '@/assets/home/introduction/image3.webp';
-import Image4 from '@/assets/home/introduction/image4.webp';
+import tower from '@/assets/home/introduction/tower.webp';
+import residence from '@/assets/home/introduction/residence.webp';
+import craft from '@/assets/home/introduction/craft.webp';
+import lobby from '@/assets/home/introduction/lobby.webp';
 
 export default function AboutMobile(){
 return(
@@ -44,7 +44,7 @@ return(
     </clipPath>   
     </defs>
     <image
-    href={Image1.src}
+    href={tower.src}
     x="0"
     y="0"
     width="612"
@@ -64,7 +64,7 @@ return(
         </clipPath>
     </defs>
     <image
-    href={Image3.src}
+    href={craft.src}
     x="0"
     y="0"
     width="612"
@@ -102,7 +102,7 @@ return(
                 </clipPath> 
             </defs>
             <image
-            href={Image2.src}
+            href={residence.src}
             x="0"
             y="0"
             width="612"
@@ -124,7 +124,7 @@ return(
                     </clipPath> 
                 </defs>
             <image
-            href={Image4.src}
+            href={lobby.src}
             x="0"
             y="0"
             width="612"
