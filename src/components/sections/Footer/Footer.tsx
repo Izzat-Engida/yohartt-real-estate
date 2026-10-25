@@ -6,20 +6,27 @@ import front from '@/assets/home/footer/front.webp';
 import treeRight from '@/assets/home/footer/tree-r.webp';
 import { FLOORS } from '@/data/floors';
 import { enquiryInterests, site, socialLinks } from '@/data/site';
+import { useOptionalEnquiry } from '@/components/EnquiryContext';
 
 type FormStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 export default function Footer() {
+  const enquiry = useOptionalEnquiry();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [interest, setInterest] = useState<string>(enquiryInterests[0]);
-  const [floor, setFloor] = useState('');
+  const [localInterest, setLocalInterest] = useState<string>(enquiryInterests[0]);
+  const [localFloor, setLocalFloor] = useState('');
   const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>('idle');
   const [note, setNote] = useState('');
+
+  const interest = enquiry ? enquiry.interest : localInterest;
+  const setInterest = enquiry ? enquiry.setInterest : setLocalInterest;
+  const floor = enquiry ? enquiry.floor : localFloor;
+  const setFloor = enquiry ? enquiry.setFloor : setLocalFloor;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -10,6 +10,13 @@ export const ArrowRight = (p: IconProps) => (
   </svg>
 );
 
+
+export const LongArrow = (p: IconProps) => (
+  <svg viewBox="0 0 25 10" aria-hidden="true" {...stroke} {...p}>
+    <path d="M0.5 5h24M19.5 0.5 24.5 5l-5 4.5" />
+  </svg>
+);
+
 export const ArrowDown = (p: IconProps) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...p}>
     <path d="M12 5v14M6 13l6 6 6-6" />
