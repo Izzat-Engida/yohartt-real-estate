@@ -45,10 +45,10 @@ return(
     </defs>
     <image
     href={tower.src}
-    x="0"
-    y="0"
-    width="612"
-    height="824"
+    x="-20"
+    y="-20"
+    width="652"
+    height="878"
     preserveAspectRatio="xMidYMid slice" 
     clipPath="url(#introMobileClip1)"
     />
@@ -103,10 +103,10 @@ return(
             </defs>
             <image
             href={residence.src}
-            x="0"
-            y="0"
-            width="612"
-            height="824"
+            x="-20"
+            y="-20"
+            width="652"
+            height="878"
             preserveAspectRatio="xMidYMid slice" 
             clipPath="url(#introMobileClip3)"
             />

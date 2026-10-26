@@ -47,20 +47,20 @@ export function About(){
   <image
     className="morph1ImgA"
     href={tower.src}
-    x="-10"
-    y="-10"
-    width="632"
-    height="851"
+    x="-20"
+    y="-20"
+    width="652"
+    height="878"
     preserveAspectRatio="xMidYMid slice"
     clipPath="url(#morphClip1)"
   />
   <image
   className="morph1ImgB"
   href={residence.src}
-  x="-10"
-  y="-10"
-  width="632"
-  height="851"
+  x="-20"
+  y="-20"
+  width="652"
+  height="878"
   preserveAspectRatio="xMidYMid slice"
   clipPath="url(#morphClip1)"
   style={{"opacity":"0"}}
