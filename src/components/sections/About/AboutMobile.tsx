@@ -4,7 +4,7 @@ import tower from '@/assets/home/introduction/tower.webp';
 import residence from '@/assets/home/introduction/residence.webp';
 import craft from '@/assets/home/introduction/craft.webp';
 import lobby from '@/assets/home/introduction/lobby.webp';
-
+import Link from 'next/link'
 export default function AboutMobile(){
 return(
     <section id="about-mobile"
@@ -142,7 +142,7 @@ return(
     <h2 className="hero mobile-heading3 text-cream leading-[1.1] uppercase">A New Chapter in Prestigious Living</h2>
     <div className="w-3/4 self-end">
     <p className="paragraph mobile-paragraph1 text-cream">A clear architectural vision, prime Addis Ababa locations, and carefully engineered residences make Yohartt Properties a destination where quality, comfort, and long-term value naturally converge.</p>
-    <a className="mobile-link link text-accent mt-10 inline-block uppercase" href="/#tower">Explore Yohartt Tower</a>
+    <Link className="mobile-link link text-accent mt-10 inline-block uppercase" href="/#tower">Explore Yohartt Tower</Link>
     </div>
     </div>
     </div>

@@ -4,6 +4,7 @@ import tower from '@/assets/home/introduction/tower.webp';
 import residence from '@/assets/home/introduction/residence.webp';
 import craft from '@/assets/home/introduction/craft.webp';
 import lobby from '@/assets/home/introduction/lobby.webp';
+import Link from 'next/link'
 export function About(){
     return (
         <section id="about"
@@ -123,7 +124,7 @@ export function About(){
                   The visual identity of Yohartt Properties is defined by architectural elegance and generous light, creating homes that elevate the skyline of Addis Ababa.  
                 </h2>
                 <div className="button1Wrap mt-20 max-xl:mt-10">
-                  <a href="/#tower">
+                  <Link href="/#tower">
                     <button
                       data-slot="button"
                       data-variant="darkOutline"
@@ -155,7 +156,7 @@ export function About(){
                         </span>
                       </span>
                     </button>
-                  </a>
+                  </Link>
                 </div>
             </div>
             </div>
@@ -166,7 +167,7 @@ export function About(){
         <div className="w-1/2 pt-15 max-lg:w-full max-lg:pt-[40vh]">
         <h2 className="heading-2 heading2">Yohartt isn&#x27;t just building for the skyline; we engineer enduring homes designed around structural precision, quality materials, and transparent craftsmanship.</h2>
         <div className="button2Wrap mt-30 max-xl:mt-20 max-lg:mt-10">
-          <a href="/projects">
+          <Link href="/projects">
             <button
               data-slot="button"
               data-variant="darkOutline"
@@ -198,7 +199,7 @@ export function About(){
                 </span>
               </span>
             </button>
-          </a>
+          </Link>
         </div>
 
         </div>
@@ -211,9 +212,9 @@ export function About(){
         <p className="paragraph1 paragraph w-1/2 max-xl:w-3/5 max-lg:w-full">
         A clear architectural vision, prime Addis Ababa locations, and carefully engineered residences make Yohartt Properties a destination where quality, comfort, and long-term value naturally converge.
         </p>
-        <a className="link text-accent mt-10 inline-block" href="/#tower">
+        <Link className="link text-accent mt-10 inline-block" href="/#tower">
         Explore Yohartt Tower
-        </a>
+        </Link>
         </div>
         </div>
         </div>

@@ -7,7 +7,7 @@ import treeRight from '@/assets/home/footer/tree-r.webp';
 import { FLOORS } from '@/data/floors';
 import { enquiryInterests, site, socialLinks } from '@/data/site';
 import { useOptionalEnquiry } from '@/components/EnquiryContext';
-
+import Link from 'next/link';
 type FormStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 export default function Footer() {
@@ -105,15 +105,15 @@ export default function Footer() {
           <div className="w-1/12 max-2xl:hidden" />
           <div className="w-1/6 max-lg:w-1/3 max-md:flex max-md:w-full max-md:flex-col max-md:items-center">
             <ul className="space-y-3">
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/">Home</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/projects">Projects</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#tower">The Tower</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Residences">Residences</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#BusinessSpaces">Business</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Location">Location</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#Amenities">Amenities</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#contact">Contact</a></li>
-              <li className="fadeElement max-md:text-center"><a className="hover:text-green paragraph font-normal uppercase transition" href="/#about">About Yohartt</a></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/">Home</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/projects">Projects</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#tower">The Tower</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#Residences">Residences</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#BusinessSpaces">Business</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#Location">Location</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#Amenities">Amenities</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#contact">Contact</Link></li>
+              <li className="fadeElement max-md:text-center"><Link className="hover:text-green paragraph font-normal uppercase transition" href="/#about">About Yohartt</Link></li>
             </ul>
           </div>
           <div className="w-1/12 max-lg:w-1/6 max-md:w-full">
