@@ -4,9 +4,19 @@ import siteConcretePour from '@/assets/img/site-concrete-pour.jpg';
 import siteRebarSkyline from '@/assets/img/site-rebar-skyline.jpg';
 import siteStructure from '@/assets/img/site-structure.jpg';
 import towerRender from '@/assets/img/tower-render.jpg';
+import interior1 from '@/assets/home/residences-options/1.webp';
+import interior2 from '@/assets/home/residences-options/2.webp';
+import balconyImg from '@/assets/home/amenities-options/balcony.webp';
+import lobbiesImg from '@/assets/home/amenities-options/lobbies.webp';
 import type { EnquiryInterest } from './site';
 
 export type Photo = { src: StaticImageData; alt: string; caption: string };
+
+export type ProgressStage = {
+  photo: Photo;
+  title: string;
+  text: string;
+};
 
 export type Project = {
   slug: string;
@@ -20,6 +30,8 @@ export type Project = {
   specs: { label: string; value: string }[];
   highlights: string[];
   gallery: Photo[];
+  /** Construction stages shown on the project index while work is on site. */
+  progress?: ProgressStage[];
   /** Pre-selects this option in the enquiry form on the project page. */
   enquiryInterest: EnquiryInterest;
   /** Shows the interactive floor-by-floor explorer (Yohartt Tower only). */
@@ -36,6 +48,26 @@ export const photos = {
     src: completedResidence,
     alt: 'A completed mid-rise residential building with stone-look cladding, large black-framed windows and a gated entrance',
     caption: 'Recently completed — Yohartt residential building',
+  },
+  interior: {
+    src: interior1,
+    alt: 'Contemporary apartment living room with expansive floor-to-ceiling windows and refined finishes',
+    caption: 'Interior Living Space',
+  },
+  balconyView: {
+    src: balconyImg,
+    alt: 'Private outdoor balcony with panoramic city views and lush planters',
+    caption: 'Private Balcony Retreat',
+  },
+  entranceLobby: {
+    src: lobbiesImg,
+    alt: 'Double-height welcoming entrance lobby with modern stone cladding and ambient lighting',
+    caption: 'Grand Entrance Lobby',
+  },
+  bedroom: {
+    src: interior2,
+    alt: 'Spacious master bedroom with floor-to-ceiling glazing and warm hardwood flooring',
+    caption: 'Master Bedroom Suite',
   },
   structure: {
     src: siteStructure,
@@ -82,7 +114,24 @@ export const projects: Project[] = [
       'Sky residences and a penthouse level',
       'Covered parking and landscaped arrival court',
     ],
-    gallery: [photos.towerRender],
+    gallery: [photos.towerRender, photos.interior, photos.balconyView, photos.entranceLobby],
+    progress: [
+      {
+        photo: photos.structure,
+        title: 'The structure rises',
+        text: 'Columns and slabs go up floor by floor, wrapped in scaffolding and safety netting from day one.',
+      },
+      {
+        photo: photos.rebar,
+        title: 'Every slab, engineered',
+        text: 'Reinforcement is laid and tied to the structural drawings, with conduits and services set in place before any concrete arrives.',
+      },
+      {
+        photo: photos.pour,
+        title: 'Poured with precision',
+        text: 'Ready-mix concrete is pumped, spread and vibrated across the slab by a dedicated crew for a solid, monolithic floor.',
+      },
+    ],
     enquiryInterest: 'Yohartt Tower',
     floorExplorer: true,
   },
@@ -109,8 +158,9 @@ export const projects: Project[] = [
       'Secure gated entrance',
       'Covered ground-level entry',
     ],
-    gallery: [photos.completed],
+    gallery: [photos.completed, photos.entranceLobby, photos.interior, photos.bedroom],
     enquiryInterest: 'Completed units',
+    floorExplorer: false,
   },
 ];
 

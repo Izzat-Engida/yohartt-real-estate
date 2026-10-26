@@ -1,10 +1,10 @@
 import Image from "next/image"
 import leafs from '@/assets/home/introduction/leafs.webp';
-import Image1 from '@/assets/home/introduction/image1.webp';
-import Image2 from  '@/assets/home/introduction/image2.webp';
-import Image3 from '@/assets/home/introduction/image3.webp';
-import Image4 from '@/assets/home/introduction/image4.webp';
-
+import tower from '@/assets/home/introduction/tower.webp';
+import residence from '@/assets/home/introduction/residence.webp';
+import craft from '@/assets/home/introduction/craft.webp';
+import lobby from '@/assets/home/introduction/lobby.webp';
+import Link from 'next/link'
 export default function AboutMobile(){
 return(
     <section id="about-mobile"
@@ -20,11 +20,11 @@ return(
     <div className="screen1 absolute inset-0 h-full w-full">
     <div className="wrapper flex h-full flex-col justify-center">
     <p className="kicker mobile-preheading1 text-accent mb-5 uppercase">
-    BELGRADE ARBOR DESIGN
+    YOHARTT PROPERTIES VISION
     </p>
     <h2 className="heading-2 mobile-heading1 text-cream text-[2.25rem]">
-        The visual identity of Belgrade Arbor is defined by an elegant facade inspired by the form of a tree canopy,
-         a symbol of growth, balance, and longevity.
+        The visual identity of Yohartt Properties is defined by architectural elegance and generous light,
+         creating homes that elevate the skyline of Addis Ababa.
     </h2>
     </div>
     </div>
@@ -44,11 +44,11 @@ return(
     </clipPath>   
     </defs>
     <image
-    href={Image1.src}
-    x="0"
-    y="0"
-    width="612"
-    height="824"
+    href={tower.src}
+    x="-20"
+    y="-20"
+    width="652"
+    height="878"
     preserveAspectRatio="xMidYMid slice" 
     clipPath="url(#introMobileClip1)"
     />
@@ -64,7 +64,7 @@ return(
         </clipPath>
     </defs>
     <image
-    href={Image3.src}
+    href={craft.src}
     x="0"
     y="0"
     width="612"
@@ -80,7 +80,7 @@ return(
     <div className="screen3 absolute inset-0 h-full w-full">
     <div className="wrapper flex h-full items-center">
     <h2 className="heading-2 mobile-heading2 text-cream text-[2.25rem]">
-        Belgrade Arbor isn&#x27;t just another addition to the skyline; it&#x27;s a curated urban ecosystem that evolves with the rhythm of the city.
+        Yohartt isn&#x27;t just building for the skyline; we engineer enduring homes designed around structural precision, quality materials, and transparent craftsmanship.
     </h2>
 
     </div>
@@ -102,11 +102,11 @@ return(
                 </clipPath> 
             </defs>
             <image
-            href={Image2.src}
-            x="0"
-            y="0"
-            width="612"
-            height="824"
+            href={residence.src}
+            x="-20"
+            y="-20"
+            width="652"
+            height="878"
             preserveAspectRatio="xMidYMid slice" 
             clipPath="url(#introMobileClip3)"
             />
@@ -124,7 +124,7 @@ return(
                     </clipPath> 
                 </defs>
             <image
-            href={Image4.src}
+            href={lobby.src}
             x="0"
             y="0"
             width="612"
@@ -141,8 +141,8 @@ return(
     <div className="wrapper flex h-full flex-col justify-center gap-15 px-2">
     <h2 className="hero mobile-heading3 text-cream leading-[1.1] uppercase">A New Chapter in Prestigious Living</h2>
     <div className="w-3/4 self-end">
-    <p className="paragraph mobile-paragraph1 text-cream">A clear architectural vision, a carefully selected location, and thoughtfully curated amenities make Belgrade Arbor a residential destination where quality, comfort, and long-term value naturally converge.</p>
-    <a className="mobile-link link text-accent mt-10 inline-block uppercase" href="">Explore Our Apartments</a>
+    <p className="paragraph mobile-paragraph1 text-cream">A clear architectural vision, prime Addis Ababa locations, and carefully engineered residences make Yohartt Properties a destination where quality, comfort, and long-term value naturally converge.</p>
+    <Link className="mobile-link link text-accent mt-10 inline-block uppercase" href="/#tower">Explore Yohartt Tower</Link>
     </div>
     </div>
     </div>

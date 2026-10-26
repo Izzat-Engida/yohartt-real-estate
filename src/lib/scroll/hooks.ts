@@ -13,13 +13,13 @@ export const registerScrollTrigger = () => {
   registered = true;
 };
 
-export function useRevealText<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-
+export function useRevealText<T extends HTMLElement>(targetRef: RefObject<T | null>) {
   useLayoutEffect(() => {
-    if (reducedMotion() || !ref.current) return;
+    const root = targetRef.current;
+    if (reducedMotion() || !root) return;
     registerScrollTrigger();
-    const elements = Array.from(ref.current.querySelectorAll<HTMLElement>('[data-reveal-text]'));
+
+    const elements = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal-text]'));
     if (!elements.length) return;
 
     const context = gsap.context(() => {
@@ -33,12 +33,10 @@ export function useRevealText<T extends HTMLElement>() {
           scrollTrigger: { trigger: element, start: 'top 82%', once: true },
         });
       });
-    }, ref);
+    }, root);
 
     return () => context.revert();
-  }, []);
-
-  return ref;
+  }, [targetRef]);
 }
 
 export function useParallax<T extends HTMLElement>(amount = 6) {

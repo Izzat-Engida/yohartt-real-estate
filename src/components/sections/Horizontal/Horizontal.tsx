@@ -26,15 +26,6 @@ export default function Horizontal() {
         />
 
         <div className="horizontal-markers pointer-events-none absolute top-0 left-0 z-20 h-full will-change-transform">
-          <div className="absolute left-1/2 h-full w-[42%] -translate-x-1/2 -translate-y-10">
-            <span className="heading-1 text-sand absolute top-1/2 left-0 -translate-y-1/2 uppercase">
-              A
-            </span>
-
-            <span className="heading-1 text-sand absolute top-1/2 right-0 -translate-y-1/2 uppercase">
-              B
-            </span>
-          </div>
 
              <Image
             src={cloud1}
@@ -60,7 +51,7 @@ export default function Horizontal() {
           />
         </div>
 
-        <div className="absolute inset-0 h-screen w-full">
+        <div className="pointer-events-none absolute inset-0 z-30 h-screen w-full">
           <h2 className="heading text-sand hero absolute top-40 left-1/2 w-full -translate-x-1/2 text-center uppercase max-xl:top-30 max-xl:text-[7.5rem] max-lg:text-[4.25rem] max-md:top-16 max-md:text-[3.25rem]">
             View from above
           </h2>

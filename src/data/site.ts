@@ -3,11 +3,11 @@
  * TODO: replace the placeholder phone, WhatsApp number and email with the real ones.
  */
 export const site = {
-  name: 'Yohartt Real Estate',
-  shortName: 'Yohartt',
+  name: 'Yohart Properties',
+  shortName: 'Yohart',
   tagline: 'Raising Addis, floor by floor.',
   description:
-    'Yohartt Real Estate develops modern residential towers in Addis Ababa, Ethiopia. Explore Yohartt Tower floor by floor, follow our construction progress, and book a site visit.',
+    'Yohart Properties develops modern residential towers in Addis Ababa, Ethiopia. Explore Yohart Tower floor by floor, follow our construction progress, and book a site visit.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   city: 'Addis Ababa',
   country: 'Ethiopia',
@@ -15,7 +15,15 @@ export const site = {
   email: 'hello@yohartt.com',
   /** International format, digits only — used for wa.me links. */
   whatsapp: '251900000000',
+  socials: [
+    { name: 'Instagram', href: 'https://www.instagram.com/yohartproperties/' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/yohart-properties' },
+    { name: 'Facebook', href: 'https://www.facebook.com/yohartproperties' },
+  ],
 } as const;
+
+export const socialLinks = site.socials;
+export type SocialLink = (typeof socialLinks)[number];
 
 export const navLinks = [
   { href: '/#about', label: 'About' },

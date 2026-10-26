@@ -31,3 +31,7 @@ export function useEnquiry(): EnquiryState {
   if (!ctx) throw new Error('useEnquiry must be used inside <EnquiryProvider>');
   return ctx;
 }
+
+export function useOptionalEnquiry(): EnquiryState | null {
+  return useContext(EnquiryContext);
+}

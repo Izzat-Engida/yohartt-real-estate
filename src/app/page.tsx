@@ -9,7 +9,6 @@ import  About  from '@/components/sections/About/About';
 import AboutMobile from '@/components/sections/About/AboutMobile';
 import Location from '@/components/sections/Location/Location'
 import { NearbySection } from '@/components/sections/Nearby/Nearby';
-import { ProcessSection } from '@/components/sections/Process/Process';
 import Residences from "@/components/sections/Residences/Residences";
 import { TowerSection } from '@/components/sections/Tower/Tower';
 import BusinessSpaces from "@/components/sections/Business/Business";
