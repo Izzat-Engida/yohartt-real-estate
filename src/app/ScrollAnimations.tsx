@@ -878,23 +878,25 @@ export default function ScrollAnimations() {
               0
             );
 
-          gsap.fromTo(
-            ".videoWrap",
-            {
-              clipPath: "inset(0% 100% 0% 0%)",
-              scale: 1.1,
-            },
-            {
-              clipPath: "inset(0% 0% 0% 0%)",
-              scale: 1,
-              duration: 1.2,
-              delay: 1.3,
-              ease: "power2.inOut",
-              scrollTrigger: {
-                trigger: ".videoWrap",
+          if (section(id)?.querySelector(".videoWrap")) {
+            gsap.fromTo(
+              ".videoWrap",
+              {
+                clipPath: "inset(0% 100% 0% 0%)",
+                scale: 1.1,
               },
-            }
-          );
+              {
+                clipPath: "inset(0% 0% 0% 0%)",
+                scale: 1,
+                duration: 1.2,
+                delay: 1.3,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                  trigger: ".videoWrap",
+                },
+              }
+            );
+          }
         });
       };
 

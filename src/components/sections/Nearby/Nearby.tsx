@@ -4,82 +4,91 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 
-import aerodrom from '@/assets/home/around/aerodrom.webp';
-import airportCity from '@/assets/home/around/airportcity.webp';
-import hangar from '@/assets/home/around/hangar.webp';
-import savremena from '@/assets/home/around/savremena.webp';
-import tosin from '@/assets/home/around/tosin.webp';
-import west from '@/assets/home/around/west.webp';
+import mapBase from '@/assets/home/around/axonometric-map.webp';
+import britishEmbassyImg from '@/assets/home/around/british-embassy.jpg';
+import centuryMallImg from '@/assets/home/around/century-mall.jpg';
+import megenagnaTransitImg from '@/assets/home/around/megenagna-transit.jpg';
+import zefmeshMallImg from '@/assets/home/around/zefmesh-mall.jpg';
+import boleAirportImg from '@/assets/home/around/bole-airport.jpg';
 
 type Place = {
+  id: string;
   name: string;
   car: string;
   walk: string | null;
   description: string;
   image: StaticImageData;
+  hasArrow?: boolean;
+  pin: {
+    x: number; // percentage on map image
+    y: number; // percentage on map image
+    labelOffset?: { x: number; y: number };
+  };
 };
-
 
 const PLACES: Place[] = [
   {
-    name: 'Railway Station',
+    id: 'british-embassy',
+    name: 'British Embassy',
     car: '1 min',
     walk: '3 min',
     description:
-      'Tošin Bunar is a railway station located in the municipality of Novi Beograd. It is served by BG Voz. The railroad continues to Zemun in one direction, and New Belgrade and Old Belgrade in the other direction. Tošin Bunar railway station consists of 2 railway tracks with 2 side platforms.',
-    image: tosin,
+      'The historic Embassy of the United Kingdom in Addis Ababa is situated directly adjacent to the site along Comoros Street, featuring lush diplomatic parklands, top-tier security, and mature green tree canopies.',
+    image: britishEmbassyImg,
+    pin: { x: 64.8, y: 46.9, labelOffset: { x: 0, y: 26 } },
   },
   {
-    name: 'Savremena Elementary School',
-    car: '1 min',
-    walk: '2 min',
+    id: 'century-mall',
+    name: 'Century Mall',
+    car: '3 min',
+    walk: '8 min',
     description:
-      "Savremena Elementary School is a part of an education system unique in the region, with over 20 years' experience. It was built on the foundation of Savremena International School, whose results serve as the best proof of their leadership position at all levels of education.",
-    image: savremena,
+      "One of Megenagna's premier modern commercial destinations, hosting a multi-screen cinema, international retail boutiques, vibrant cafes, and family entertainment amenities.",
+    image: centuryMallImg,
+    pin: { x: 70.9, y: 56.1, labelOffset: { x: 0, y: 26 } },
   },
   {
-    name: 'West 65',
-    car: '1 min',
-    walk: '3 min',
+    id: 'megenagna-transit',
+    name: 'Megenagna Transit Hub',
+    car: '4 min',
+    walk: '10 min',
     description:
-      "West 65 is a modern residential and business complex located in New Belgrade's Block 65, known for its luxury apartments, shopping center, and a 155-meter skyscraper tower. The complex includes multiple residential buildings, pedestrian areas, restaurants, shops, and recreational facilities, all positioned in a well-connected part of the city.",
-    image: west,
+      "Addis Ababa's vital eastern transit interchange, seamlessly connecting the East-West Light Rail Transit (LRT) network with key city bus corridors, rapid taxis, and direct routes toward Bole and Kazanchis.",
+    image: megenagnaTransitImg,
+    pin: { x: 23.6, y: 72.7, labelOffset: { x: 0, y: 26 } },
   },
   {
-    name: 'Airport City',
-    car: '2 min',
-    walk: '4 min',
+    id: 'zefmesh-mall',
+    name: 'Zefmesh Grand Mall',
+    car: '4 min',
+    walk: '12 min',
     description:
-      'Airport City Belgrade is the largest business and commercial complex in Belgrade. It consists mainly of modern office buildings that host international companies, restaurants, cafes, shops, and other business-related services. Developed as one of the first modern business parks in Serbia, Airport City has become an important corporate and economic hub in Belgrade.',
-    image: airportCity,
+      'A bustling multi-level shopping and commercial center at the center of Megenagna, housing hundreds of specialty retailers, electronics stores, banking hubs, and traditional dining options.',
+    image: zefmeshMallImg,
+    pin: { x: 72.4, y: 70.3, labelOffset: { x: 0, y: 26 } },
   },
   {
-    name: 'Hangar Food Market',
-    car: '2 min',
-    walk: '4 min',
-    description:
-      'Hangar Food Market at Airport City Belgrade is a modern food and social hub that brings together a variety of local and international cuisines in one vibrant space. With its contemporary design and lively atmosphere, it has become a popular destination for business meetings, casual dining, and after-work gatherings.',
-    image: hangar,
-  },
-  {
-    name: 'Airport Nikola Tesla',
-    car: '9 min',
+    id: 'bole-airport',
+    name: 'Bole International Airport',
+    car: '12 min',
     walk: null,
     description:
-      "Nikola Tesla Airport, officially Belgrade Nikola Tesla Airport, is the main international airport in Serbia. It serves as the country's busiest airport and the primary hub for Air Serbia, connecting Belgrade with destinations across Europe, Middle East, North America, and other regions. Named after the famous Serbian-American inventor Nikola Tesla, the airport has undergone major modernization and expansion in recent years to support growing passenger traffic.",
-    image: aerodrom,
+      "Ethiopia's primary international gateway and Africa's premier aviation hub, offering nonstop international flights worldwide, reachable in 12 minutes via the Megenagna-Bole corridor.",
+    image: boleAirportImg,
+    hasArrow: true,
+    pin: { x: 17.8, y: 47.6, labelOffset: { x: 0, y: 26 } },
   },
 ];
 
 function CarIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-golden h-10 w-10"
+      className="h-5 w-5 text-[#AD824B]"
       aria-hidden="true"
     >
       <path
@@ -93,12 +102,12 @@ function CarIcon() {
 function WalkIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="text-golden h-10 w-10"
+      className="h-5 w-5 text-[#AD824B]"
       aria-hidden="true"
     >
       <path
@@ -111,8 +120,30 @@ function WalkIcon() {
 
 export function NearbySection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredPin, setHoveredPin] = useState<number | null>(null);
   const [marker, setMarker] = useState({ top: 0, height: 0 });
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const hoveredPinRef = useRef<number | null>(null);
+  const tiltFrameRef = useRef<number | null>(null);
+
+  // Mouse tilt parallax state
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, transX: 0, transY: 0 });
+
+  // The preview card is shared between pins so two photos can never overlap.
+  const previewIndex = hoveredPin ?? activeIndex;
+  const previewPlace = PLACES[previewIndex];
+  const isPreviewOpen = hoveredPin !== null;
+  // Left-side pins sit next to the text column, so anchor their card to the
+  // right of the pin instead of centring it under the copy.
+  const alignPreviewLeft = previewPlace.pin.x < 30;
+
+  // Keep the ref in sync immediately so the parallax stops before the next frame,
+  // otherwise the map can slide out from under the cursor and change the hovered pin.
+  const setPinHover = useCallback((index: number | null) => {
+    hoveredPinRef.current = index;
+    setHoveredPin(index);
+  }, []);
 
   const updateMarker = useCallback(() => {
     const item = itemRefs.current[activeIndex];
@@ -126,126 +157,383 @@ export function NearbySection() {
     return () => window.removeEventListener('resize', updateMarker);
   }, [updateMarker]);
 
-  return (
-    <section id="Around">
-      <div className="trigger relative flex min-h-screen flex-col items-stretch pt-20 pb-30 max-xl:py-10 max-lg:pt-0 max-lg:pb-20 max-md:pb-10">
-        <div className="reveal-content wrapper h-full max-lg:w-full">
-          <div className="w-1/3 max-xl:w-5/12 max-lg:w-full">
-            <p className="kicker uppercase">What&apos;s around</p>
+  useEffect(() => {
+    return () => {
+      if (tiltFrameRef.current !== null) cancelAnimationFrame(tiltFrameRef.current);
+    };
+  }, []);
 
-            <div className="list border-b-golden/40 relative border-b pt-12 pb-15">
+  // Handle interactive 3D mouse parallax follow
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    // Freeze the map while a pin is hovered so the pin cannot move away from the pointer.
+    if (hoveredPinRef.current !== null) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const container = mapContainerRef.current;
+    if (!container) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    if (tiltFrameRef.current !== null) return;
+    tiltFrameRef.current = requestAnimationFrame(() => {
+      tiltFrameRef.current = null;
+      if (hoveredPinRef.current !== null) return;
+
+      const rect = container.getBoundingClientRect();
+      const nx = (clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+      const ny = (clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+
+      setTilt({
+        rotateX: -ny * 7,
+        rotateY: nx * 9,
+        transX: nx * 18,
+        transY: ny * 12,
+      });
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (tiltFrameRef.current !== null) {
+      cancelAnimationFrame(tiltFrameRef.current);
+      tiltFrameRef.current = null;
+    }
+    setTilt({ rotateX: 0, rotateY: 0, transX: 0, transY: 0 });
+    setPinHover(null);
+  }, [setPinHover]);
+
+  return (
+    <section id="Around" className="relative z-1 overflow-hidden bg-[#FCFAF0] py-20 max-lg:py-12">
+      <div className="trigger relative flex min-h-[95vh] flex-col items-stretch">
+        <div className="reveal-content wrapper relative z-10 flex h-full max-lg:flex-col">
+          {/* Left Column: Typography List & Info Card */}
+          <div className="relative z-30 w-5/12 pt-6 max-xl:w-1/2 max-lg:w-full">
+            <p
+              className="kicker uppercase"
+              style={{
+                color: '#AD824B',
+                letterSpacing: '0.08em',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+              }}
+            >
+              What&apos;s around
+            </p>
+
+            {/* Places List */}
+            <div className="list relative border-b border-[#AD824B]/30 pt-8 pb-10">
+              {/* Active Marker Indicator */}
               <div
-                className="bg-accent pointer-events-none absolute top-0 -left-4 w-0.5 transition-all duration-300"
+                className="pointer-events-none absolute top-0 -left-4 w-0.5 transition-all duration-300"
                 style={{
                   height: `${marker.height}px`,
                   transform: `translateY(${marker.top}px)`,
+                  backgroundColor: '#AD824B',
                   opacity: 1,
                 }}
               />
-              {PLACES.map((place, index) => (
-                <div
-                  key={place.name}
-                  ref={(element) => {
-                    itemRefs.current[index] = element;
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={activeIndex === index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
+              {PLACES.map((place, index) => {
+                const isCurrent = activeIndex === index;
+                const isHovered = hoveredPin === index;
+                return (
+                  <div
+                    key={place.id}
+                    ref={(element) => {
+                      itemRefs.current[index] = element;
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isCurrent}
+                    onMouseEnter={() => {
                       setActiveIndex(index);
-                    }
-                  }}
-                  className="group relative cursor-default overflow-hidden"
-                >
-                  <p className="heading-2 text-golden pt-4 pb-4 leading-none transition group-hover:-translate-y-full">
-                    {place.name}
-                  </p>
-                  <span className="heading-2 absolute left-0 h-full w-full italic transition-all group-hover:top-4 top-[120%]">
-                    {place.name}
-                  </span>
-                </div>
-              ))}
+                      setPinHover(index);
+                    }}
+                    onMouseLeave={() => setPinHover(null)}
+                    onFocus={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(index)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setActiveIndex(index);
+                      }
+                    }}
+                    className="group relative cursor-pointer overflow-hidden py-2"
+                  >
+                    <p
+                      className="heading-2 leading-tight transition duration-300 group-hover:-translate-y-full"
+                      style={{
+                        fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
+                        color: isCurrent || isHovered ? '#AD824B' : '#a68150',
+                        fontWeight: 400,
+                        fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
+                        opacity: isCurrent || isHovered ? 1 : 0.8,
+                      }}
+                    >
+                      {place.name}
+                    </p>
+                    <span
+                      className="heading-2 absolute left-0 top-full w-full leading-tight italic transition-all duration-300 group-hover:top-2"
+                      style={{
+                        fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
+                        color: '#AD824B',
+                        fontWeight: 400,
+                        fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
+                      }}
+                    >
+                      {place.name}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
-            <div className="relative mt-8 min-h-[15rem]">
+            {/* Selected Place Details Card */}
+            <div className="relative mt-8 min-h-[14rem]">
               {PLACES.map((place, index) => (
                 <div
-                  key={place.name}
-                  className="absolute inset-0 transition-opacity"
+                  key={place.id}
+                  className="absolute inset-0 transition-all duration-300"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     pointerEvents: activeIndex === index ? 'auto' : 'none',
-                    transitionDuration: '220ms',
-                    transitionDelay: '0ms',
+                    transform: activeIndex === index ? 'translateY(0)' : 'translateY(8px)',
                   }}
                   aria-hidden={activeIndex !== index}
                 >
-                  <p className="kicker mb-4 uppercase">{place.name}</p>
-                  <div className="divide-golden/40 flex divide-x">
-                    <div className="paragraph flex items-center gap-2 pr-4">
-                      <CarIcon /> {place.car}
+                  <p
+                    className="kicker mb-3 uppercase"
+                    style={{
+                      color: '#AD824B',
+                      fontWeight: 600,
+                      letterSpacing: '0.06em',
+                      fontSize: '0.875rem',
+                    }}
+                  >
+                    {place.name}
+                  </p>
+                  <div className="flex divide-x divide-[#AD824B]/30 pb-3">
+                    <div
+                      className="paragraph flex items-center gap-2 pr-4 text-sm font-medium"
+                      style={{ color: '#4a4435' }}
+                    >
+                      <CarIcon /> {place.car} drive
                     </div>
                     {place.walk ? (
-                      <div className="paragraph flex items-center gap-2 pl-4">
-                        <WalkIcon /> {place.walk}
+                      <div
+                        className="paragraph flex items-center gap-2 pl-4 text-sm font-medium"
+                        style={{ color: '#4a4435' }}
+                      >
+                        <WalkIcon /> {place.walk} walk
                       </div>
                     ) : null}
                   </div>
-                  <p className="paragraph mt-4">{place.description}</p>
+                  <p className="paragraph mt-2 text-sm leading-relaxed" style={{ color: '#6b6350' }}>
+                    {place.description}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
 
-        <div className="reveal-image relative z-10 mt-10 w-full overflow-hidden bg-inherit aspect-[4/3] lg:absolute lg:top-1/2 lg:right-0 lg:mt-0 lg:w-[70vw] lg:-translate-y-1/2 lg:aspect-video lg:max-xl:w-[60vw] rounded-[1.25rem]">
-          <svg
-            className="absolute inset-0 h-full w-full"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ overflow: 'visible', pointerEvents: 'none', position: 'absolute' }}
-            aria-hidden="true"
-          >
-            <defs>
-              <filter id="feathered-mask-filter">
-                <feGaussianBlur stdDeviation="24" />
-              </filter>
-              <mask id="feathered-mask">
-                <rect
-                  x="70"
-                  y="70"
-                  width="calc(100% - 140px)"
-                  height="calc(100% - 140px)"
-                  rx="30"
-                  ry="30"
-                  fill="white"
-                  filter="url(#feathered-mask-filter)"
-                />
-              </mask>
-            </defs>
-          </svg>
+          {/* Right Area: Authentic 3D Axonometric Map with Interactive Mouse Follow */}
           <div
-            className="absolute inset-0"
-            style={{
-              mask: 'url(#feathered-mask)',
-              WebkitMask: 'url(#feathered-mask)',
-            }}
+            ref={mapContainerRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="relative flex-1 select-none max-lg:mt-8 max-lg:min-h-[500px] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
+            style={{ perspective: 1200 }}
           >
-            {PLACES.map((place, index) => (
-              <Image
-                key={place.name}
-                src={place.image}
-                alt={place.name}
-                fill
-                sizes="(min-width: 1121px) 70vw, 100vw"
-                className="object-cover transition-opacity duration-500"
-                style={{ opacity: activeIndex === index ? 1 : 0 }}
-              />
-            ))}
+            {/* 3D Map Plane with Mouse Follow Transform */}
+            <div
+              className="relative h-full w-full transition-transform duration-200 ease-out"
+              style={{
+                transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translate3d(${tilt.transX}px, ${tilt.transY}px, 0)`,
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              {/* Axonometric Vector Map Texture */}
+              <div className="relative h-full w-full">
+                <Image
+                  src={mapBase}
+                  alt="Axonometric Perspective Map of Megenagna and British Embassy area"
+                  fill
+                  priority
+                  sizes="(min-width: 1121px) 68vw, 100vw"
+                  className="pointer-events-none object-contain object-right-bottom"
+                />
+              </div>
+
+              {/* CENTER LOCATION BADGE: Yohartt Tower · Behind British Embassy Megenagna */}
+              <div
+                className="pointer-events-none absolute z-20 flex flex-col items-center"
+                style={{
+                  left: '46.9%',
+                  top: '54.8%',
+                  transform: 'translate(-50%, -100%) translateZ(28px)',
+                }}
+              >
+                {/* Floating Badge */}
+                <div className="flex items-center gap-2 rounded-lg border border-[#a88956] bg-[#7d6342] px-3.5 py-2 shadow-xl">
+                  {/* Yohartt Emblem */}
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-[#ecd7ba]"
+                  >
+                    <path
+                      d="M12 2L15 8H9L12 2Z M7 9L12 7L17 9L12 18L7 9Z M12 18V22"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div>
+                    <p className="text-[11px] font-bold tracking-wider text-[#FCFAF0] uppercase">
+                      Yohartt Tower
+                    </p>
+                    <p className="text-[9px] text-[#e8dac7] font-medium">
+                      Behind British Embassy
+                    </p>
+                  </div>
+                </div>
+                {/* Vertical Pole */}
+                <div className="h-6 w-0.5 bg-[#7d6342]" />
+              </div>
+
+              {/* 5 Interactive Pins with Pin-Point Accuracy */}
+              {PLACES.map((place, idx) => {
+                const isHovered = hoveredPin === idx;
+
+                return (
+                  <div
+                    key={`pin-${place.id}`}
+                    className="pointer-events-none absolute z-30 flex flex-col items-center"
+                    style={{
+                      left: `${place.pin.x}%`,
+                      top: `${place.pin.y}%`,
+                      transform: 'translate(-50%, -50%) translateZ(20px)',
+                    }}
+                  >
+                    {/* Directional arrow for Airport */}
+                    {place.hasArrow && (
+                      <div className="absolute -left-7 top-0 text-[#9c7a4b] text-sm font-bold animate-pulse">
+                        ←
+                      </div>
+                    )}
+
+                    {/* Only the pin head is interactive, so labels near the list
+                        cannot steal the hover from a pin. */}
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      aria-label={place.name}
+                      aria-pressed={activeIndex === idx}
+                      onMouseEnter={() => {
+                        setActiveIndex(idx);
+                        setPinHover(idx);
+                      }}
+                      onMouseLeave={() => setPinHover(null)}
+                      onFocus={() => setActiveIndex(idx)}
+                      onClick={() => setActiveIndex(idx)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActiveIndex(idx);
+                        }
+                      }}
+                      className="pointer-events-auto relative -m-3 flex cursor-pointer items-center justify-center rounded-full p-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#AD824B]"
+                    >
+                      {isHovered && (
+                        <div className="absolute h-9 w-9 animate-ping rounded-full border border-[#AD824B] opacity-60" />
+                      )}
+                      <div
+                        className={`h-5 w-5 rounded-full border-2 border-[#FCFAF0] shadow-md transition-all duration-300 ${
+                          isHovered ? 'scale-125 bg-[#7a5828]' : 'bg-[#9c7a4b]'
+                        }`}
+                      />
+                    </div>
+
+                    {/* Vertical Stem */}
+                    <div className="h-4 w-0.5 bg-[#9c7a4b]" />
+                    {/* Base Foot */}
+                    <div className="h-0.5 w-2 bg-[#9c7a4b]" />
+
+                    {/* Label below Pin */}
+                    <p
+                      className="mt-1.5 max-w-[125px] text-center text-[11px] font-medium leading-tight select-none transition-colors duration-200"
+                      style={{
+                        color: isHovered ? '#604218' : '#8a7352',
+                        fontWeight: isHovered ? 700 : 500,
+                        fontFamily: 'var(--font-editorialOld), Georgia, serif',
+                      }}
+                    >
+                      {place.name}
+                    </p>
+                  </div>
+                );
+              })}
+
+              {/* One shared preview card. Rendering a single card keeps the photo
+                  in sync with the hovered pin and avoids overlapping ghost cards. */}
+              <div
+                className="pointer-events-none absolute z-50 w-56"
+                style={{
+                  left: `${previewPlace.pin.x}%`,
+                  top: `${previewPlace.pin.y}%`,
+                  opacity: isPreviewOpen ? 1 : 0,
+                  transform: `translate(${alignPreviewLeft ? '0' : '-50%'}, calc(-100% - 30px)) scale(${
+                    isPreviewOpen ? 1 : 0.94
+                  })`,
+                  transformOrigin: alignPreviewLeft ? '0% 100%' : '50% 100%',
+                  transition:
+                    'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out',
+                }}
+                aria-hidden={!isPreviewOpen}
+              >
+                <div className="overflow-hidden rounded-xl border border-[#AD824B]/35 bg-[#FAF6EE] p-2 shadow-2xl backdrop-blur-md">
+                  {/* Location Photo — stacked images cross-fade in one place */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-[#ded3bd]">
+                    {PLACES.map((place, index) => (
+                      <Image
+                        key={`preview-${place.id}`}
+                        src={place.image}
+                        alt={place.name}
+                        fill
+                        sizes="224px"
+                        aria-hidden={index !== previewIndex}
+                        className={`object-cover transition-opacity duration-300 ${
+                          index === previewIndex ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  {/* Title & Travel Badge */}
+                  <div className="pt-2 px-1 text-center">
+                    <p
+                      className="flex min-h-[2rem] items-center justify-center text-xs font-semibold leading-tight text-[#4a3b23]"
+                      style={{
+                        fontFamily: 'var(--font-editorialOld), Georgia, serif',
+                      }}
+                    >
+                      {previewPlace.name}
+                    </p>
+                    <p className="mt-0.5 text-[10.5px] font-medium text-[#7a6442]">
+                      🚗 {previewPlace.car} drive{' '}
+                      {previewPlace.walk ? ` · 🚶 ${previewPlace.walk} walk` : ''}
+                    </p>
+                  </div>
+                  {/* Pointer Beak */}
+                  <div
+                    className="absolute -bottom-2 h-4 w-4 -translate-x-1/2 rotate-45 border-b border-r border-[#AD824B]/35 bg-[#FAF6EE]"
+                    style={{ left: alignPreviewLeft ? '8px' : '50%' }}
+                    aria-hidden="true"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

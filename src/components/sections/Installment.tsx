@@ -5,7 +5,7 @@ export default function Installment() {
   return (
     <section id="Installment">
       <div className="installment-trigger trigger relative flex min-h-screen items-stretch overflow-clip max-md:min-h-auto max-md:flex-col">
-        <div className="installment-reveal-image absolute top-0 left-0 z-0 h-full w-[55vw] max-xl:w-1/2 max-lg:w-full max-md:relative max-md:h-[34rem] max-md:w-full bg-[linear-gradient(180deg,#8AB6D2_0%,#7aa9c9_100%)]">
+        <div className="installment-reveal-image absolute top-0 left-0 z-0 h-full w-[55vw] max-xl:w-1/2 max-lg:w-full max-md:hidden max-md:h-[34rem] max-md:w-full bg-[linear-gradient(180deg,#8AB6D2_0%,#7aa9c9_100%)]">
           <div className="relative h-full w-full">
             <div className="reveal-image-zoom relative h-full w-full overflow-hidden">
               <Image

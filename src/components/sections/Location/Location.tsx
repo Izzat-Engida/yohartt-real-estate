@@ -16,10 +16,12 @@ export default function Location(){
                 <div className="w-1/3 pt-30 max-lg:w-2/3 max-lg:pt-10 max-md:w-3/4 max-md:self-end max-md:pt-20">
                 <div className="videoWrap relative aspect-[1.43/1] w-full overflow-hidden rounded-[1.25rem]">
                 <video
+                src="/media/home/location/location.mp4"
+                autoPlay
                 muted 
                 loop
                 playsInline
-                preload="none"
+                preload="metadata"
                 className="portrait absolute -top-25 left-1/2 h-auto w-[150%] max-w-none -translate-x-1/2 object-cover"
                 />
                 </div>
@@ -27,8 +29,8 @@ export default function Location(){
                 </div>
                 <div className="flex w-7/12 flex-col items-end justify-between py-30 max-2xl:w-2/3 max-lg:h-full max-lg:w-full max-lg:pt-50 max-lg:pb-10 max-md:items-start max-md:gap-10 max-md:pt-23">
                 <p className="paragraph text-sand w-3/7 max-2xl:w-1/2 max-md:w-3/4">
-                At one of New Belgrade&#x27;s most dynamic locations, 
-                on Bulevar heroja sa Košara, Belgrade Arbor is taking shape
+                At one of Addis Ababa&#x27;s most dynamic and prestigious locations, 
+                behind the British Embassy in Megenagna, Yohartt Tower is taking shape
                  as a contemporary residential and commercial development that seamlessly brings
                   together refined architecture, everyday comfort, and enduring value.
                 </p>
