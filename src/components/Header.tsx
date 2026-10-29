@@ -42,10 +42,10 @@ export default function Header() {
         </button>
         <Link href="/" className="framer-header__logo" aria-label="Home">
           <Image
-            src="/media/home/yohalogo.png"
+            src="/media/home/yohalogo-nav.png"
             alt="Yoha Logo"
-            width={160}
-            height={160}
+            width={466}
+            height={429}
             className="h-full w-auto object-contain"
             priority
           />

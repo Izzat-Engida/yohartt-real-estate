@@ -19,6 +19,7 @@ import Horizontal from '@/components/sections/Horizontal/Horizontal';
 import Footer from '@/components/sections/Footer/Footer';
 import {AmenitiesDetailsSection} from "@/components/sections/Amenities/AmenitiesDetails";
 import Installment from '@/components/sections/Installment';
+import InstallmentMobile from '@/components/sections/InstallmentMobile';
 
 export default function Page(){
     return (
@@ -45,6 +46,7 @@ export default function Page(){
         <AmenitiesDetailsSection/>
         <Horizontal/>
         <Installment/>
+        <InstallmentMobile/>
         </div>
         <Footer />
         </main>
