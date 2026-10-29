@@ -21,17 +21,7 @@ export default function Amenities() {
 
        
           <div className="flex w-1/3 flex-col items-end justify-between py-30 max-xl:w-5/12 max-lg:w-2/3 max-lg:items-start max-lg:pt-15 max-lg:pb-5 max-md:w-full max-md:pt-10 max-md:pb-5">
-            <div className="videoWrap relative aspect-[1.23/1] w-full overflow-hidden rounded-[1.25rem] left-[60px]">
-              <video 
-                src="/media/home/amenities/amenities.mp4"
-                autoPlay
-                muted 
-                loop 
-                playsInline 
-                preload="metadata" 
-                className="portrait absolute -top-25 left-1/2 h-auto w-[150%] max-w-none -translate-x-1/2 object-cover"
-              />
-            </div>
+            
             <p className="paragraph text-sand w-full pt-10 max-xl:pt-6 max-md:pt-6">
               Thoughtfully planned living with dedicated resident parking across semi-basement and ground levels, welcoming entrance lobbies, green spaces, private balconies, and round-the-clock security facilities designed for modern urban comfort.
             </p>
