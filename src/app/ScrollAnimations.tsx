@@ -188,6 +188,31 @@ export default function ScrollAnimations() {
         }
       };
 
+      /* ============================ Hero ============================ */
+      // As the page leaves the hero (the automatic glide after the video
+      // stops, or the visitor scrolling), it shrinks into a rounded card.
+
+      const heroEl = document.querySelector<HTMLElement>("[data-hero]");
+
+      inCtx(heroEl, () => {
+        gsap.fromTo(
+          heroEl,
+          { scale: 1, borderRadius: 0 },
+          {
+            scale: 0.82,
+            borderRadius: "2rem",
+            transformOrigin: "50% 100%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroEl,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+
       /* ================ Introduction (desktop) ==================== */
 
       const show = {
@@ -939,6 +964,40 @@ export default function ScrollAnimations() {
           );
       });
 
+      /* ===================== Progress on site ====================== */
+      // The site photos wipe up one after another as the collage arrives.
+
+      inCtx(section("Progress"), () => {
+        gsap.fromTo(
+          ".progress-reveal",
+          { clipPath: "inset(100% 0% 0% 0%)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power2.inOut",
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: ".project-progress__stages",
+              start: "top 80%",
+            },
+          }
+        );
+        gsap.fromTo(
+          ".progress-reveal img",
+          { scale: 1.12 },
+          {
+            scale: 1,
+            duration: 1.6,
+            ease: "power2.out",
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: ".project-progress__stages",
+              start: "top 80%",
+            },
+          }
+        );
+      });
+
       /* ====================== Roots (desktop) ====================== */
 
       inCtx(section("Roots"), () => {
@@ -968,25 +1027,27 @@ export default function ScrollAnimations() {
           },
         });
 
-        gsap.set(".roots-kicker-wrap", { y: "-10rem" });
-
-        gsap.to(".roots-kicker-wrap", {
-          scrollTrigger: {
-            trigger: "#Roots .trigger",
-            scrub: true,
-          },
-          y: "+=15rem",
-        });
+        // Both rows drift down together as the section passes, so the text
+        // and the pictures never move against each other.
+        gsap.fromTo(
+          ".roots-kicker-wrap",
+          { y: "-4rem" },
+          {
+            y: "4rem",
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#Roots .trigger",
+              scrub: true,
+            },
+          }
+        );
 
         const imgs = gsap.utils.toArray<HTMLElement>(".roots-image");
 
+        // A gentle follow of the mouse: the photo, then the walkthrough video.
         const defs = [
-          { strength: 0.035, init: { yPercent: -50 } },
-          { strength: 0.06, init: {} },
-          {
-            strength: 0.09,
-            init: { xPercent: -50, yPercent: -50 },
-          },
+          { strength: 0.02, init: {} },
+          { strength: 0.04, init: {} },
         ];
 
         const movers = defs

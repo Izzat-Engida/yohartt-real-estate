@@ -8,13 +8,17 @@ const businessVideo = "/media/home/business/business.mp4";
 const heroVideo = "/media/home/hero.mp4";
 
 // The hero plays its first 7 seconds (sketch, then the finished tower) and
-// stops there, just before the video cuts to a close-up.
+// stops there, just before the video cuts to a close-up. The page then glides
+// on to the next section by itself, the hero shrinking as it goes.
 const HERO_STOP_AT = 7;
+// A beat on the finished tower and title before the glide starts.
+const HERO_GLIDE_DELAY = 800;
 // The title fades in once the finished tower is on screen.
 const HERO_TITLE_AT = 5.5;
 const locationVideo = "/media/home/location/location.mp4?v=2";
 const residencesVideo = "/media/home/residences/interior.mp4";
-const rootsVideo = "/media/home/roots/image1.mp4";
+// Real footage from a finished Yohart apartment.
+const rootsVideo = "/media/projects/completed-residence-walkthrough.mp4";
 
 declare global {
   interface Window {
@@ -34,7 +38,7 @@ const SECTION_VIDEOS: Array<[string, string]> = [
   ["w-[180%]", businessVideo],
   ["w-[160%]", residencesVideo],
   ["w-[150%]", locationVideo],
-  ["translate-y-1/10", rootsVideo],
+  ["roots-video", rootsVideo],
 ];
 
 const easeInOutQuad: EasingFunction = (t) =>
@@ -146,6 +150,48 @@ export default function Intro() {
       });
     };
 
+    // The automatic glide is skipped once the visitor has started scrolling or
+    // interacting with the page themselves.
+    let interacted = false;
+    let glideTimer = 0;
+    const markInteracted = (): void => {
+      interacted = true;
+      window.clearTimeout(glideTimer);
+    };
+    const interactionEvents = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+    interactionEvents.forEach((type) =>
+      window.addEventListener(type, markInteracted, { passive: true })
+    );
+    cleanups.push(() => {
+      window.clearTimeout(glideTimer);
+      interactionEvents.forEach((type) =>
+        window.removeEventListener(type, markInteracted)
+      );
+    });
+
+    const glideOn = (): void => {
+      if (interacted || document.hidden || window.scrollY > 4) return;
+      if (document.body.hasAttribute("data-menu-open")) return;
+
+      const next = Array.from(
+        document.querySelectorAll<HTMLElement>("#about, #about-mobile")
+      ).find((element) => element.offsetHeight > 0);
+      if (!next) return;
+
+      // Land a little way into the intro, where its first screen has faded in.
+      const distance = Math.max(0, next.offsetHeight - window.innerHeight);
+      const target =
+        next.getBoundingClientRect().top + window.scrollY + Math.round(distance * 0.1);
+      const easeInOutCubic = (t: number): number =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      if (window.__lenis) {
+        window.__lenis.scrollTo(target, { duration: 2.8, easing: easeInOutCubic });
+      } else {
+        window.scrollTo({ top: target, behavior: "smooth" });
+      }
+    };
+
     let heroStopped = false;
 
     const stopHero = (): void => {
@@ -160,6 +206,8 @@ export default function Intro() {
       }
 
       revealTitle();
+      window.clearTimeout(glideTimer);
+      glideTimer = window.setTimeout(glideOn, HERO_GLIDE_DELAY);
     };
 
     if (hero) {

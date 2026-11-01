@@ -1,72 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import image2 from "@/assets/home/roots/image2.webp";
-import image3 from "@/assets/home/roots/image3.webp";
+import finishedBuilding from "@/assets/home/roots/image3.webp";
 
+// Two clear rows: the big heading on its own, then the copy on the left and
+// the real media on the right (the finished building, with the interior
+// walkthrough tucked into its lower-left corner). Nothing sits on top of the
+// text, and both rows move together on scroll so nothing slides into anything.
 export default function Roots() {
   return (
     <section
       id="Roots"
       className="bg-navy relative z-1 min-h-screen overflow-clip max-md:hidden"
     >
-      {/* Layout follows the reference site: one photo sits behind the big
-          heading and two sit in front of it, so they read as one collage.
-          The video sits a little higher so it clears the paragraph. */}
-      <div className="trigger relative flex min-h-screen flex-col justify-center pt-40 pb-40 max-xl:py-20">
-        <div className="roots-kicker-wrap wrapper flex">
-          <div className="w-1/12 max-lg:w-1/6" />
-
-          <div className="w-1/6 max-lg:w-1/3">
-            <p className="kicker text-accent uppercase">
-              The way of living
-            </p>
+      <div className="trigger relative flex min-h-screen flex-col justify-center gap-14 py-24 max-xl:gap-10 max-xl:py-20">
+        <div className="roots-kicker-wrap wrapper">
+          <div className="flex">
+            <div className="w-1/12 max-lg:w-1/6" />
+            <p className="kicker text-accent uppercase">The way of living</p>
           </div>
-        </div>
 
-       
-        <div className="roots-image absolute top-[55%] right-1/10 w-230 max-w-none will-change-transform max-xl:right-16 max-xl:w-143 max-lg:top-[50%] max-lg:w-125">
-          <Image
-            src={image3}
-            alt="Roots"
-            className="mask h-auto w-full mask-[url('/media/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask3.svg')] [-webkit-mask-size:100%]"
-            sizes="(max-width: 1024px) 500px, (max-width: 1280px) 572px, 920px"
-          />
-        </div>
-
-        <div className="roots-kicker-wrap wrapper relative z-1 mt-15 flex justify-center">
-          <h2 className="huge text-cream-dark text-center whitespace-nowrap uppercase max-xl:text-[15rem] max-lg:text-left max-lg:text-[12.5rem] max-lg:whitespace-normal">
+          <h2 className="huge text-cream-dark mt-4 text-center whitespace-nowrap uppercase max-xl:text-[15rem] max-lg:text-left max-lg:text-[12.5rem] max-lg:whitespace-normal">
             Your roots
           </h2>
         </div>
 
-       
-        <div className="roots-image absolute top-[30%] left-1/2 z-2 w-180 max-w-none will-change-transform max-xl:right-28 max-xl:left-auto max-xl:w-120 max-lg:right-20 max-lg:w-100">
-          <Image
-            src={image2}
-            alt="Roots"
-            className="mask h-auto w-full -translate-y-1/2 mask-[url('/media/home/roots/mask2.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask2.svg')] [-webkit-mask-size:100%]"
-            sizes="(max-width: 1024px) 400px, (max-width: 1280px) 480px, 720px"
-          />
-        </div>
-
-      
-        <div className="roots-image absolute top-[40%] left-1/2 z-2 w-156 max-w-none will-change-transform max-xl:w-120 max-xl:translate-x-1/2 max-lg:top-[55%] max-lg:w-95 max-lg:translate-x-0">
-          <div className="mask h-auto w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat object-cover [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
-            <video
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="h-full w-full translate-y-1/10 scale-130 object-cover"
-            />
-          </div>
-        </div>
-
-        <div className="wrapper roots-kicker-wrap relative z-2 mt-20 flex max-lg:mt-50">
-          <div className="w-1/12 max-lg:hidden" />
-
-          <div className="w-5/12 max-xl:w-6/12 max-lg:w-full">
+        <div className="roots-kicker-wrap wrapper grid grid-cols-12 items-center gap-x-6 max-lg:grid-cols-1 max-lg:gap-y-20">
+          <div className="col-span-5 col-start-2 max-xl:col-start-1 max-lg:col-span-1">
             <p className="heading-2 text-sand max-xl:text-[3.25rem] max-lg:text-[3rem]">
               At Yohartt Tower, each residence is crafted not merely for
               living, but as a space that evolves alongside you
@@ -136,6 +96,30 @@ export default function Roots() {
                 </span>
               </button>
             </Link>
+          </div>
+
+          <div className="relative col-span-5 col-start-8 max-xl:col-span-6 max-xl:col-start-7 max-lg:col-span-1 max-lg:col-start-1 max-lg:ml-auto max-lg:w-4/5">
+            <div className="roots-image will-change-transform">
+              <Image
+                src={finishedBuilding}
+                alt="A finished Yohart residential building with stone-look cladding and large black-framed windows"
+                className="mask h-auto w-full mask-[url('/media/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask3.svg')] [-webkit-mask-size:100%]"
+                sizes="(max-width: 1024px) 80vw, 42vw"
+              />
+            </div>
+
+            <div className="roots-image pointer-events-none absolute -bottom-14 -left-14 w-[42%] will-change-transform max-lg:-left-8">
+              <div className="mask relative aspect-[629/831] w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
+                <video
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-label="Walkthrough of a finished Yohart apartment"
+                  className="roots-video absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

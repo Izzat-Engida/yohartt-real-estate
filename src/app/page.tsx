@@ -19,6 +19,8 @@ import Horizontal from '@/components/sections/Horizontal/Horizontal';
 import Footer from '@/components/sections/Footer/Footer';
 import {AmenitiesDetailsSection} from "@/components/sections/Amenities/AmenitiesDetails";
 import Installment from '@/components/sections/Installment';
+import Progress from '@/components/sections/Progress/Progress';
+import { Lightbox } from '@/components/Lightbox';
 import InstallmentMobile from '@/components/sections/InstallmentMobile';
 
 export default function Page(){
@@ -41,6 +43,7 @@ export default function Page(){
       
         <Residences/>
         <TowerSection />
+        <Progress/>
         <BusinessSpaces/>
         <Roots/>
         <RootsMobile />
@@ -55,6 +58,7 @@ export default function Page(){
         </div>
         </EnquiryProvider>
         <Overlays/>
+        <Lightbox/>
         <ScrollAnimations/>
         </>
     )

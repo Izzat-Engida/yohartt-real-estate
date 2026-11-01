@@ -5,9 +5,10 @@
 // bottom: it is split so the sky above the roof goes first and the rest comes
 // off the bottom of the road, keeping the whole building in view. Phones crop
 // the sides instead, framed on the tower, which sits a little right of centre.
+// As the page leaves it, the hero shrinks into a rounded card (ScrollAnimations).
 export default function Hero() {
   return (
-    <div className="relative h-svh bg-[#F7F1E4]">
+    <div data-hero className="relative h-svh overflow-hidden bg-[#F7F1E4]">
       <video
         muted
         playsInline

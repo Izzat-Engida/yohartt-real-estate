@@ -3,6 +3,7 @@ import completedResidence from '@/assets/img/completed-residence.jpg';
 import siteConcretePour from '@/assets/img/site-concrete-pour.jpg';
 import siteRebarSkyline from '@/assets/img/site-rebar-skyline.jpg';
 import siteStructure from '@/assets/img/site-structure.jpg';
+import siteStructurePump from '@/assets/img/site-structure-pump.jpg';
 import towerRender from '@/assets/img/tower-render.png';
 // A still from the home hero video (2560×1440), sharp enough for full-width backdrops.
 import towerDusk from '@/assets/img/tower-dusk.jpg';
@@ -82,6 +83,11 @@ export const photos = {
     src: siteStructure,
     alt: 'The concrete frame of the building wrapped in eucalyptus scaffolding and green safety netting, its lower floors open at street level',
     caption: 'Stage 01: The structure rises',
+  },
+  structurePump: {
+    src: siteStructurePump,
+    alt: 'The concrete frame wrapped in eucalyptus scaffolding and green safety netting, with a concrete pump truck parked in front',
+    caption: 'Floor by floor',
   },
   rebar: {
     src: siteRebarSkyline,

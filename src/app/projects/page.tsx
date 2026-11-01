@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/sections/Footer/Footer';
+import { Lightbox } from '@/components/Lightbox';
 import { LightboxLink } from '@/components/LightboxLink';
 import { PointerFx } from '@/components/PointerFx';
 import { EnquiryProvider } from '@/components/EnquiryContext';
@@ -301,6 +302,7 @@ export default function ProjectsPage() {
 
         <Footer />
       </main>
+      <Lightbox />
     </EnquiryProvider>
   );
 }

@@ -6,9 +6,10 @@ export default function Location(){
             <div className="trigger relative flex min-h-screen w-full items-stretch overflow-clip">
                 <Image
                 src={location}
-                alt="Location"
-                className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-[20%_50%]"
+                alt="The Addis Ababa skyline from the Yohartt Tower site in Megenagna, above a reinforced slab"
+                className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-[50%_40%]"
                 loading="eager"
+                sizes="100vw"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-black/20"/>
                 {/* The photo is brightest on the right, where the text sits:
