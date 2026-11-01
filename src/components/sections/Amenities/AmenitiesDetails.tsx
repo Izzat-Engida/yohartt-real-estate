@@ -113,14 +113,17 @@ export function AmenitiesDetailsSection() {
     touchEndX.current = null;
   };
 
-  // Center active tab horizontally on mobile
+  // Center the active tab in the tab strip on mobile. Only the strip scrolls:
+  // scrollIntoView would also scroll the whole page down to this section.
   useEffect(() => {
-    if (tabsRef.current) {
-      const activeBtn = tabsRef.current.querySelector<HTMLElement>('button.is-active');
-      if (activeBtn) {
-        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
-    }
+    const strip = tabsRef.current;
+    const activeBtn = strip?.querySelector<HTMLElement>('button.is-active');
+    if (!strip || !activeBtn) return;
+
+    const stripBox = strip.getBoundingClientRect();
+    const tabBox = activeBtn.getBoundingClientRect();
+    const offset = tabBox.left + tabBox.width / 2 - (stripBox.left + stripBox.width / 2);
+    strip.scrollBy({ left: offset, behavior: 'smooth' });
   }, [activeIndex]);
 
   return (

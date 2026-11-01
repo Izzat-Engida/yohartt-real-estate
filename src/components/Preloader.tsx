@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect } from "react";
 const amenitiesVideo = "/media/home/amenities/amenities.mp4";
 const businessVideo = "/media/home/business/business.mp4";
@@ -134,6 +135,50 @@ export default function Intro() {
       });
     };
 
+    // When the hero video ends, glide on to the next section by itself, unless
+    // the visitor has already started scrolling or interacting with the page.
+    let interacted = false;
+    let advanceTimer = 0;
+    const markInteracted = (): void => {
+      interacted = true;
+      window.clearTimeout(advanceTimer);
+    };
+    const interactionEvents = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+    interactionEvents.forEach((type) =>
+      window.addEventListener(type, markInteracted, { passive: true })
+    );
+    cleanups.push(() => {
+      window.clearTimeout(advanceTimer);
+      interactionEvents.forEach((type) =>
+        window.removeEventListener(type, markInteracted)
+      );
+    });
+
+    const autoAdvance = (): void => {
+      if (interacted || document.hidden || window.scrollY > 4) return;
+      if (document.body.hasAttribute("data-menu-open")) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const next = Array.from(
+        document.querySelectorAll<HTMLElement>("#about, #about-mobile")
+      ).find((element) => element.offsetHeight > 0);
+      if (!next) return;
+
+      // Land a little way into the intro, where its first screen has faded in.
+      const distance = Math.max(0, next.offsetHeight - window.innerHeight);
+      const target =
+        next.getBoundingClientRect().top + window.scrollY + Math.round(distance * 0.1);
+
+      if (window.__lenis) {
+        window.__lenis.scrollTo(target, {
+          duration: 2.8,
+          easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
+        });
+      } else {
+        window.scrollTo({ top: target, behavior: "smooth" });
+      }
+    };
+
     if (hero) {
       hero.muted = true;
       hero.loop = false;
@@ -150,6 +195,9 @@ export default function Intro() {
 
       const onEnded = (): void => {
         revealTitle();
+        // Give the title a moment to finish appearing first.
+        window.clearTimeout(advanceTimer);
+        advanceTimer = window.setTimeout(autoAdvance, 1600);
       };
 
       const onTimeUpdate = (): void => {
@@ -270,5 +318,33 @@ export default function Intro() {
     };
   }, []);
 
-  return null;
+  // The loading screen. It sits above the menu bar and is faded out and
+  // hidden by the effect above once loading finishes.
+  return (
+    <div
+      className="loader fixed inset-0 z-[2000] flex flex-col items-center justify-center gap-10 text-[#AD824B]"
+      style={{
+        background:
+          'linear-gradient(135deg, #FDFBEF 0%, #F8F2E7 55%, #EFE7D8 100%)',
+      }}
+    >
+      <Image
+        src="/media/home/yohartload.png"
+        alt="Yoha Logo"
+        width={200}
+        height={200}
+        className="h-50 w-auto object-contain"
+        priority
+      />
+
+      <div className="h-0.5 w-75 overflow-hidden rounded-full bg-[#AD824B]/20">
+        <div
+          className="loader-bar h-0.5 rounded-full bg-[#AD824B] shadow-[0_0_12px_rgba(173,130,75,0.5)]"
+          style={{ width: "0%" }}
+        ></div>
+      </div>
+
+      <p className="heading-3 mt-4 text-[#AD824B]">0%</p>
+    </div>
+  );
 }

@@ -104,7 +104,7 @@ export default function Footer() {
   }
 
   return (
-    <footer id="contact" className="text-pine-green relative overflow-clip">
+    <footer id="contact" className="text-pine-green relative z-1 overflow-clip">
       {/* Sky: logo, heading and form on the left, the tower on the right. */}
       <div className="relative bg-linear-to-b from-vanilla via-[#eef1ea] to-[#a9c7da]">
         <div className="scroller pointer-events-none absolute inset-0" />
