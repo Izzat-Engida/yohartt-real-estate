@@ -4,6 +4,8 @@ import siteConcretePour from '@/assets/img/site-concrete-pour.jpg';
 import siteRebarSkyline from '@/assets/img/site-rebar-skyline.jpg';
 import siteStructure from '@/assets/img/site-structure.jpg';
 import towerRender from '@/assets/img/tower-render.png';
+// A still from the home hero video (2560×1440), sharp enough for full-width backdrops.
+import towerDusk from '@/assets/img/tower-dusk.jpg';
 import interior1 from '@/assets/home/residences-options/1.webp';
 import interior2 from '@/assets/home/residences-options/2.webp';
 import balconyImg from '@/assets/home/amenities-options/balcony.webp';
@@ -44,6 +46,11 @@ export const photos = {
   towerRender: {
     src: towerRender,
     alt: 'Architectural rendering of Yohartt Tower, a slim white residential tower with full-width balconies at dusk',
+    caption: 'Yohartt Tower, artist impression',
+  },
+  towerDusk: {
+    src: towerDusk,
+    alt: 'Rendering of Yohartt Tower at dusk: a slim white residential tower with full-width balconies above a tree-lined street',
     caption: 'Yohartt Tower, artist impression',
   },
   completed: {
@@ -102,7 +109,7 @@ export const projects: Project[] = [
     tagline: 'Fourteen levels of light-filled homes above a landscaped arrival court.',
     summary:
       'A G+14 residential tower with full-width glazing and a private balcony on every level. Explore it floor by floor below, then tell us which level you would like to call home.',
-    cover: photos.towerRender,
+    cover: photos.towerDusk,
     specs: [
       { label: 'Configuration', value: 'G+14' },
       { label: 'Type', value: 'Residential apartments' },

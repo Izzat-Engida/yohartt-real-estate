@@ -190,21 +190,43 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  <figure className="project-stage__media project-media project-media-reveal">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="project-media__frame"
-                      data-cursor="View"
-                    >
-                      <Image
-                        src={detailPhoto.src}
-                        alt={detailPhoto.alt}
-                        fill
-                        sizes="(max-width: 1120px) 80vw, 35vw"
-                      />
-                    </Link>
-                    <figcaption>{detailPhoto.caption}</figcaption>
-                  </figure>
+                  {project.walkthrough ? (
+                    // Real footage from inside beats a rendered interior.
+                    <figure className="project-stage__media project-stage__media--video project-media project-media-reveal">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="project-media__frame project-media__frame--portrait"
+                        data-cursor="View"
+                      >
+                        <video
+                          src={project.walkthrough.src}
+                          aria-label={project.walkthrough.label}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                        />
+                      </Link>
+                      <figcaption>{project.walkthrough.caption}</figcaption>
+                    </figure>
+                  ) : (
+                    <figure className="project-stage__media project-media project-media-reveal">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="project-media__frame"
+                        data-cursor="View"
+                      >
+                        <Image
+                          src={detailPhoto.src}
+                          alt={detailPhoto.alt}
+                          fill
+                          sizes="(max-width: 1120px) 80vw, 35vw"
+                        />
+                      </Link>
+                      <figcaption>{detailPhoto.caption}</figcaption>
+                    </figure>
+                  )}
                 </div>
               </div>
               </section>

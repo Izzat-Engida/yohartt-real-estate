@@ -8,8 +8,7 @@ const businessVideo = "/media/home/business/business.mp4";
 const heroVideo = "/media/home/hero.mp4";
 
 // The hero plays its first 7 seconds (sketch, then the finished tower) and
-// stops there, just before the video cuts to a close-up. The page then
-// glides on to the next section by itself.
+// stops there, just before the video cuts to a close-up.
 const HERO_STOP_AT = 7;
 // The title fades in once the finished tower is on screen.
 const HERO_TITLE_AT = 5.5;
@@ -147,46 +146,6 @@ export default function Intro() {
       });
     };
 
-    // When the hero video stops, glide on to the next section by itself, unless
-    // the visitor has already started scrolling or interacting with the page.
-    let interacted = false;
-    const markInteracted = (): void => {
-      interacted = true;
-    };
-    const interactionEvents = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
-    interactionEvents.forEach((type) =>
-      window.addEventListener(type, markInteracted, { passive: true })
-    );
-    cleanups.push(() => {
-      interactionEvents.forEach((type) =>
-        window.removeEventListener(type, markInteracted)
-      );
-    });
-
-    const autoAdvance = (): void => {
-      if (interacted || document.hidden || window.scrollY > 4) return;
-      if (document.body.hasAttribute("data-menu-open")) return;
-
-      const next = Array.from(
-        document.querySelectorAll<HTMLElement>("#about, #about-mobile")
-      ).find((element) => element.offsetHeight > 0);
-      if (!next) return;
-
-      // Land a little way into the intro, where its first screen has faded in.
-      const distance = Math.max(0, next.offsetHeight - window.innerHeight);
-      const target =
-        next.getBoundingClientRect().top + window.scrollY + Math.round(distance * 0.1);
-
-      if (window.__lenis) {
-        window.__lenis.scrollTo(target, {
-          duration: 2.8,
-          easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
-        });
-      } else {
-        window.scrollTo({ top: target, behavior: "smooth" });
-      }
-    };
-
     let heroStopped = false;
 
     const stopHero = (): void => {
@@ -201,7 +160,6 @@ export default function Intro() {
       }
 
       revealTitle();
-      autoAdvance();
     };
 
     if (hero) {

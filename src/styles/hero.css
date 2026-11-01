@@ -20,28 +20,3 @@
   }
 }
 }
-
-/* Home hero video: on windows wider than the video (16:9), show the whole
-   frame so both the roof and the street stay in view. The canvas behind it
-   fills the strips at the sides, and the video's side edges fade into it.
-   The frame is as tall as the hero (100svh), so each edge sits 88.89svh
-   (half of 16/9 of the height) either side of the centre.
-   Kept outside the layer above so it wins over the utilities on the element. */
-@media (min-aspect-ratio: 16/9) {
-  .hero-video {
-    object-fit: contain;
-    object-position: 50% 50%;
-    --hero-edge: 88.889svh;
-    --hero-fade: 4rem;
-    -webkit-mask-image: linear-gradient(to right,
-      transparent calc(50% - var(--hero-edge)),
-      #000 calc(50% - var(--hero-edge) + var(--hero-fade)),
-      #000 calc(50% + var(--hero-edge) - var(--hero-fade)),
-      transparent calc(50% + var(--hero-edge)));
-    mask-image: linear-gradient(to right,
-      transparent calc(50% - var(--hero-edge)),
-      #000 calc(50% - var(--hero-edge) + var(--hero-fade)),
-      #000 calc(50% + var(--hero-edge) - var(--hero-fade)),
-      transparent calc(50% + var(--hero-edge)));
-  }
-}
