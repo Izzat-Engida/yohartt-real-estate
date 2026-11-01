@@ -29,7 +29,7 @@ export default function Installment() {
         </div>
         <div className="pointer-events-none absolute top-0 right-0 h-full w-[45vw] bg-[radial-gradient(at_right_bottom,#3E562E,#2F3A26)] max-xl:w-1/2 max-lg:hidden" />
         <div className="installment-reveal-content relative z-1 flex w-full justify-end max-lg:px-10 max-md:hidden">
-          <div className="wrapper flex justify-end py-20 max-xl:py-15 max-lg:px-0 max-lg:py-15">
+          <div className="wrapper flex justify-end py-20 lg:items-center max-xl:py-15 max-lg:px-0 max-lg:py-15">
             <div className="flex w-5/12 flex-col max-xl:w-1/2 max-lg:mt-120 max-lg:w-full max-lg:rounded-2xl max-lg:bg-[radial-gradient(at_right_bottom,#3E562E,#2F3A26)] max-lg:px-8 max-lg:py-8">
               <div className="flex h-full flex-col justify-between gap-16 pl-10 max-xl:pl-17 max-lg:relative max-lg:pl-0 max-md:gap-4 ">
                 <div className="max-lg:flex max-lg:gap-15 max-md:flex-col max-md:gap-3">

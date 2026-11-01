@@ -2,10 +2,16 @@
 
 /* ---------- Tower explorer ---------- */
 .tower-explorer {
+  /* The top padding clears the floating nav. The tower is sized from the
+     height that is left, so the whole section fits on one screen. */
+  --tower-pad-top: clamp(72px, 9svh, 104px);
+  --tower-pad-bottom: clamp(32px, 5svh, 64px);
   position: relative;
   display: grid;
+  align-content: center;
   gap: clamp(42px, 7vw, 104px);
-  padding: clamp(36px, 5vw, 80px) var(--gutter) clamp(80px, 10vw, 140px);
+  min-height: 100svh;
+  padding: var(--tower-pad-top) var(--gutter) var(--tower-pad-bottom);
   background: #f4ecd5;
   color: var(--ink);
   overflow: hidden;
@@ -93,7 +99,7 @@
 }
 .explorer__frame {
   position: relative;
-  height: min(88vh, 940px);
+  height: min(calc(100svh - var(--tower-pad-top) - var(--tower-pad-bottom)), 940px);
   aspect-ratio: 589 / 1080;
   border-radius: 0;
   overflow: visible;
@@ -310,7 +316,19 @@
 
 @media (min-width: 1601px) {
   .explorer__frame {
-    height: min(90vh, 1040px);
+    height: min(calc(100svh - var(--tower-pad-top) - var(--tower-pad-bottom)), 1040px);
   }
+}
+
+/* Short laptop screens: tighten the panel so it fits beside the tower. */
+@media (min-width: 900px) and (max-height: 820px) {
+  .explorer__panel { gap: 16px; }
+  .elevator__label { margin-bottom: 10px; }
+  .elevator__grid { grid-template-columns: repeat(5, 42px); gap: 7px; }
+  .elevator__btn { width: 42px; height: 42px; font-size: 18px; }
+  .floor-card { padding: 18px 22px; }
+  .floor-card__num { font-size: clamp(56px, 10svh, 88px); }
+  .chips { margin: 12px 0 14px; }
+  .facts > div { padding-top: 12px; }
 }
 

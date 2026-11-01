@@ -20,8 +20,8 @@ type Place = {
   image: StaticImageData;
   hasArrow?: boolean;
   pin: {
-    x: number; // percentage on map image
-    y: number; // percentage on map image
+    x: number; // % of the map image width
+    y: number; // % of the map image height
   };
 };
 
@@ -34,7 +34,7 @@ const PLACES: Place[] = [
     description:
       'The historic Embassy of the United Kingdom in Addis Ababa is situated directly adjacent to the site along Comoros Street, featuring lush diplomatic parklands, top-tier security, and mature green tree canopies.',
     image: britishEmbassyImg,
-    pin: { x: 49.0, y: 26.0 },
+    pin: { x: 49.0, y: 8.7 },
   },
   {
     id: 'century-mall',
@@ -44,7 +44,7 @@ const PLACES: Place[] = [
     description:
       "One of Megenagna's premier modern commercial destinations at Gurd Shola, hosting a multi-screen cinema, international retail boutiques, vibrant cafes, and family entertainment amenities.",
     image: centuryMallImg,
-    pin: { x: 78.0, y: 54.0 },
+    pin: { x: 78.0, y: 43.2 },
   },
   {
     id: 'megenagna-transit',
@@ -54,7 +54,7 @@ const PLACES: Place[] = [
     description:
       "Addis Ababa's vital eastern transit interchange, seamlessly connecting the East-West Light Rail Transit (LRT) network with key city bus corridors, rapid taxis, and direct routes toward Bole and Kazanchis.",
     image: megenagnaTransitImg,
-    pin: { x: 45.0, y: 65.0 },
+    pin: { x: 45.0, y: 56.8 },
   },
   {
     id: 'zefmesh-mall',
@@ -64,7 +64,7 @@ const PLACES: Place[] = [
     description:
       'A bustling multi-level shopping and commercial center at the center of Megenagna, housing hundreds of specialty retailers, electronics stores, banking hubs, and traditional dining options.',
     image: zefmeshMallImg,
-    pin: { x: 40.0, y: 58.0 },
+    pin: { x: 40.0, y: 48.2 },
   },
   {
     id: 'panorama-hotel',
@@ -74,7 +74,7 @@ const PLACES: Place[] = [
     description:
       'A distinguished 4-star hospitality landmark located just south of Megenagna along Equatorial Guinea Street, offering international dining, rooftop lounges, and premium guest accommodations.',
     image: panoramaHotelImg,
-    pin: { x: 38.0, y: 74.0 },
+    pin: { x: 38.0, y: 67.9 },
   },
 ];
 
@@ -206,7 +206,7 @@ export function NearbySection() {
 
   return (
     <section id="Around" className="relative z-1 overflow-hidden bg-[#FCFAF0] py-20 max-lg:py-12">
-      <div className="trigger relative flex min-h-[95vh] flex-col items-stretch">
+      <div className="trigger relative flex flex-col items-stretch justify-center lg:min-h-[calc(100svh-10rem)]">
         <div className="reveal-content wrapper relative z-10 flex h-full max-lg:flex-col">
           {/* Left Column: Typography List & Info Card */}
           <div className="relative z-30 w-5/12 pt-6 max-xl:w-1/2 max-lg:w-full">
@@ -342,26 +342,32 @@ export function NearbySection() {
             ref={mapContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative flex-1 select-none max-lg:mt-8 max-lg:min-h-[500px] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
+            className="relative select-none [container-type:size] max-lg:-mx-9 max-lg:mt-8 max-lg:aspect-[1300/800] max-md:-mx-6 lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
             style={{ perspective: 1200 }}
           >
             {/* 3D Map Plane with Mouse Follow Transform */}
             <div
-              className="relative h-full w-full transition-transform duration-200 ease-out"
+              className="absolute inset-0 transition-transform duration-200 ease-out"
               style={{
                 transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translate3d(${tilt.transX}px, ${tilt.transY}px, 0)`,
                 transformStyle: 'preserve-3d',
               }}
             >
+              {/* Same shape as the map image, fitted bottom-right, so the pins
+                  stay on their buildings at every screen size. */}
+              <div
+                className="absolute right-0 bottom-0 aspect-[1300/800] w-[min(100cqw,162.5cqh)]"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
               {/* Axonometric Vector Map Texture */}
-              <div className="relative h-full w-full">
+              <div className="absolute inset-0">
                 <Image
                   src={mapBase}
                   alt="Axonometric Perspective Map of Megenagna and British Embassy area"
                   fill
                   priority
                   sizes="(min-width: 1121px) 68vw, 100vw"
-                  className="pointer-events-none object-contain object-right-bottom"
+                  className="pointer-events-none object-contain"
                 />
               </div>
 
@@ -369,8 +375,8 @@ export function NearbySection() {
               <div
                 className="pointer-events-none absolute z-20 flex flex-col items-center"
                 style={{
-                  left: '37.0%',
-                  top: '18.0%',
+                  left: '35%',
+                  top: '12.5%',
                   transform: 'translate(-50%, -100%) translateZ(28px)',
                 }}
               >
@@ -533,6 +539,7 @@ export function NearbySection() {
                     aria-hidden="true"
                   />
                 </div>
+              </div>
               </div>
             </div>
           </div>

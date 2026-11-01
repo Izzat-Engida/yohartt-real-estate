@@ -1,14 +1,20 @@
 import Image from 'next/image';
 import residence from "@/assets/home/residences/residences-hero.webp"
 export default function Residences() {
+  // -mt-px: overlaps the section above by a pixel so no hairline shows between them.
   return (
-<section id="Residences" className="relative z-1">
+<section id="Residences" className="relative z-1 -mt-px">
     <div className="trigger relative flex min-h-screen w-full flex-col items-stretch justify-between gap-25 overflow-clip pb-16 max-2xl:gap-20 max-2xl:pb-10 max-md:gap-20 max-md:pb-12">
         <Image 
         src={residence}
         alt="Residences background" 
         className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-top max-2xl:object-[50%_70%] max-lg:object-[70%_80%]" 
         loading="eager"
+        />
+        {/* Fades in from the cream "What's around" section above. */}
+        <div
+          className="pointer-events-none absolute inset-x-0 -top-px z-1 h-40"
+          style={{ background: 'linear-gradient(to bottom, #fcfaf0 0%, rgba(252, 250, 240, 0) 100%)' }}
         />
         <div className="wrapper relative z-1 flex items-stretch gap-5 max-lg:flex-col max-md:items-end">
             <div className="w-1/12 max-2xl:hidden"/>
@@ -25,19 +31,20 @@ export default function Residences() {
             </div>
            <div className="ml-auto flex w-2/7 items-center self-stretch max-2xl:w-1/2 max-lg:w-full relative left-0.5">
   <p className="paragraph text-golden max-lg:w-full">
-    Designed with contemporary living in mind, each apartment at Belgrade Arbor balances functionality, comfort, and aesthetics. Open-plan layouts, excellent natural light, refined materials, and carefully considered details create spaces that feel both welcoming and enduring.
+    Designed with contemporary living in mind, each apartment at Yohartt Tower balances functionality, comfort, and aesthetics. Open-plan layouts, excellent natural light, refined materials, and carefully considered details create spaces that feel both welcoming and enduring.
   </p>
 </div>
             </div>
-            <div className="wrapper flex items-end gap-5 max-2xl:flex-1 max-2xl:flex-col max-2xl:items-start max-2xl:justify-between max-lg:gap-35">
+            <div className="wrapper relative z-2 flex items-end gap-5 max-2xl:flex-1 max-2xl:flex-col max-2xl:items-start max-2xl:justify-between max-lg:gap-35">
                 <div className="w-7/12 max-2xl:mb-10 max-2xl:w-full">
                 <h2 className="hero text-golden uppercase">Residences</h2>
                 </div>
             </div>
+            {/* Ends on the tower section's solid colour so the two join without a seam. */}
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-36 z-1"
+              className="pointer-events-none absolute inset-x-0 -bottom-px h-48 z-1"
               style={{
-                background: 'linear-gradient(to top, rgba(244, 236, 213, 0.7) 0%, transparent 100%)',
+                background: 'linear-gradient(to top, #f4ecd5 0%, rgba(244, 236, 213, 0) 100%)',
               }}
             />
                 </div>

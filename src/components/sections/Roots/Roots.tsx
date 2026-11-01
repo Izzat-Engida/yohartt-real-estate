@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import image2 from "@/assets/home/roots/image2.webp";
 import image3 from "@/assets/home/roots/image3.webp";
@@ -21,11 +22,11 @@ export default function Roots() {
         </div>
 
        
-        <div className="roots-image absolute top-[15%] right-0 z-2 w-[min(48vw,720px)] max-w-none will-change-transform max-xl:right-0 max-xl:w-143 max-lg:top-[16%] max-lg:right-0 max-lg:w-125">
+        <div className="roots-image absolute top-[22%] right-0 z-2 w-[min(48vw,720px)] max-w-none will-change-transform max-xl:right-0 max-xl:w-143 max-lg:top-[16%] max-lg:right-0 max-lg:w-125">
           <Image
             src={image3}
             alt="Roots"
-            className="mask h-auto w-full mask-[url('/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/home/roots/mask3.svg')] [-webkit-mask-size:100%]"
+            className="mask h-auto w-full mask-[url('/media/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask3.svg')] [-webkit-mask-size:100%]"
             sizes="(max-width: 1024px) 500px, (max-width: 1280px) 572px, 920px"
           />
         </div>
@@ -37,18 +38,18 @@ export default function Roots() {
         </div>
 
        
-        <div className="roots-image absolute top-[23%] right-[4%] z-3 w-[min(38vw,575px)] max-w-none will-change-transform max-xl:right-[3%] max-xl:left-auto max-xl:w-120 max-lg:top-[24%] max-lg:right-4 max-lg:w-100">
+        <div className="roots-image absolute top-[30%] right-[4%] z-3 w-[min(38vw,575px)] max-w-none will-change-transform max-xl:right-[3%] max-xl:left-auto max-xl:w-120 max-lg:top-[24%] max-lg:right-4 max-lg:w-100">
           <Image
             src={image2}
             alt="Roots"
-            className="mask h-auto w-full -translate-y-1/2 mask-[url('/home/roots/mask2.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/home/roots/mask2.svg')] [-webkit-mask-size:100%]"
+            className="mask h-auto w-full -translate-y-1/2 mask-[url('/media/home/roots/mask2.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask2.svg')] [-webkit-mask-size:100%]"
             sizes="(max-width: 1024px) 400px, (max-width: 1280px) 480px, 720px"
           />
         </div>
 
       
-        <div className="roots-image absolute top-[35%] right-[9%] z-4 w-[min(31vw,470px)] max-w-none will-change-transform max-xl:w-120 max-xl:right-[8%] max-xl:left-auto max-lg:top-[42%] max-lg:w-95 max-lg:right-[7%] max-lg:left-auto">
-          <div className="mask h-auto w-full mask-[url('/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat object-cover [-webkit-mask-image:url('/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
+        <div className="roots-image absolute top-[42%] right-[9%] z-4 w-[min(31vw,470px)] max-w-none will-change-transform max-xl:w-120 max-xl:right-[8%] max-xl:left-auto max-lg:top-[42%] max-lg:w-95 max-lg:right-[7%] max-lg:left-auto">
+          <div className="mask h-auto w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat object-cover [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
             <video
               muted
               loop
@@ -64,13 +65,13 @@ export default function Roots() {
 
           <div className="w-5/12 max-xl:w-6/12 max-lg:w-full">
             <p className="heading-2 text-sand max-xl:text-[3.25rem] max-lg:text-[3rem]">
-              In Belgrade Arbor, each residence is crafted not merely for
+              At Yohartt Tower, each residence is crafted not merely for
               living, but as a space that evolves alongside you
             </p>
 
-            <a
+            <Link
               className="mt-15 inline-block max-xl:mt-10"
-              href="/en/residences"
+              href="/#Residences"
             >
               <button
                 data-slot="button"
@@ -131,7 +132,7 @@ export default function Roots() {
                   </span>
                 </span>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

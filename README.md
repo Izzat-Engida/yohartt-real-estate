@@ -43,7 +43,7 @@ Requires Node.js 20.9 or newer.
 | Colours, fonts, spacing (design tokens at the top) | `src/app/globals.css` |
 | Photos | `src/assets/img/` (import them in `projects.ts`) |
 
-> **Before launch:** replace the placeholder phone, WhatsApp number and email in `src/data/site.ts`. Check the copy too: several facts were written from the photos (G+14, parking, glazing), and the completed building is called "Completed Residence" until you give it a real name.
+> **Before launch:** replace the placeholder WhatsApp number and email in `src/data/site.ts`. Check the copy too: several facts were written from the photos (G+14, parking, glazing), and the completed building is called "Completed Residence" until you give it a real name.
 
 ### Adding a project
 

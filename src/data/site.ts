@@ -1,6 +1,6 @@
 /**
  * Company-wide settings. Edit contact details here — every section reads from this file.
- * TODO: replace the placeholder phone, WhatsApp number and email with the real ones.
+ * TODO: replace the placeholder WhatsApp number and email with the real ones.
  */
 export const site = {
   name: 'Yohart Properties',
@@ -11,7 +11,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   city: 'Addis Ababa',
   country: 'Ethiopia',
-  phone: { display: '+251 900 000 000', href: 'tel:+251900000000' },
+  phone: { display: '+251 910 650 561', href: 'tel:+251910650561' },
   email: 'hello@yohartt.com',
   /** International format, digits only — used for wa.me links. */
   whatsapp: '251900000000',

@@ -1418,15 +1418,22 @@ export default function ScrollAnimations() {
           footerEl?.querySelector(".front") &&
           footerEl.querySelector(".scroller")
         ) {
-          gsap.to(".front", {
-            y: "10rem",
-            scrollTrigger: {
-              trigger: ".scroller",
-              start: "top bottom",
-              end: "bottom bottom",
-              scrub: true,
-            },
-          });
+          // The tower rises a little as the footer comes in and lands on
+          // the band when the footer's sky is fully on screen.
+          gsap.fromTo(
+            ".front",
+            { yPercent: 8 },
+            {
+              yPercent: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: ".scroller",
+                start: "top bottom",
+                end: "bottom bottom",
+                scrub: true,
+              },
+            }
+          );
         }
       });
 

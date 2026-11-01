@@ -24,10 +24,11 @@ export function TowerSection() {
           className="background absolute inset-0 h-full w-full object-cover scale-x-[-1]"
           priority
         />
+        {/* Starts on the same solid colour the Residences section ends on. */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-36"
+          className="pointer-events-none absolute inset-x-0 top-0 h-48"
           style={{
-            background: 'linear-gradient(to bottom, rgba(244, 236, 213, 0.7) 0%, transparent 100%)',
+            background: 'linear-gradient(to bottom, #f4ecd5 0%, rgba(244, 236, 213, 0) 100%)',
           }}
         />
       </div>
