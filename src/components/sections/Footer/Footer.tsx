@@ -88,7 +88,7 @@ export default function Footer() {
       setMessage('');
       setConsent(false);
     } catch {
-      const subject = encodeURIComponent(`Enquiry — ${interest || 'General'}`);
+      const subject = encodeURIComponent(`Enquiry: ${interest || 'General'}`);
       const body = encodeURIComponent([
         `Name: ${firstName} ${lastName}`.trim(),
         `Phone: ${phone}`,

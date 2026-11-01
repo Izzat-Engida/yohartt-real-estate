@@ -36,18 +36,20 @@ export type Project = {
   enquiryInterest: EnquiryInterest;
   /** Shows the interactive floor-by-floor explorer (Yohartt Tower only). */
   floorExplorer?: boolean;
+  /** Portrait video shown in the project hero in place of a photo. */
+  walkthrough?: { src: string; label: string; caption: string };
 };
 
 export const photos = {
   towerRender: {
     src: towerRender,
     alt: 'Architectural rendering of Yohartt Tower, a slim white residential tower with full-width balconies at dusk',
-    caption: 'Yohartt Tower — artist impression',
+    caption: 'Yohartt Tower, artist impression',
   },
   completed: {
     src: completedResidence,
     alt: 'A completed mid-rise residential building with stone-look cladding, large black-framed windows and a gated entrance',
-    caption: 'Recently completed — Yohartt residential building',
+    caption: 'Recently completed Yohartt residential building',
   },
   interior: {
     src: interior1,
@@ -71,18 +73,18 @@ export const photos = {
   },
   structure: {
     src: siteStructure,
-    alt: 'A concrete frame rising floor by floor, wrapped in eucalyptus scaffolding and green safety netting, with a concrete pump truck in front',
-    caption: 'Stage 01 — The structure rises',
+    alt: 'The concrete frame of the building wrapped in eucalyptus scaffolding and green safety netting, its lower floors open at street level',
+    caption: 'Stage 01: The structure rises',
   },
   rebar: {
     src: siteRebarSkyline,
     alt: 'Steel reinforcement mesh and column bars laid across a rooftop slab, with the Addis Ababa skyline behind',
-    caption: 'Stage 02 — Every slab, engineered',
+    caption: 'Stage 02: Every slab, engineered',
   },
   pour: {
     src: siteConcretePour,
     alt: 'Workers spreading concrete delivered by a red boom pump across a reinforced slab, hills and city towers in the background',
-    caption: 'Stage 03 — Poured with precision',
+    caption: 'Stage 03: Poured with precision',
   },
 } satisfies Record<string, Photo>;
 
@@ -141,9 +143,9 @@ export const projects: Project[] = [
     status: 'Completed',
     type: 'Residential apartments',
     location: 'Addis Ababa, Ethiopia',
-    tagline: 'Not a rendering — a finished building, ready for residents.',
+    tagline: 'Not a rendering. A finished building, ready for residents.',
     summary:
-      'Textured render and stone-look cladding, generous black-framed windows, private balconies and a secure gated entrance — completed and handed over.',
+      'Textured render and stone-look cladding, generous black-framed windows, private balconies and a secure gated entrance. Completed and handed over.',
     cover: photos.completed,
     specs: [
       { label: 'Status', value: 'Completed' },
@@ -161,6 +163,12 @@ export const projects: Project[] = [
     gallery: [photos.completed, photos.entranceLobby, photos.interior, photos.bedroom],
     enquiryInterest: 'Completed units',
     floorExplorer: false,
+    walkthrough: {
+      src: '/media/projects/completed-residence-walkthrough.mp4',
+      label:
+        'Walkthrough of a finished apartment: cove-lit ceilings, a feature TV wall and wide windows over the city',
+      caption: 'Interior walkthrough',
+    },
   },
 ];
 

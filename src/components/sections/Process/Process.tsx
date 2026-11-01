@@ -16,7 +16,7 @@ const STAGES: {
     { photo: photos.pour, title: 'Poured with precision', 
     text: 'Ready-mix concrete is pumped, spread and vibrated across the slab by a dedicated crew for a solid, monolithic floor.' }, { 
     photo: photos.completed, 
-    title: 'Finished & handed over', text: 'Clean facades, generous glazing and a secure gated entry — homes ready for families to move in.' }];
+    title: 'Finished & handed over', text: 'Clean facades, generous glazing and a secure gated entry: homes ready for families to move in.' }];
 export function ProcessSection() {
      return (<ProcessScroller count={STAGES.length} labels={STAGES.map((stage) => stage.title)}>
         {STAGES.map((stage, i) => <article className="stage" key={stage.title}>

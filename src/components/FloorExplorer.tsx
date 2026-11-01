@@ -113,7 +113,7 @@ export function FloorExplorer({ interest = 'Yohartt Tower', children }: { intere
                   onPointerEnter={() => setHovered(f.id)}
                   onClick={() => select(f.id)}
                 >
-                  <title>{`${f.label} — ${f.zone.name}`}</title>
+                  <title>{`${f.label} · ${f.zone.name}`}</title>
                 </polygon>
               ))}
               <polygon ref={highlightRef} className="explorer__hl" points={INITIAL_POINTS} />

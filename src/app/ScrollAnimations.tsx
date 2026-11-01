@@ -1264,9 +1264,6 @@ export default function ScrollAnimations() {
 
       /* ======================== Horizontal ========================= */
 
-      // Kept so the stacked-sections pass below can hold the last frame.
-      let horizontalPin: ReturnType<typeof ScrollTrigger.create> | undefined;
-
       inCtx(section("Horizontal"), () => {
         const heading = split(".heading", {
           type: "words, chars",
@@ -1343,8 +1340,6 @@ export default function ScrollAnimations() {
             onRefresh: setMarkers,
           },
         });
-
-        horizontalPin = pin.scrollTrigger;
 
         pin
           .fromTo(
@@ -1515,146 +1510,6 @@ export default function ScrollAnimations() {
           revealText("p.heading-2", "heading");
           revealText("p.paragraph", "paragraph");
           revealText("p.small", "paragraph");
-        });
-      }
-
-      /* ====================== Stacked sections ===================== */
-      // Each home section holds the screen once it fills it, and the next one
-      // slides up over it while the covered one dims. A section taller than
-      // the screen scrolls normally until its bottom arrives, then holds.
-
-      const stackRoot = document.querySelector<HTMLElement>(
-        "main .overflow-x-clip"
-      );
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (stackRoot && !reduceMotion) {
-        const shades: HTMLElement[] = [];
-        const originalStyles: Array<[HTMLElement, string]> = [];
-
-        // Later sections must paint over earlier ones, so each one gets its
-        // own layer; DOM order then decides who is on top.
-        const layer = (element: HTMLElement): void => {
-          originalStyles.push([element, element.style.cssText]);
-          const style = getComputedStyle(element);
-          if (style.position === "static") element.style.position = "relative";
-          if (style.zIndex === "auto") element.style.zIndex = "1";
-        };
-
-        const addShade = (host: HTMLElement): HTMLElement => {
-          const shade = document.createElement("div");
-          shade.setAttribute("aria-hidden", "true");
-          shade.style.cssText =
-            "position:absolute;left:0;right:0;bottom:0;height:100vh;max-height:100%;" +
-            "background:#0b100a;opacity:0;pointer-events:none;z-index:60;";
-          host.appendChild(shade);
-          shades.push(shade);
-          return shade;
-        };
-
-        // Driven by the pin's own progress: a separate trigger on a pinned
-        // element measures it in the wrong place.
-        const dimWith = (shade: HTMLElement) => ({
-          onUpdate: (self: { progress: number }) => {
-            shade.style.opacity = String(self.progress * 0.5);
-          },
-        });
-
-        const panels = Array.from(stackRoot.children).filter(
-          (element): element is HTMLElement =>
-            element instanceof HTMLElement &&
-            element.offsetHeight > 50 &&
-            getComputedStyle(element).display !== "none"
-        );
-
-        inCtx(stackRoot, () => {
-          panels.forEach((panel) => {
-            layer(panel);
-
-            if (panel.id === "Horizontal") {
-              // Its own pin scrolls the view sideways; this second pin holds
-              // the last frame for one more screen while the next slides over.
-              const scene = panel.querySelector<HTMLElement>(".trigger");
-              const sideways = horizontalPin;
-              if (!scene || !sideways) return;
-
-              const hold = {
-                trigger: scene,
-                start: () => sideways.end,
-                end: () => sideways.end + window.innerHeight,
-              };
-
-              ScrollTrigger.create({
-                ...hold,
-                ...dimWith(addShade(scene)),
-                pin: true,
-                pinSpacing: false,
-              });
-              return;
-            }
-
-            const hold = {
-              trigger: panel,
-              start: () =>
-                panel.offsetHeight > window.innerHeight + 2
-                  ? "bottom bottom"
-                  : "top top",
-              end: "bottom top",
-            };
-
-            ScrollTrigger.create({
-              ...hold,
-              ...dimWith(addShade(panel)),
-              pin: true,
-              pinSpacing: false,
-            });
-          });
-        });
-
-        // A covered section is left shifted down behind the next one, so
-        // in-page links (menu, footer, buttons) scroll to where each section
-        // really starts instead of where it currently appears.
-        const startOf = (element: HTMLElement): number => {
-          const spacer = element.parentElement;
-          const box = spacer?.classList.contains("pin-spacer") ? spacer : element;
-          return box.getBoundingClientRect().top + window.scrollY;
-        };
-
-        const onAnchorClick = (event: MouseEvent): void => {
-          if (
-            event.defaultPrevented ||
-            event.button !== 0 ||
-            event.metaKey ||
-            event.ctrlKey ||
-            event.shiftKey ||
-            event.altKey
-          ) {
-            return;
-          }
-
-          const link = (event.target as Element | null)?.closest?.("a[href*='#']");
-          if (!(link instanceof HTMLAnchorElement)) return;
-
-          const url = new URL(link.href, window.location.href);
-          if (url.pathname !== window.location.pathname || url.hash.length < 2) return;
-
-          const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
-          if (!target) return;
-
-          event.preventDefault();
-          lenis.scrollTo(startOf(target), { duration: 1.6 });
-        };
-
-        document.addEventListener("click", onAnchorClick, true);
-
-        cleanups.push(() => {
-          document.removeEventListener("click", onAnchorClick, true);
-          shades.forEach((shade) => shade.remove());
-          originalStyles.forEach(([element, css]) => {
-            element.style.cssText = css;
-          });
         });
       }
 

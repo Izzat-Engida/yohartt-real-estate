@@ -67,7 +67,7 @@ export function ContactForm() {
       });
       if (res.ok) {
         setStatus('sent');
-        setNote('Thank you — we have your enquiry and will be in touch shortly.');
+        setNote('Thank you, we have your enquiry and will be in touch shortly.');
         formRef.current?.reset();
         setFloor('');
         return;
@@ -81,7 +81,7 @@ export function ContactForm() {
       }
       if (res.status === 429) {
         setStatus('error');
-        setNote(`Too many enquiries in a short time — please try again shortly, or call ${site.phone.display}.`);
+        setNote(`Too many enquiries in a short time. Please try again shortly, or call ${site.phone.display}.`);
         return;
       }
       throw new Error(`Enquiry endpoint responded ${res.status}`);
@@ -123,7 +123,7 @@ export function ContactForm() {
             <option value="">No preference</option>
             {FLOORS.map((f) => (
               <option key={f.id} value={f.id}>
-                {f.label} — {f.zone.name}
+                {f.label} · {f.zone.name}
               </option>
             ))}
           </select>

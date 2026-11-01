@@ -1,4 +1,4 @@
-# Yohartt Real Estate — website
+# Yohartt Real Estate website
 
 Showcase website for Yohartt Real Estate, Addis Ababa. Built with **Next.js 16 (App Router) + TypeScript**. It uses no UI libraries: the animations are hand-written CSS and React.
 

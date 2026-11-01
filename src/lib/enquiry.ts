@@ -50,7 +50,7 @@ export function parseEnquiry(input: unknown): ParseResult {
 
 export function enquirySubject(e: Enquiry): string {
   const floor = getFloor(e.floor);
-  return `Enquiry — ${e.interest || 'General'}${floor ? `, ${floor.label}` : ''}`;
+  return `Enquiry: ${e.interest || 'General'}${floor ? `, ${floor.label}` : ''}`;
 }
 
 /** Plain-text summary used for Telegram, email and the mailto/WhatsApp fallbacks. */

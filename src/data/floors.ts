@@ -14,7 +14,7 @@ type Zone = { name: string; desc: string; chips: string[] };
 const ZONES = {
   penthouse: {
     name: 'Penthouse level',
-    desc: 'The crown of the tower — top-floor living with the widest views over Addis Ababa.',
+    desc: 'The crown of the tower: top-floor living with the widest views over Addis Ababa.',
     chips: ['Top-floor living', 'Panoramic views', 'Private balcony'],
   },
   sky: {

@@ -10,6 +10,9 @@ export default function Roots() {
       id="Roots"
       className="bg-navy relative z-1 min-h-screen overflow-clip max-md:hidden"
     >
+      {/* Layout follows the reference site: one photo sits behind the big
+          heading and two sit in front of it, so they read as one collage.
+          The video sits a little higher so it clears the paragraph. */}
       <div className="trigger relative flex min-h-screen flex-col justify-center pt-40 pb-40 max-xl:py-20">
         <div className="roots-kicker-wrap wrapper flex">
           <div className="w-1/12 max-lg:w-1/6" />
@@ -22,7 +25,7 @@ export default function Roots() {
         </div>
 
        
-        <div className="roots-image absolute top-[22%] right-0 z-2 w-[min(48vw,720px)] max-w-none will-change-transform max-xl:right-0 max-xl:w-143 max-lg:top-[16%] max-lg:right-0 max-lg:w-125">
+        <div className="roots-image absolute top-[55%] right-1/10 w-230 max-w-none will-change-transform max-xl:right-16 max-xl:w-143 max-lg:top-[50%] max-lg:w-125">
           <Image
             src={image3}
             alt="Roots"
@@ -31,14 +34,14 @@ export default function Roots() {
           />
         </div>
 
-        <div className="roots-kicker-wrap wrapper relative z-[10] mt-15 flex justify-center">
+        <div className="roots-kicker-wrap wrapper relative z-1 mt-15 flex justify-center">
           <h2 className="huge text-cream-dark text-center whitespace-nowrap uppercase max-xl:text-[15rem] max-lg:text-left max-lg:text-[12.5rem] max-lg:whitespace-normal">
             Your roots
           </h2>
         </div>
 
        
-        <div className="roots-image absolute top-[30%] right-[4%] z-3 w-[min(38vw,575px)] max-w-none will-change-transform max-xl:right-[3%] max-xl:left-auto max-xl:w-120 max-lg:top-[24%] max-lg:right-4 max-lg:w-100">
+        <div className="roots-image absolute top-[30%] left-1/2 z-2 w-180 max-w-none will-change-transform max-xl:right-28 max-xl:left-auto max-xl:w-120 max-lg:right-20 max-lg:w-100">
           <Image
             src={image2}
             alt="Roots"
@@ -48,7 +51,7 @@ export default function Roots() {
         </div>
 
       
-        <div className="roots-image absolute top-[42%] right-[9%] z-4 w-[min(31vw,470px)] max-w-none will-change-transform max-xl:w-120 max-xl:right-[8%] max-xl:left-auto max-lg:top-[42%] max-lg:w-95 max-lg:right-[7%] max-lg:left-auto">
+        <div className="roots-image absolute top-[40%] left-1/2 z-2 w-156 max-w-none will-change-transform max-xl:w-120 max-xl:translate-x-1/2 max-lg:top-[55%] max-lg:w-95 max-lg:translate-x-0">
           <div className="mask h-auto w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat object-cover [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
             <video
               muted
@@ -60,7 +63,7 @@ export default function Roots() {
           </div>
         </div>
 
-        <div className="wrapper roots-kicker-wrap relative z-[10] mt-20 flex max-lg:mt-50">
+        <div className="wrapper roots-kicker-wrap relative z-2 mt-20 flex max-lg:mt-50">
           <div className="w-1/12 max-lg:hidden" />
 
           <div className="w-5/12 max-xl:w-6/12 max-lg:w-full">

@@ -29,7 +29,9 @@ export default function Page(){
         <PointerFx/>
         <EnquiryProvider>
         <div className="w-full">
-        <main className="min-h-screen w-full">
+        {/* Cream behind the sections, so each one wipes in over cream rather
+            than the dark page colour. */}
+        <main className="bg-vanilla min-h-screen w-full">
         <div className="overflow-x-clip">
         <Hero/>
         <About/>

@@ -73,7 +73,7 @@ export default function ProjectScrollAnimations() {
 
         /* Clip-path media reveals */
         gsap.utils.toArray<HTMLElement>('.project-media-reveal').forEach((media) => {
-          const image = media.querySelector<HTMLElement>('img');
+          const image = media.querySelector<HTMLElement>('img, video');
 
           gsap.fromTo(
             media,

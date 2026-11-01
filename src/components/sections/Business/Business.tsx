@@ -15,7 +15,7 @@ export default function BusinessSpaces() {
         <div className="flex w-1/4 flex-col items-end justify-between max-xl:w-1/3 max-lg:w-2/3 max-md:w-full">
         <div className="hidden w-1/4 max-lg:block"/>
         <p className="paragraph text-sand max-lg:w-3/4">
-        Business spaces and retail units at Yohartt Tower are designed for companies of all sizes that see their business address as more than just a location—it is a reflection of their identity, reputation, and long-term vision.
+        Business spaces and retail units at Yohartt Tower are designed for companies of all sizes that see their business address as more than just a location. It is a reflection of their identity, reputation, and long-term vision.
         </p>
         </div>
         <div className="w-5/12 pt-30 max-xl:w-1/3 max-lg:w-2/3 max-lg:self-end max-lg:pt-10 max-md:w-3/4 max-md:pt-30">

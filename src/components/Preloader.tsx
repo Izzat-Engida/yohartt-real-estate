@@ -4,8 +4,15 @@ import Image from "next/image";
 import { useEffect } from "react";
 const amenitiesVideo = "/media/home/amenities/amenities.mp4";
 const businessVideo = "/media/home/business/business.mp4";
-const heroMobileVideo = "/media/home/hero-m.webm";
+// Used on every screen size: the old phone cut showed a different building.
 const heroVideo = "/media/home/hero.mp4";
+
+// The hero plays its first 7 seconds (sketch, then the finished tower) and
+// stops there, just before the video cuts to a close-up. The page then
+// glides on to the next section by itself.
+const HERO_STOP_AT = 7;
+// The title fades in once the finished tower is on screen.
+const HERO_TITLE_AT = 5.5;
 const locationVideo = "/media/home/location/location.mp4?v=2";
 const residencesVideo = "/media/home/residences/interior.mp4";
 const rootsVideo = "/media/home/roots/image1.mp4";
@@ -84,12 +91,17 @@ export default function Intro() {
       ".loader p.heading-3"
     );
 
+    let titleShown = false;
+
     const revealTitle = (): void => {
+      if (titleShown) return;
+
       const title = document.querySelector<HTMLElement>(
         "div.flex.items-end.opacity-0"
       );
 
       if (!title) return;
+      titleShown = true;
 
       const h1 = title.querySelector<HTMLHeadingElement>("h1");
 
@@ -135,20 +147,17 @@ export default function Intro() {
       });
     };
 
-    // When the hero video ends, glide on to the next section by itself, unless
+    // When the hero video stops, glide on to the next section by itself, unless
     // the visitor has already started scrolling or interacting with the page.
     let interacted = false;
-    let advanceTimer = 0;
     const markInteracted = (): void => {
       interacted = true;
-      window.clearTimeout(advanceTimer);
     };
     const interactionEvents = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
     interactionEvents.forEach((type) =>
       window.addEventListener(type, markInteracted, { passive: true })
     );
     cleanups.push(() => {
-      window.clearTimeout(advanceTimer);
       interactionEvents.forEach((type) =>
         window.removeEventListener(type, markInteracted)
       );
@@ -157,7 +166,6 @@ export default function Intro() {
     const autoAdvance = (): void => {
       if (interacted || document.hidden || window.scrollY > 4) return;
       if (document.body.hasAttribute("data-menu-open")) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       const next = Array.from(
         document.querySelectorAll<HTMLElement>("#about, #about-mobile")
@@ -179,46 +187,72 @@ export default function Intro() {
       }
     };
 
+    let heroStopped = false;
+
+    const stopHero = (): void => {
+      if (!hero || heroStopped) return;
+      heroStopped = true;
+
+      hero.pause();
+      // If the tab was in the background the video may have run past the
+      // stop point; step back so it rests on the full tower.
+      if (hero.currentTime > HERO_STOP_AT + 0.2) {
+        hero.currentTime = HERO_STOP_AT;
+      }
+
+      revealTitle();
+      autoAdvance();
+    };
+
     if (hero) {
       hero.muted = true;
       hero.loop = false;
 
-      const targetSrc = window.matchMedia("(max-width: 600px)").matches
-        ? heroMobileVideo
-        : heroVideo;
-
       // Only assign src and load if not already set to this source
-      if (!hero.src || !hero.src.endsWith(targetSrc)) {
-        hero.src = targetSrc;
+      if (!hero.src || !hero.src.endsWith(heroVideo)) {
+        hero.src = heroVideo;
         hero.load();
       }
 
-      const onEnded = (): void => {
-        revealTitle();
-        // Give the title a moment to finish appearing first.
-        window.clearTimeout(advanceTimer);
-        advanceTimer = window.setTimeout(autoAdvance, 1600);
+      const stopAt = (): number =>
+        hero.duration ? Math.min(HERO_STOP_AT, hero.duration - 0.05) : HERO_STOP_AT;
+
+      const check = (): void => {
+        if (hero.currentTime >= HERO_TITLE_AT) revealTitle();
+        if (hero.currentTime >= stopAt()) stopHero();
       };
 
-      const onTimeUpdate = (): void => {
-        if (hero.duration && hero.currentTime >= hero.duration - 0.25) {
-          revealTitle();
+      // Checked every frame while playing: the cut to the close-up comes less
+      // than half a second after the stop point, too close for timeupdate.
+      let watchRaf = 0;
+      const watch = (): void => {
+        check();
+        if (!heroStopped && !hero.paused) {
+          watchRaf = requestAnimationFrame(watch);
         }
       };
+      const onPlay = (): void => {
+        cancelAnimationFrame(watchRaf);
+        watchRaf = requestAnimationFrame(watch);
+      };
 
-      hero.addEventListener("ended", onEnded);
-      hero.addEventListener("timeupdate", onTimeUpdate);
+      // Frames don't run in a background tab, so timeupdate is the fallback.
+      hero.addEventListener("play", onPlay);
+      hero.addEventListener("timeupdate", check);
+      hero.addEventListener("ended", stopHero);
 
       cleanups.push(() => {
-        hero.removeEventListener("ended", onEnded);
-        hero.removeEventListener("timeupdate", onTimeUpdate);
+        cancelAnimationFrame(watchRaf);
+        hero.removeEventListener("play", onPlay);
+        hero.removeEventListener("timeupdate", check);
+        hero.removeEventListener("ended", stopHero);
       });
     }
 
     const finish = (): void => {
       if (hero) {
         hero.loop = false;
-        if (hero.ended || (hero.duration && hero.currentTime >= hero.duration - 0.25)) {
+        if (heroStopped) {
           revealTitle();
         } else {
           hero.play().catch(() => {

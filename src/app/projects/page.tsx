@@ -230,7 +230,7 @@ export default function ProjectsPage() {
                       </div>
                       <div className="project-progress__aside">
                         <p className="project-copy">
-                          {project.name} is still rising. These are recent moments from the site —
+                          {project.name} is still rising. These are recent moments from the site:
                           the structure, the reinforcement, and the concrete pour that carries each
                           new floor.
                         </p>

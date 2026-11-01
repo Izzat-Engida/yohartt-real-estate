@@ -203,6 +203,15 @@
   transition: transform 1.2s var(--project-ease);
 }
 .project-media:hover .project-media__frame img { transform: scale(1.035); }
+/* Portrait frame for phone-shot walkthrough videos. */
+.project-media__frame--portrait { aspect-ratio: 3 / 4; }
+.project-media__frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .project-media figcaption {
   margin-top: 0.9rem;
   color: rgba(204, 191, 153, 0.65);
@@ -462,6 +471,7 @@
   grid-column: 9 / span 4;
   width: min(100%, 28rem);
 }
+.project-stage--hero .project-stage__media--video { width: min(100%, 22rem); }
 .project-stage--hero .project-topline { margin-bottom: clamp(3rem, 8vh, 6rem); }
 
 /* ---------- /projects — construction progress ---------- */

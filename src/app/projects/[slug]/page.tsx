@@ -137,17 +137,34 @@ export default async function ProjectPage({ params }: Params) {
                 </div>
               </div>
 
-              <figure className="project-stage__media project-media project-media-reveal">
-                <LightboxLink photo={heroPhoto} className="project-media__frame">
-                  <Image
-                    src={heroPhoto.src}
-                    alt={heroPhoto.alt}
-                    fill
-                    sizes="(max-width: 1120px) 80vw, 28vw"
-                  />
-                </LightboxLink>
-                <figcaption>{heroPhoto.caption}</figcaption>
-              </figure>
+              {project.walkthrough ? (
+                <figure className="project-stage__media project-stage__media--video project-media project-media-reveal">
+                  <div className="project-media__frame project-media__frame--portrait">
+                    <video
+                      src={project.walkthrough.src}
+                      aria-label={project.walkthrough.label}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  </div>
+                  <figcaption>{project.walkthrough.caption}</figcaption>
+                </figure>
+              ) : (
+                <figure className="project-stage__media project-media project-media-reveal">
+                  <LightboxLink photo={heroPhoto} className="project-media__frame">
+                    <Image
+                      src={heroPhoto.src}
+                      alt={heroPhoto.alt}
+                      fill
+                      sizes="(max-width: 1120px) 80vw, 28vw"
+                    />
+                  </LightboxLink>
+                  <figcaption>{heroPhoto.caption}</figcaption>
+                </figure>
+              )}
             </div>
           </div>
         </section>
