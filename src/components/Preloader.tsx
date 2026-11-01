@@ -79,6 +79,24 @@ export default function Intro() {
   useEffect(() => {
     const cleanups: Cleanup[] = [];
 
+    // Every load starts from the top: the loader, then the hero. A reload also
+    // drops a leftover #section from the address; a link from another page to
+    // a section (/#Residences) still lands on that section.
+    const navigation = performance.getEntriesByType("navigation")[0] as
+      | PerformanceNavigationTiming
+      | undefined;
+    const isReload = navigation?.type === "reload";
+    if (isReload && window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    const startAtTop = isReload || !window.location.hash;
+    const toTop = (): void => {
+      if (!startAtTop) return;
+      window.__lenis?.scrollTo(0, { immediate: true, force: true });
+      window.scrollTo(0, 0);
+    };
+    toTop();
+
     // 1–4: loader and hero video.
     const hero = document.querySelector<HTMLVideoElement>(
       "video.block.h-full.w-full.object-cover"
@@ -273,6 +291,8 @@ export default function Intro() {
       // Resume Lenis, which ScrollAnimations initially creates stopped.
       window.__introDone = true;
       window.dispatchEvent(new Event("intro:done"));
+      // In case anything moved the page while the loader was up.
+      toTop();
     };
 
     if (loader && bar && percent) {

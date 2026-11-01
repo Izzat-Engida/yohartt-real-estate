@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import finishedBuilding from "@/assets/home/roots/image3.webp";
+// The full, uncropped photo of the finished building.
+import finishedBuilding from "@/assets/img/completed-residence.jpg";
 
 // Two clear rows: the big heading on its own, then the copy on the left and
-// the real media on the right (the finished building, with the interior
-// walkthrough tucked into its lower-left corner). Nothing sits on top of the
+// two matching portrait cards on the right: real footage from inside a
+// finished home, and the finished building itself. Nothing sits on top of the
 // text, and both rows move together on scroll so nothing slides into anything.
 export default function Roots() {
   return (
@@ -98,18 +99,9 @@ export default function Roots() {
             </Link>
           </div>
 
-          <div className="relative col-span-5 col-start-8 max-xl:col-span-6 max-xl:col-start-7 max-lg:col-span-1 max-lg:col-start-1 max-lg:ml-auto max-lg:w-4/5">
-            <div className="roots-image will-change-transform">
-              <Image
-                src={finishedBuilding}
-                alt="A finished Yohart residential building with stone-look cladding and large black-framed windows"
-                className="mask h-auto w-full mask-[url('/media/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask3.svg')] [-webkit-mask-size:100%]"
-                sizes="(max-width: 1024px) 80vw, 42vw"
-              />
-            </div>
-
-            <div className="roots-image pointer-events-none absolute -bottom-14 -left-14 w-[42%] will-change-transform max-lg:-left-8">
-              <div className="mask relative aspect-[629/831] w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
+          <div className="col-span-5 col-start-8 grid grid-cols-2 items-start gap-5 max-xl:col-span-6 max-xl:col-start-7 max-lg:col-span-1 max-lg:col-start-1">
+            <figure className="roots-card">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.25rem] bg-black/20">
                 <video
                   muted
                   loop
@@ -119,7 +111,25 @@ export default function Roots() {
                   className="roots-video absolute inset-0 h-full w-full object-cover"
                 />
               </div>
-            </div>
+              <figcaption className="small text-sand/70 mt-3 tracking-[0.08em] uppercase">
+                Inside a finished home
+              </figcaption>
+            </figure>
+
+            <figure className="roots-card pt-16 max-xl:pt-12">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.25rem] bg-black/20">
+                <Image
+                  src={finishedBuilding}
+                  alt="A finished Yohart residential building with stone-look cladding and large black-framed windows"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1120px) 45vw, 22vw"
+                />
+              </div>
+              <figcaption className="small text-sand/70 mt-3 tracking-[0.08em] uppercase">
+                Completed Residence, Addis Ababa
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>

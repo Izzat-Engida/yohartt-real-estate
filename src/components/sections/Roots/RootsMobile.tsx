@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import image2 from '@/assets/home/roots/image2.webp';
-import image3 from '@/assets/home/roots/image3.webp';
+import finishedBuilding from '@/assets/img/completed-residence.jpg';
 
 export default function RootsMobile() {
   return (
@@ -13,21 +12,17 @@ export default function RootsMobile() {
           </div>
 
           <div className="roots-screen1 absolute inset-0 h-full w-full">
-            <div className="roots-image absolute right-6 bottom-0 z-1 w-90 max-w-none">
-              <Image src={image3} alt="A calm, warmly lit bedroom" className="h-auto w-full mask-[url('/media/home/roots/mask3.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask3.svg')] [-webkit-mask-size:100%]" sizes="360px" />
-            </div>
-
             <div className="relative z-1 mt-54 flex justify-center px-6">
               <h2 className="roots-huge huge text-left text-[6rem] leading-[0.8] whitespace-normal text-cream-dark uppercase">Your roots</h2>
             </div>
 
-            <div className="roots-image absolute top-[58%] right-6 z-2 w-70 max-w-none">
-              <Image src={image2} alt="Yohartt Tower facade at dusk, framed by trees" className="h-auto w-full -translate-y-1/2 mask-[url('/media/home/roots/mask2.svg')] mask-size-[100%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask2.svg')] [-webkit-mask-size:100%]" sizes="280px" />
-            </div>
-
-            <div className="roots-image absolute bottom-0 left-6 z-2 w-70 max-w-none">
-              <div className="relative aspect-video w-full mask-[url('/media/home/roots/mask1.svg')] mask-size-[95%] mask-center mask-no-repeat [-webkit-mask-image:url('/media/home/roots/mask1.svg')] [-webkit-mask-size:95%]">
+            {/* Two matching cards: footage from inside a finished home, and the building itself. */}
+            <div className="absolute right-6 bottom-24 left-6 grid grid-cols-2 items-start gap-4">
+              <div className="roots-image relative aspect-[3/4] overflow-hidden rounded-2xl bg-black/20">
                 <video src="/media/projects/completed-residence-walkthrough.mp4" muted loop playsInline autoPlay preload="metadata" className="absolute inset-0 h-full w-full object-cover" aria-label="Walkthrough of a finished Yohart apartment" />
+              </div>
+              <div className="roots-image relative mt-10 aspect-[3/4] overflow-hidden rounded-2xl bg-black/20">
+                <Image src={finishedBuilding} alt="A finished Yohart residential building with stone-look cladding and large black-framed windows" fill className="object-cover" sizes="45vw" />
               </div>
             </div>
           </div>

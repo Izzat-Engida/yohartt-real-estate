@@ -93,7 +93,6 @@ export default function ScrollAnimations() {
 
       const contexts: Array<{ revert: () => void }> = [];
       const splits: SplitInstance[] = [];
-      const mouseEls: Element[] = [];
 
       const inCtx = (
         root: HTMLElement | null,
@@ -135,11 +134,6 @@ export default function ScrollAnimations() {
         });
 
         splits.length = 0;
-      });
-
-      cleanups.push(() => {
-        mouseEls.forEach((element) => gsap.killTweensOf(element));
-        mouseEls.length = 0;
       });
 
       /* ---------------------- AnimatedText helper ------------------ */
@@ -1015,17 +1009,22 @@ export default function ScrollAnimations() {
           },
         });
 
-        gsap.from("#Roots .mask", {
-          maskSize: "0",
-          stagger: 0.3,
-          ease: "power2.inOut",
-          duration: 1.5,
-          delay: 2,
-          scrollTrigger: {
-            trigger: "#Roots .trigger",
-            start: "top 70%",
-          },
-        });
+        // The two cards wipe up one after the other once the heading is in.
+        gsap.fromTo(
+          "#Roots .roots-card > div",
+          { clipPath: "inset(100% 0% 0% 0%)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.2,
+            ease: "power2.inOut",
+            stagger: 0.25,
+            delay: 0.6,
+            scrollTrigger: {
+              trigger: "#Roots .trigger",
+              start: "top 60%",
+            },
+          }
+        );
 
         // Both rows drift down together as the section passes, so the text
         // and the pictures never move against each other.
@@ -1041,55 +1040,6 @@ export default function ScrollAnimations() {
             },
           }
         );
-
-        const imgs = gsap.utils.toArray<HTMLElement>(".roots-image");
-
-        // A gentle follow of the mouse: the photo, then the walkthrough video.
-        const defs = [
-          { strength: 0.02, init: {} },
-          { strength: 0.04, init: {} },
-        ];
-
-        const movers = defs
-          .map((def, i) => {
-            const element = imgs[i];
-
-            if (!element) return null;
-
-            gsap.set(element, def.init);
-            mouseEls.push(element);
-
-            return {
-              xTo: gsap.quickTo(element, "x", {
-                duration: 1.2,
-                ease: "power3",
-              }),
-              yTo: gsap.quickTo(element, "y", {
-                duration: 1.2,
-                ease: "power3",
-              }),
-              s: def.strength,
-            };
-          })
-          .filter((mover) => mover !== null);
-
-        if (movers.length) {
-          const onMove = (event: MouseEvent): void => {
-            const cx = event.clientX - window.innerWidth / 2;
-            const cy = event.clientY - window.innerHeight / 2;
-
-            movers.forEach((mover) => {
-              mover.xTo(cx * mover.s);
-              mover.yTo(cy * mover.s);
-            });
-          };
-
-          window.addEventListener("mousemove", onMove);
-
-          cleanups.push(() => {
-            window.removeEventListener("mousemove", onMove);
-          });
-        }
       });
 
       /* ====================== Roots (mobile) ======================= */

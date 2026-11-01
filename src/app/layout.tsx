@@ -27,6 +27,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        {/* A refresh starts the page from the top instead of the browser
+            jumping back to where the visitor had scrolled. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{history.scrollRestoration='manual'}catch(e){}",
+          }}
+        />
+      </head>
       <body className="work_sans_85248dc3-module__gzDsyq__variable editorialold_ad1a3d18-module__UoXJ4a__variable antialiased">
         {children}
       </body>
