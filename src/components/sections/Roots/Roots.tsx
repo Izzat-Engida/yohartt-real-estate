@@ -16,14 +16,12 @@ export default function Roots() {
     >
       <div className="trigger relative flex min-h-screen flex-col justify-center gap-14 py-24 max-xl:gap-10 max-xl:py-20">
         <div className="roots-kicker-wrap wrapper">
-          <div className="flex">
-            <div className="w-1/12 max-lg:w-1/6" />
+          <div className="mx-auto flex w-fit flex-col items-start gap-8">
             <p className="kicker text-accent uppercase">The way of living</p>
+            <h2 className="huge text-cream-dark whitespace-nowrap uppercase max-xl:text-[15rem] max-lg:text-left max-lg:text-[12.5rem] max-lg:whitespace-normal">
+              Your roots
+            </h2>
           </div>
-
-          <h2 className="huge text-cream-dark mt-4 text-center whitespace-nowrap uppercase max-xl:text-[15rem] max-lg:text-left max-lg:text-[12.5rem] max-lg:whitespace-normal">
-            Your roots
-          </h2>
         </div>
 
         <div className="roots-kicker-wrap wrapper grid grid-cols-12 items-center gap-x-6 max-lg:grid-cols-1 max-lg:gap-y-20">
