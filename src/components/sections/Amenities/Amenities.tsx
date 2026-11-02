@@ -1,15 +1,26 @@
 import Image from 'next/image';
-import amenities from "@/assets/home/amenities/amenities-bg.webp";
+import amenitiesDesktop from "@/assets/home/amenities/amenities-bg.webp";
+import amenitiesMobile from "@/assets/home/amenities/amenities-m.jpg";
 
 export default function Amenities() {
   return (
     <section id="Amenities" className="relative z-1">
       <div className="trigger relative flex min-h-screen w-full items-stretch overflow-clip">
+        {/* Desktop background */}
         <Image 
-          src={amenities} 
+          src={amenitiesDesktop} 
           alt="Amenities" 
-          className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-[38%_50%] max-md:object-[60%_50%]" 
-          loading="eager"
+          priority
+          sizes="(min-width: 768px) 100vw, 1px"
+          className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-[38%_50%] max-md:hidden" 
+        />
+        {/* Mobile background */}
+        <Image 
+          src={amenitiesMobile} 
+          alt="Amenities" 
+          priority
+          sizes="(max-width: 767px) 100vw, 1px"
+          className="background absolute top-1/3 h-[calc(100%+20rem)] w-full -translate-y-1/2 object-cover object-center hidden max-md:block" 
         />
         <div className="wrapper relative z-1 flex items-stretch justify-between gap-10 max-lg:flex-col-reverse">
 

@@ -117,6 +117,63 @@ function WalkIcon() {
 }
 
 
+/* ========================================================================
+   Mobile Carousel Card
+   ======================================================================== */
+function MobileCard({ place }: { place: Place }) {
+  return (
+    <div className="flex-shrink-0 w-[82vw] max-w-[340px] snap-center">
+      {/* Photo with soft rounded corners matching reference */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#ded3bd] shadow-sm">
+        <Image
+          src={place.image}
+          alt={place.name}
+          fill
+          sizes="82vw"
+          className="object-cover"
+        />
+      </div>
+
+      {/* Name in editorial serif */}
+      <h3
+        className="mt-4 text-[1.85rem] leading-[1.15] text-[#2c2419]"
+        style={{
+          fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Georgia, serif',
+          fontWeight: 400,
+        }}
+      >
+        {place.name}
+      </h3>
+
+      {/* Car / Walk badges with clean vertical divider */}
+      <div className="mt-2.5 flex items-center gap-4 text-sm font-medium text-[#4a4235]">
+        <div className="flex items-center gap-2">
+          <CarIcon />
+          <span>{place.car}</span>
+        </div>
+        {place.walk ? (
+          <>
+            <div className="h-4 w-px bg-[#AD824B]/30" aria-hidden="true" />
+            <div className="flex items-center gap-2">
+              <WalkIcon />
+              <span>{place.walk}</span>
+            </div>
+          </>
+        ) : null}
+      </div>
+
+      {/* Description */}
+      <p className="paragraph mt-3 text-[0.9375rem] leading-relaxed text-[#5c5344]">
+        {place.description}
+      </p>
+    </div>
+  );
+}
+
+
+/* ========================================================================
+   Main Section
+   ======================================================================== */
 export function NearbySection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredPin, setHoveredPin] = useState<number | null>(null);
@@ -125,6 +182,11 @@ export function NearbySection() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const hoveredPinRef = useRef<number | null>(null);
   const tiltFrameRef = useRef<number | null>(null);
+
+  // Mobile carousel
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const mobileCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const isScrollingProgrammatically = useRef(false);
 
   // Mouse tilt parallax state
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, transX: 0, transY: 0 });
@@ -165,6 +227,75 @@ export function NearbySection() {
       if (tiltFrameRef.current !== null) cancelAnimationFrame(tiltFrameRef.current);
     };
   }, []);
+
+  // Scroll carousel to the active card when a dot is tapped on mobile
+  const scrollToCard = useCallback((index: number) => {
+    const card = mobileCardRefs.current[index];
+    const container = carouselRef.current;
+    if (!card || !container) return;
+
+    isScrollingProgrammatically.current = true;
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const scrollTarget =
+      container.scrollLeft +
+      (cardRect.left - containerRect.left) -
+      (containerRect.width - cardRect.width) / 2;
+
+    container.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+
+    // Clear programmatic flag after scroll settles
+    setTimeout(() => {
+      isScrollingProgrammatically.current = false;
+    }, 450);
+  }, []);
+
+  // Detect which card is in view when user scrolls the carousel
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    let rafId = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (isScrollingProgrammatically.current) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+        let closest = 0;
+        let minDist = Infinity;
+
+        mobileCardRefs.current.forEach((card, i) => {
+          if (!card) return;
+          const cardRect = card.getBoundingClientRect();
+          const cardCenter = cardRect.left + cardRect.width / 2;
+          const dist = Math.abs(cardCenter - containerCenter);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = i;
+          }
+        });
+
+        setActiveIndex(closest);
+      });
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // Handle dot tap on mobile: set active and scroll to card
+  const handleMobileDotTap = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+      scrollToCard(index);
+    },
+    [scrollToCard]
+  );
 
   // Handle interactive 3D mouse parallax follow
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -207,9 +338,153 @@ export function NearbySection() {
   return (
     <section id="Around" className="relative z-1 overflow-hidden bg-[#FCFAF0] py-20 max-lg:py-12">
       <div className="trigger relative flex flex-col items-stretch justify-center lg:min-h-[calc(100svh-10rem)]">
-        <div className="reveal-content wrapper relative z-10 flex h-full max-lg:flex-col">
+
+        {/* ============================================================
+            MOBILE LAYOUT (lg and below)
+            Map on top → dots on map → horizontal card carousel below
+            ============================================================ */}
+        <div className="lg:hidden">
+          {/* Kicker */}
+          <div className="wrapper">
+            <p
+              className="kicker uppercase"
+              style={{
+                color: '#AD824B',
+                letterSpacing: '0.08em',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+              }}
+            >
+              What&apos;s around
+            </p>
+          </div>
+
+          {/* Map with dots */}
+          <div className="relative mt-12 aspect-[1300/800] w-full overflow-visible">
+            <Image
+              src={mapBase}
+              alt="Map of Megenagna and British Embassy area"
+              fill
+              priority
+              sizes="100vw"
+              className="pointer-events-none object-contain"
+            />
+
+            {/* Yohartt Tower badge (simplified for mobile) */}
+            <div
+              className="pointer-events-none absolute z-20 flex flex-col items-center"
+              style={{
+                left: '35%',
+                top: '12.5%',
+                transform: 'translate(-50%, -100%)',
+              }}
+            >
+              <div className="flex items-center gap-1.5 rounded-md border border-[#a88956] bg-[#7d6342] px-2.5 py-1.5 shadow-lg">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-[#ecd7ba]"
+                >
+                  <path
+                    d="M12 2L15 8H9L12 2Z M7 9L12 7L17 9L12 18L7 9Z M12 18V22"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <div>
+                  <p className="text-[9px] font-bold tracking-wider text-[#FCFAF0] uppercase">
+                    Yohartt Tower
+                  </p>
+                  <p className="text-[7px] text-[#e8dac7] font-medium">
+                    Behind British Embassy
+                  </p>
+                </div>
+              </div>
+              <div className="h-4 w-0.5 bg-[#7d6342]" />
+            </div>
+
+            {/* Dots on map matching reference */}
+            {PLACES.map((place, idx) => {
+              const isActive = activeIndex === idx;
+              return (
+                <button
+                  key={`mobile-dot-${place.id}`}
+                  type="button"
+                  aria-label={place.name}
+                  onClick={() => handleMobileDotTap(idx)}
+                  className="absolute z-30 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center p-0"
+                  style={{
+                    left: `${place.pin.x}%`,
+                    top: `${place.pin.y}%`,
+                  }}
+                >
+                  <div className="relative flex items-center justify-center">
+                    {isActive && (
+                      <div className="absolute h-6 w-6 animate-ping rounded-full border border-[#AD824B] opacity-50" />
+                    )}
+                    <div
+                      className={`rounded-full transition-all duration-300 ${
+                        isActive
+                          ? 'h-4 w-4 border-2 border-[#FCFAF0] bg-[#2d2417] shadow-lg ring-2 ring-[#AD824B]/70 ring-offset-1'
+                          : 'h-3.5 w-3.5 border-2 border-[#FCFAF0] bg-[#9c7a4b] shadow-md'
+                      }`}
+                    />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Horizontal Card Carousel */}
+          <div
+            ref={carouselRef}
+            className="mt-6 flex gap-5 overflow-x-auto scroll-smooth px-[7.5vw] pb-4 snap-x snap-mandatory"
+            style={{
+              scrollbarWidth: 'none',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
+            {PLACES.map((place, idx) => (
+              <div
+                key={`mobile-card-${place.id}`}
+                ref={(el) => {
+                  mobileCardRefs.current[idx] = el;
+                }}
+              >
+                <MobileCard place={place} />
+              </div>
+            ))}
+          </div>
+
+          {/* Dot indicators below carousel */}
+          <div className="mt-3 flex items-center justify-center gap-2">
+            {PLACES.map((_, idx) => (
+              <button
+                key={`indicator-${idx}`}
+                type="button"
+                aria-label={`Go to ${PLACES[idx].name}`}
+                onClick={() => handleMobileDotTap(idx)}
+                className={`rounded-full transition-all duration-300 ${
+                  activeIndex === idx
+                    ? 'h-2 w-6 bg-[#AD824B]'
+                    : 'h-2 w-2 bg-[#AD824B]/30'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ============================================================
+            DESKTOP LAYOUT (lg and above) — unchanged
+            ============================================================ */}
+        <div className="reveal-content wrapper relative z-10 hidden h-full lg:flex">
           {/* Left Column: Typography List & Info Card */}
-          <div className="relative z-30 w-5/12 pt-6 max-xl:w-1/2 max-lg:w-full">
+          <div className="relative z-30 w-5/12 pt-6 max-xl:w-1/2">
             <p
               className="kicker uppercase"
               style={{
@@ -342,7 +617,7 @@ export function NearbySection() {
             ref={mapContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative select-none [container-type:size] max-lg:-mx-9 max-lg:mt-8 max-lg:aspect-[1300/800] max-md:-mx-6 lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
+            className="relative select-none [container-type:size] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
             style={{ perspective: 1200 }}
           >
             {/* 3D Map Plane with Mouse Follow Transform */}
@@ -366,7 +641,7 @@ export function NearbySection() {
                   alt="Axonometric Perspective Map of Megenagna and British Embassy area"
                   fill
                   priority
-                  sizes="(min-width: 1121px) 68vw, 100vw"
+                  sizes="68vw"
                   className="pointer-events-none object-contain"
                 />
               </div>
@@ -544,6 +819,7 @@ export function NearbySection() {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

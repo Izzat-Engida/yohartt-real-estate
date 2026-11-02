@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useEffect } from "react";
 const amenitiesVideo = "/media/home/amenities/amenities.mp4";
 const businessVideo = "/media/home/business/business.mp4";
-// Used on every screen size: the old phone cut showed a different building.
 const heroVideo = "/media/home/hero.mp4";
+const heroMobileVideo = "/media/home/hero-m.mp4";
 
 // The hero plays its first 7 seconds (sketch, then the finished tower) and
 // stops there, just before the video cuts to a close-up. The page then glides
@@ -99,7 +99,7 @@ export default function Intro() {
 
     // 1–4: loader and hero video.
     const hero = document.querySelector<HTMLVideoElement>(
-      "video.block.h-full.w-full.object-cover"
+      "[data-hero-video], video.block.h-full.w-full.object-cover"
     );
 
     const loader = document.querySelector<HTMLElement>(".loader");
@@ -129,27 +129,57 @@ export default function Intro() {
       if (!h1) return;
 
       if (!h1.dataset.split) {
-        const text = h1.textContent ?? "";
-        h1.textContent = "";
+        const words = Array.from(h1.querySelectorAll<HTMLElement>(".hero-word"));
 
-        const fragment = document.createDocumentFragment();
+        let globalCharIndex = 0;
 
-        [...text].forEach((ch, i) => {
-          const span = document.createElement("span");
+        if (words.length > 0) {
+          words.forEach((wordEl) => {
+            const wordText = wordEl.textContent ?? "";
+            wordEl.textContent = "";
+            const wordFragment = document.createDocumentFragment();
 
-          span.textContent = ch === " " ? "\u00A0" : ch;
-          span.style.display = "inline-block";
-          span.style.opacity = "0";
-          span.style.transform = "translateY(2rem)";
+            [...wordText].forEach((ch) => {
+              const span = document.createElement("span");
+              span.dataset.char = "1";
+              span.textContent = ch === " " ? "\u00A0" : ch;
+              span.style.display = "inline-block";
+              span.style.opacity = "0";
+              span.style.transform = "translateY(2rem)";
+              span.style.transition =
+                `opacity .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${globalCharIndex * 50}ms,` +
+                ` transform .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${globalCharIndex * 50}ms`;
 
-          span.style.transition =
-            `opacity .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms,` +
-            ` transform .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms`;
+              wordFragment.appendChild(span);
+              globalCharIndex++;
+            });
 
-          fragment.appendChild(span);
-        });
+            wordEl.appendChild(wordFragment);
+          });
+        } else {
+          const text = h1.textContent ?? "";
+          h1.textContent = "";
 
-        h1.appendChild(fragment);
+          const fragment = document.createDocumentFragment();
+
+          [...text].forEach((ch, i) => {
+            const span = document.createElement("span");
+            span.dataset.char = "1";
+            span.textContent = ch === " " ? "\u00A0" : ch;
+            span.style.display = "inline-block";
+            span.style.opacity = "0";
+            span.style.transform = "translateY(2rem)";
+
+            span.style.transition =
+              `opacity .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms,` +
+              ` transform .9s cubic-bezier(0.215, 0.61, 0.355, 1) ${i * 50}ms`;
+
+            fragment.appendChild(span);
+          });
+
+          h1.appendChild(fragment);
+        }
+
         h1.dataset.split = "1";
       }
 
@@ -158,12 +188,19 @@ export default function Intro() {
           title.style.transition = "opacity .8s ease-out";
           title.style.opacity = "1";
 
-          Array.from(h1.children).forEach((child) => {
-            if (!(child instanceof HTMLElement)) return;
-
-            child.style.opacity = "1";
-            child.style.transform = "translateY(0)";
-          });
+          const chars = h1.querySelectorAll<HTMLElement>("span[data-char]");
+          if (chars.length > 0) {
+            chars.forEach((child) => {
+              child.style.opacity = "1";
+              child.style.transform = "translateY(0)";
+            });
+          } else {
+            Array.from(h1.children).forEach((child) => {
+              if (!(child instanceof HTMLElement)) return;
+              child.style.opacity = "1";
+              child.style.transform = "translateY(0)";
+            });
+          }
         });
       });
     };
@@ -232,11 +269,34 @@ export default function Intro() {
       hero.muted = true;
       hero.loop = false;
 
+      const getTargetSrc = (): string =>
+        window.matchMedia("(max-width: 768px)").matches
+          ? heroMobileVideo
+          : heroVideo;
+
+      const targetSrc = getTargetSrc();
+
       // Only assign src and load if not already set to this source
-      if (!hero.src || !hero.src.endsWith(heroVideo)) {
-        hero.src = heroVideo;
+      if (!hero.src || !hero.src.endsWith(targetSrc)) {
+        hero.src = targetSrc;
         hero.load();
       }
+
+      const mql = window.matchMedia("(max-width: 768px)");
+      const onMediaChange = (e: MediaQueryListEvent) => {
+        const nextSrc = e.matches ? heroMobileVideo : heroVideo;
+        if (!hero.src.endsWith(nextSrc)) {
+          const currentTime = hero.currentTime;
+          const wasPaused = hero.paused;
+          hero.src = nextSrc;
+          hero.currentTime = currentTime;
+          if (!wasPaused && !heroStopped) {
+            hero.play().catch(() => {});
+          }
+        }
+      };
+      mql.addEventListener("change", onMediaChange);
+      cleanups.push(() => mql.removeEventListener("change", onMediaChange));
 
       const stopAt = (): number =>
         hero.duration ? Math.min(HERO_STOP_AT, hero.duration - 0.05) : HERO_STOP_AT;
