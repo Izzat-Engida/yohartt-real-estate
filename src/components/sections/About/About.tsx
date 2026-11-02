@@ -10,7 +10,7 @@ export function About(){
         <section id="about"
         className="relative max-md:hidden">
         <div
-        className="scroller text-cream relative h-[900vh] overflow-clip"
+        className="scroller text-cream relative h-[420vh] overflow-clip"
         >
         <div
         className="to-pine-green isolate sticky top-0 left-0 flex h-screen w-full items-center overflow-clip bg-radial-[at_bottom_right] from-[#3E562E]"

@@ -201,6 +201,7 @@ export default function ProjectsPage() {
                       >
                         <video
                           src={project.walkthrough.src}
+                          poster="/media/projects/poster.webp"
                           aria-label={project.walkthrough.label}
                           autoPlay
                           muted

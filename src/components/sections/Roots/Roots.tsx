@@ -104,7 +104,8 @@ export default function Roots() {
                   muted
                   loop
                   playsInline
-                  preload="none"
+                  preload="metadata"
+                  poster="/media/projects/poster.webp"
                   aria-label="Walkthrough of a finished Yohart apartment"
                   className="roots-video absolute inset-0 h-full w-full object-cover"
                 />

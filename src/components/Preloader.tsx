@@ -15,7 +15,7 @@ const HERO_STOP_AT = 7;
 const HERO_GLIDE_DELAY = 800;
 // The title fades in once the finished tower is on screen.
 const HERO_TITLE_AT = 5.5;
-const locationVideo = "/media/home/location/location.mp4?v=2";
+const locationVideo = "/media/home/location/location.mp4";
 const residencesVideo = "/media/home/residences/interior.mp4";
 // Real footage from a finished Yohart apartment.
 const rootsVideo = "/media/projects/completed-residence-walkthrough.mp4";
@@ -204,7 +204,7 @@ export default function Intro() {
         t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
       if (window.__lenis) {
-        window.__lenis.scrollTo(target, { duration: 2.8, easing: easeInOutCubic });
+        window.__lenis.scrollTo(target, { duration: 1.4, easing: easeInOutCubic });
       } else {
         window.scrollTo({ top: target, behavior: "smooth" });
       }
@@ -298,7 +298,7 @@ export default function Intro() {
     if (loader && bar && percent) {
       cleanups.push(
         animate(
-          2000,
+          1000,
           easeInOutQuad,
           (v) => {
             const n = Math.round(v * 100);
@@ -313,7 +313,7 @@ export default function Intro() {
           () => {
             cleanups.push(
               animate(
-                500,
+                350,
                 easeOutQuad,
                 (v) => {
                   if (loader) {
@@ -351,15 +351,17 @@ export default function Intro() {
             io.disconnect();
 
             video.muted = true;
-            video.src = src;
-            video.load();
+            if (!video.src || !video.src.includes(src)) {
+              video.src = src;
+              video.load();
+            }
 
             video.play().catch(() => {
               // Autoplay may be blocked by the browser.
             });
           },
           {
-            rootMargin: "400px",
+            rootMargin: "1200px 0px",
           }
         );
 

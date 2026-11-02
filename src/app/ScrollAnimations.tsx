@@ -49,7 +49,7 @@ export default function ScrollAnimations() {
 
       const lenis = new Lenis({
         smoothWheel: true,
-        duration: 2,
+        duration: 1.1,
       });
 
       lenis.stop();
@@ -229,16 +229,16 @@ export default function ScrollAnimations() {
       };
 
       const N = 0;
-      const k = 0.1;
-      const M = 0.15;
-      const T = 0.33;
-      const P = 0.22;
-      const E = 0.68;
-      const L = 0.1;
+      const k = 0.08;
+      const M = 0.20;
+      const T = 0.35;
+      const P = 0.28;
+      const E = 0.65;
+      const L = 0.08;
       const O = 1;
-      const DOLLAR = 0.33;
-      const ZED = 0.75;
-      const S = 0.14;
+      const DOLLAR = 0.32;
+      const ZED = 0.68;
+      const S = 0.08;
 
       const introTrigger = {
         trigger: ".scroller",
@@ -444,38 +444,38 @@ export default function ScrollAnimations() {
           .timeline({ paused: true })
           .to(
             c.preheading1.chars,
-            { ...show, duration: 0.7, stagger: 0.1 },
+            { ...show, duration: 0.4, stagger: 0.02 },
             0
           )
           .to(
             c.heading1.words,
-            { ...show, duration: 0.7, stagger: 0.05 },
-            0
+            { ...show, duration: 0.45, stagger: 0.025 },
+            0.05
           )
-          .to(".button1Wrap", { ...show, duration: 0.7 }, 0);
+          .to(".button1Wrap", { ...show, duration: 0.4 }, 0.15);
 
         const screen2Tl = gsap
           .timeline({ paused: true })
           .to(
             c.heading2.words,
-            { ...show, duration: 0.7, stagger: 0.05 },
+            { ...show, duration: 0.45, stagger: 0.025 },
             0
           )
-          .to(".button2Wrap", { ...show, duration: 0.7 }, 0);
+          .to(".button2Wrap", { ...show, duration: 0.4 }, 0.15);
 
         const screen3Tl = gsap
           .timeline({ paused: true })
           .to(
             c.heading3.chars,
-            { ...show, duration: 0.7, stagger: 0.05 },
+            { ...show, duration: 0.4, stagger: 0.02 },
             0
           )
           .to(
             c.paragraph1.words,
-            { ...show, duration: 0.9, stagger: 0.05 },
-            0
+            { ...show, duration: 0.45, stagger: 0.02 },
+            0.05
           )
-          .to(".link", { ...show, duration: 0.9 }, 0);
+          .to(".link", { ...show, duration: 0.4 }, 0.15);
 
         q(
           ScrollTrigger.create({
@@ -493,8 +493,8 @@ export default function ScrollAnimations() {
         q(
           ScrollTrigger.create({
             trigger: ".scroller",
-            start: W(0.33),
-            end: W(0.6),
+            start: W(DOLLAR),
+            end: W(0.64),
             onEnter: () => screen2Tl.play(),
             onLeave: () => screen2Tl.reverse(),
             onEnterBack: () => screen2Tl.play(),
@@ -506,7 +506,7 @@ export default function ScrollAnimations() {
         q(
           ScrollTrigger.create({
             trigger: ".scroller",
-            start: W(0.75),
+            start: W(ZED),
             end: "bottom top",
             onEnter: () => screen3Tl.play(),
             onLeave: () => screen3Tl.reverse(),
@@ -640,7 +640,7 @@ export default function ScrollAnimations() {
             ? Math.max(1, h - window.innerHeight)
             : Math.max(
                 1,
-                600 * (window.innerHeight / 100) - window.innerHeight
+                300 * (window.innerHeight / 100) - window.innerHeight
               );
 
         const m = {
@@ -701,8 +701,8 @@ export default function ScrollAnimations() {
             .timeline({ paused: true })
             .to(`${F} .screen${num} .mobile-image`, {
               ...U,
-              duration: 0.7,
-              stagger: 0.03,
+              duration: 0.45,
+              stagger: 0.02,
             });
 
           q(
@@ -723,20 +723,20 @@ export default function ScrollAnimations() {
           .timeline({ paused: true })
           .to(
             m.preheading1.chars,
-            { ...D, duration: 0.7, stagger: 0.1 },
+            { ...D, duration: 0.4, stagger: 0.02 },
             0
           )
           .to(
             m.heading1.words,
-            { ...D, duration: 0.7, stagger: 0.05 },
-            0
+            { ...D, duration: 0.45, stagger: 0.025 },
+            0.05
           );
 
         const s3 = gsap
           .timeline({ paused: true })
           .to(
             m.heading2.words,
-            { ...D, duration: 0.7, stagger: 0.05 },
+            { ...D, duration: 0.45, stagger: 0.025 },
             0
           );
 
@@ -744,21 +744,21 @@ export default function ScrollAnimations() {
           .timeline({ paused: true })
           .to(
             m.heading3.chars,
-            { ...D, duration: 0.7, stagger: 0.05 },
+            { ...D, duration: 0.4, stagger: 0.02 },
             0
           )
           .to(
             m.paragraph1.words,
-            { ...D, duration: 0.9, stagger: 0.05 },
-            0
+            { ...D, duration: 0.45, stagger: 0.02 },
+            0.05
           )
-          .to(`${F} .mobile-link`, { ...D, duration: 0.9 }, 0);
+          .to(`${F} .mobile-link`, { ...D, duration: 0.4 }, 0.15);
 
         q(
           ScrollTrigger.create({
             trigger: G,
             start: "top top",
-            end: Y(0.2 - 0.05, dist),
+            end: Y(0.18, dist),
             onEnter: () => s1.play(),
             onLeave: () => s1.reverse(),
             onEnterBack: () => s1.play(),
@@ -771,7 +771,7 @@ export default function ScrollAnimations() {
           ScrollTrigger.create({
             trigger: G,
             start: Y(0.4, dist),
-            end: Y(0.55, dist),
+            end: Y(0.58, dist),
             onEnter: () => s3.play(),
             onLeave: () => s3.reverse(),
             onEnterBack: () => s3.play(),

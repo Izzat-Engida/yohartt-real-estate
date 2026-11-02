@@ -33,7 +33,7 @@ export default function ProjectScrollAnimations() {
 
       const lenis = new Lenis({
         smoothWheel: true,
-        duration: 2,
+        duration: 1.1,
       });
 
       lenis.on('scroll', ScrollTrigger.update);

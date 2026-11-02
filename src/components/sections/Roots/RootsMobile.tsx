@@ -19,7 +19,7 @@ export default function RootsMobile() {
             {/* Two matching cards: footage from inside a finished home, and the building itself. */}
             <div className="absolute right-6 bottom-24 left-6 grid grid-cols-2 items-start gap-4">
               <div className="roots-image relative aspect-[3/4] overflow-hidden rounded-2xl bg-black/20">
-                <video src="/media/projects/completed-residence-walkthrough.mp4" muted loop playsInline autoPlay preload="metadata" className="absolute inset-0 h-full w-full object-cover" aria-label="Walkthrough of a finished Yohart apartment" />
+                <video src="/media/projects/completed-residence-walkthrough.mp4" poster="/media/projects/poster.webp" muted loop playsInline autoPlay preload="metadata" className="absolute inset-0 h-full w-full object-cover" aria-label="Walkthrough of a finished Yohart apartment" />
               </div>
               <div className="roots-image relative mt-10 aspect-[3/4] overflow-hidden rounded-2xl bg-black/20">
                 <Image src={finishedBuilding} alt="A finished Yohart residential building with stone-look cladding and large black-framed windows" fill className="object-cover" sizes="45vw" />

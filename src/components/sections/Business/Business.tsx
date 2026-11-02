@@ -23,7 +23,7 @@ export default function BusinessSpaces() {
         </div>
         <div className="w-5/12 pt-30 max-xl:w-1/3 max-lg:w-2/3 max-lg:self-end max-lg:pt-10 max-md:w-3/4 max-md:pt-30">
         <div className="videoWrap relative aspect-[1.43/1] w-4/5 overflow-hidden rounded-[1.25rem] max-xl:w-full">
-        <video muted loop playsInline preload="none" className="portrait absolute -top-35 left-1/2 h-auto w-[180%] max-w-none -translate-x-1/2 object-cover"></video>
+        <video muted loop playsInline preload="metadata" poster="/media/home/business/poster.webp" className="portrait absolute -top-35 left-1/2 h-auto w-[180%] max-w-none -translate-x-1/2 object-cover"></video>
         </div>
         </div>
         </div>
