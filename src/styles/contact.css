@@ -33,7 +33,7 @@
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
 }
-.contact__list span { font-size: 12.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.contact__list span { font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .contact__list a,
 .contact__list p { font-family: var(--serif); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
 .contact__list a { background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease), color 0.3s; justify-self: start; }
