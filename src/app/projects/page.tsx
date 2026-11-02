@@ -147,12 +147,12 @@ export default function ProjectsPage() {
                         ({String(index + 1).padStart(2, '0')})
                       </span>
                       <span>{project.type}</span>
-                      <span
+                      {/* <span
                         className={`project-meta__dot${
                           project.status === 'Completed' ? ' project-meta__dot--done' : ''
                         }`}
                         aria-hidden="true"
-                      />
+                      /> */}
                       <span>{project.status}</span>
                       <span>{project.location}</span>
                     </div>
