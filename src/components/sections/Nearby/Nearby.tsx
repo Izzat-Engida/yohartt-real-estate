@@ -329,7 +329,7 @@ export function NearbySection() {
                       </div>
                     ) : null}
                   </div>
-                  <p className="paragraph mt-2 text-sm leading-relaxed" style={{ color: '#6b6350' }}>
+                  <p className="paragraph mt-2 text-2xl leading-relaxed" style={{ color: '#6b6350' }}>
                     {place.description}
                   </p>
                 </div>

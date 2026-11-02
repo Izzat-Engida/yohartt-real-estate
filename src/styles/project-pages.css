@@ -579,15 +579,15 @@
 .project-progress__stage-copy strong {
   color: var(--project-ink);
   font-family: var(--font-editorialOld), Georgia, serif;
-  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  font-size: 1.75rem;
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 .project-progress__stage-copy span {
   color: rgba(61, 43, 14, 0.62);
   font-family: var(--font-workSans), sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.55;
+  font-size: 1.75rem;
+  line-height: 1.5;
 }
 
 /* ---------- Detail — light chapter ---------- */
