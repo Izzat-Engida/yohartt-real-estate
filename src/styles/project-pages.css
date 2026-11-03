@@ -872,6 +872,7 @@
     margin-top: 2.25rem;
   }
   .project-intro__bottom,
+  .project-index__head,
   .project-chapter__head,
   .project-gallery__head,
   .project-progress__head {
@@ -909,6 +910,8 @@
   .project-intro__inner { padding-top: 7.5rem; padding-bottom: 2.5rem; }
   .project-intro__bottom { padding-top: 3.5rem; gap: 2rem; }
   .project-topline__label { display: none; }
+  .project-index__head { gap: 1.25rem; margin-bottom: 2rem; }
+  .project-index__title { font-size: 2.5rem; }
   .project-index__row {
     grid-template-columns: 2.25rem minmax(0, 1fr) 2.25rem;
     gap: 0.85rem;
