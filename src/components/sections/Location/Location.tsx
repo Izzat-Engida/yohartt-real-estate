@@ -17,8 +17,8 @@ export default function Location(){
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_left,rgba(20,27,16,0.62)_0%,rgba(20,27,16,0.38)_45%,rgba(20,27,16,0)_75%)] max-md:bg-[rgba(20,27,16,0.4)]"/>
                 <div className="wrapper relative z-1 flex items-stretch max-lg:flex-col">
                 <div className="w-1/12 max-2xl:hidden"/>
-                <div className="w-1/3 pt-30 max-lg:w-2/3 max-lg:pt-10 max-md:w-3/4 max-md:self-end max-md:pt-20">
-                <div className="videoWrap relative aspect-[1.43/1] w-full overflow-hidden rounded-[1.25rem]">
+                <div className="w-1/3 pt-24 max-2xl:pt-12 max-lg:w-2/3 max-lg:pt-10 max-md:w-3/4 max-md:self-end max-md:pt-16">
+                <div className="videoWrap relative aspect-[4/5] w-full overflow-hidden rounded-[1.25rem]">
                 <video
                 src="/media/home/location/location.mp4"
                 poster="/media/home/location/poster.webp"
@@ -27,7 +27,7 @@ export default function Location(){
                 loop
                 playsInline
                 preload="metadata"
-                className="portrait absolute -top-25 left-1/2 h-auto w-[150%] max-w-none -translate-x-1/2 object-cover"
+                className="location-video absolute inset-0 h-full w-full object-cover object-center"
                 />
                 </div>
 

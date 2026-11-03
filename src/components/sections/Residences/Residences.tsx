@@ -18,15 +18,16 @@ export default function Residences() {
         />
         <div className="wrapper relative z-1 flex items-stretch gap-5 max-lg:flex-col max-md:items-end">
             <div className="w-1/12 max-2xl:hidden"/>
-            <div className="w-1/3 pt-50 max-2xl:pt-15 max-lg:w-2/3 max-lg:pt-60 max-md:w-3/4 max-md:pt-30">
-            <div className="videoWrap relative aspect-[1.43/1] w-full overflow-hidden rounded-[1.25rem]">
+            <div className="w-1/3 pt-32 max-2xl:pt-12 max-lg:w-2/3 max-lg:pt-40 max-md:w-3/4 max-md:pt-20">
+            <div className="videoWrap relative aspect-[4/5] w-full overflow-hidden rounded-[1.25rem]">
             <video 
+            src="/media/home/residences/interior.mp4"
             muted 
             loop 
             playsInline 
             preload="metadata" 
             poster="/media/home/residences/poster.webp"
-            className="portrait absolute -top-35 left-1/2 h-auto w-[160%] max-w-none -translate-x-1/2 object-cover">
+            className="residences-video absolute inset-0 h-full w-full object-cover object-[center_60%]">
             </video>
             </div>
             </div>

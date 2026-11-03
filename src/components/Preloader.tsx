@@ -36,8 +36,8 @@ type DoneCallback = () => void;
 const SECTION_VIDEOS: Array<[string, string]> = [
   ["w-[200%]", amenitiesVideo],
   ["w-[180%]", businessVideo],
-  ["w-[160%]", residencesVideo],
-  ["w-[150%]", locationVideo],
+  ["residences-video", residencesVideo],
+  ["location-video", locationVideo],
   ["roots-video", rootsVideo],
 ];
 
