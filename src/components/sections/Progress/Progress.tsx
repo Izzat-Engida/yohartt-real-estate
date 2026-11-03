@@ -65,8 +65,8 @@ export default function Progress() {
               <figcaption>
                 <span className="project-progress__num">{String(index + 1).padStart(2, '0')}</span>
                 <span className="project-progress__stage-copy">
-                  <strong>{stage.title}</strong>
-                  <span>{stage.text}</span>
+                  <strong className="!text-[1.75rem]">{stage.title}</strong>
+                  <span className="!text-[1.5rem]">{stage.text}</span>
                 </span>
               </figcaption>
             </figure>

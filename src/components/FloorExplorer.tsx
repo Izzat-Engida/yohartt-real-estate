@@ -166,7 +166,7 @@ export function FloorExplorer({ interest = 'Yohartt Tower', children }: { intere
           <div className="floor-card__top">
             <span>{shown.id === 'G' ? 'Ground' : 'Level'}</span>
             <span className="floor-card__status">
-              <span className="live-dot" />
+        
               Enquire for availability
             </span>
           </div>

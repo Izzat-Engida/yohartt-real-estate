@@ -24,7 +24,8 @@ export default function Residences() {
             muted 
             loop 
             playsInline 
-            preload="none" 
+            preload="metadata" 
+            poster="/media/home/residences/poster.webp"
             className="portrait absolute -top-35 left-1/2 h-auto w-[160%] max-w-none -translate-x-1/2 object-cover">
             </video>
             </div>

@@ -10,7 +10,7 @@ return(
     <section id="about-mobile"
     className="introduction-mobile relative hidden max-md:block"
     >
-    <div className="scroller-mobile text-cream relative h-[600vh] overflow-clip">
+    <div className="scroller-mobile text-cream relative h-[300vh] overflow-clip">
     <div className="sticky-mobile to-pine-green sticky top-0 left-0 flex h-screen w-full items-center overflow-clip bg-radial-[at_bottom_right] from-[#3E562E]">
     <Image
     src={leafs}

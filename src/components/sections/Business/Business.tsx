@@ -17,13 +17,13 @@ export default function BusinessSpaces() {
       <div className="flex items-end justify-between gap-5 max-lg:flex-col max-lg:items-start">
         <div className="flex w-1/4 flex-col items-end justify-between max-xl:w-1/3 max-lg:w-2/3 max-md:w-full">
         <div className="hidden w-1/4 max-lg:block"/>
-        <p className="paragraph text-cream text-[max(1.25rem,16px)] leading-[1.45] [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] max-lg:w-3/4">
+        <p className="paragraph text-cream text-2xl leading-[1.45] [text-shadow:0_1px_14px_rgba(0,0,0,0.35)] max-lg:w-3/4">
         Business spaces and retail units at Yohartt Tower are designed for companies of all sizes that see their business address as more than just a location. It is a reflection of their identity, reputation, and long-term vision.
         </p>
         </div>
         <div className="w-5/12 pt-30 max-xl:w-1/3 max-lg:w-2/3 max-lg:self-end max-lg:pt-10 max-md:w-3/4 max-md:pt-30">
         <div className="videoWrap relative aspect-[1.43/1] w-4/5 overflow-hidden rounded-[1.25rem] max-xl:w-full">
-        <video muted loop playsInline preload="none" className="portrait absolute -top-35 left-1/2 h-auto w-[180%] max-w-none -translate-x-1/2 object-cover"></video>
+        <video muted loop playsInline preload="metadata" poster="/media/home/business/poster.webp" className="portrait absolute -top-35 left-1/2 h-auto w-[180%] max-w-none -translate-x-1/2 object-cover"></video>
         </div>
         </div>
         </div>

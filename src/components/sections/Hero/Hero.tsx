@@ -1,19 +1,35 @@
 'use client';
 
-// The video always fills the screen edge to edge. On windows wider than the
-// video (most laptop browser windows) a strip has to come off the top and
-// bottom: it is split so the sky above the roof goes first and the rest comes
-// off the bottom of the road, keeping the whole building in view. Phones crop
-// the sides instead, framed on the tower, which sits a little right of centre.
-// As the page leaves it, the hero shrinks into a rounded card (ScrollAnimations).
+import { useEffect, useRef } from 'react';
+
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const mql = window.matchMedia('(max-width: 768px)');
+    const updatePoster = () => {
+      video.poster = mql.matches
+        ? '/media/home/hero-poster-m.webp'
+        : '/media/home/hero-poster.webp';
+    };
+    updatePoster();
+    mql.addEventListener('change', updatePoster);
+    return () => mql.removeEventListener('change', updatePoster);
+  }, []);
+
   return (
     <div data-hero className="relative h-svh overflow-hidden bg-[#F7F1E4]">
       <video
+        ref={videoRef}
+        data-hero-video
         muted
         playsInline
         preload="auto"
-        className="block h-full w-full object-cover object-[54%_40%]"
+        poster="/media/home/hero-poster.webp"
+        className="block h-full w-full object-cover object-[54%_40%] max-md:object-center"
       ></video>
 
       <div className="absolute inset-0 flex items-end justify-center bg-transparent py-15 opacity-0 max-md:py-10">

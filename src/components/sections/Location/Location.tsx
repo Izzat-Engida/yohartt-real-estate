@@ -21,6 +21,7 @@ export default function Location(){
                 <div className="videoWrap relative aspect-[1.43/1] w-full overflow-hidden rounded-[1.25rem]">
                 <video
                 src="/media/home/location/location.mp4"
+                poster="/media/home/location/poster.webp"
                 autoPlay
                 muted 
                 loop
