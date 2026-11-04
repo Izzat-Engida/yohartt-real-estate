@@ -19,19 +19,24 @@ export default function Residences() {
         <div className="wrapper relative z-1 flex items-stretch gap-5 max-lg:flex-col max-md:items-end">
             <div className="w-1/12 max-2xl:hidden"/>
             <div className="w-1/3 pt-32 max-2xl:pt-12 max-lg:w-2/3 max-lg:pt-40 max-md:w-3/4 max-md:pt-20">
-            <div className="videoWrap relative aspect-[4/5] w-full overflow-hidden rounded-[1.25rem]">
-            <video 
-            src="/media/home/residences/interior.mp4"
-            muted 
-            loop 
-            playsInline 
-            preload="metadata" 
-            poster="/media/home/residences/poster.webp"
-            className="residences-video absolute inset-0 h-full w-full object-cover object-[center_60%]">
-            </video>
+            <figure className="w-full max-w-[22rem] lg:w-[18vw]">
+              <div className="videoWrap relative aspect-[3/4] w-full overflow-hidden rounded-[1.25rem] bg-black/20">
+                <video 
+                  src="/media/home/residences/interior.mp4"
+                  muted 
+                  loop 
+                  playsInline 
+                  preload="metadata" 
+                  poster="/media/home/residences/poster.webp"
+                  className="residences-video absolute inset-0 h-full w-full object-cover object-[center_60%]">
+                </video>
+              </div>
+              <figcaption className="small text-golden/70 mt-3 tracking-[0.08em] uppercase">
+                Interior living &amp; balconies
+              </figcaption>
+            </figure>
             </div>
-            </div>
-           <div className="ml-auto flex w-2/7 items-center self-stretch max-2xl:w-1/2 max-lg:w-full relative left-0.5">
+           <div className="ml-auto flex max-w-lg items-center self-stretch max-2xl:max-w-md max-lg:w-full">
   <p className="paragraph text-golden max-lg:w-full">
     Designed with contemporary living in mind, each apartment at Yohartt Tower balances functionality, comfort, and aesthetics. Open-plan layouts, excellent natural light, refined materials, and carefully considered details create spaces that feel both welcoming and enduring.
   </p>

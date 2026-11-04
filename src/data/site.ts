@@ -12,12 +12,11 @@ export const site = {
   city: 'Addis Ababa',
   country: 'Ethiopia',
   phone: { display: '+251 910 650 561', href: 'tel:+251910650561' },
-  email: 'hello@yohartt.com',
+  email: 'yoharttradingplc@gmail.com',
   /** International format, digits only — used for wa.me links. */
-  whatsapp: '251900000000',
+  whatsapp: '+251 910 650 561',
   socials: [
     { name: 'Instagram', href: 'https://www.instagram.com/yohartproperties/' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/yohart-properties' },
     { name: 'Facebook', href: 'https://www.facebook.com/yohartproperties' },
   ],
 } as const;

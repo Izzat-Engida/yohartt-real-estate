@@ -99,11 +99,11 @@ export function FloorExplorer({ interest = 'Yohartt Tower', children }: { intere
           <svg className="explorer__svg" viewBox={`0 0 ${VW} ${VH}`} preserveAspectRatio="none" role="group" aria-label="Tower floors">
             <defs>
               <mask id="floorMask">
-                <polygon points="104,181 300,59 394,175 519,290 519,700 575,750 575,985 104,985" fill="#fff" />
+                <polygon points="265,356 762,21 1008,340 1008,470 1162,435 1305,650 1325,2510 265,2510" fill="#fff" />
                 <polygon ref={cutRef} points={INITIAL_POINTS} fill="#000" />
               </mask>
             </defs>
-            <polygon className="explorer__dim" points="104,181 300,59 394,175 519,290 519,700 575,750 575,985 104,985" mask="url(#floorMask)" />
+            <polygon className="explorer__dim" points="265,356 762,21 1008,340 1008,470 1162,435 1305,650 1325,2510 265,2510" mask="url(#floorMask)" />
             <g>
               {FLOORS.map((f) => (
                 <polygon

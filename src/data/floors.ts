@@ -1,19 +1,19 @@
 /**
  * Yohartt Tower floors — edit zone names, descriptions and highlights here.
  *
- * Shapes are polygons traced on the 589×1080 rendering (src/assets/img/tower-render.jpg),
+ * Shapes are polygons traced on the 1536×2752 rendering (src/assets/img/tower-render.png),
  * in that image's pixel coordinates. If the rendering changes, re-trace FLOOR_SHAPES.
  */
 
-export const TOWER_VIEWBOX = { width: 589, height: 1080 } as const;
+export const TOWER_VIEWBOX = { width: 1536, height: 2752 } as const;
 /** Right edge of the balcony facade, used to pin the floor label. */
-export const FACADE_RIGHT_X = 300;
+export const FACADE_RIGHT_X = 766;
 
 type Zone = { name: string; desc: string; chips: string[] };
 
 const ZONES = {
   penthouse: {
-    name: 'Penthouse level',
+    name: 'Top level Residence',
     desc: 'The crown of the tower: top-floor living with the widest views over Addis Ababa.',
     chips: ['Top-floor living', 'Panoramic views', 'Private balcony'],
   },
@@ -40,28 +40,29 @@ const ZONES = {
 } satisfies Record<string, Zone>;
 
 const FLOOR_SHAPES: Record<string, string> = {
-  '14': '104,181.1 300,59.0 300,135.5 104,245.3',
-  '13': '104,245.3 300,135.5 300,196.9 104,296.6',
-  '12': '104,296.6 300,196.9 300,256.3 104,348.1',
-  '11': '104,348.1 300,256.3 300,315.6 104,399.6',
-  '10': '104,399.6 300,315.6 300,372.9 104,448.0',
-  '9': '104,448.0 300,372.9 300,432.3 104,498.4',
-  '8': '104,498.4 300,432.3 300,492.7 104,548.7',
-  '7': '104,548.7 300,492.7 300,554.0 104,602.2',
-  '6': '104,602.2 300,554.0 300,612.2 104,657.0',
-  '5': '104,657.0 300,612.2 300,679.9 104,706.8',
-  '4': '104,706.8 300,679.9 300,736.0 104,759.6',
-  '3': '104,759.6 300,736.0 300,796.1 104,818.5',
-  '2': '104,818.5 300,796.1 300,861.6 104,871.7',
-  '1': '104,871.7 300,861.6 300,918.0 104,918.0',
-  G: '104,918.0 300,918.0 300,985.0 104,985.0',
+  '15': '265,356 766,21 766,202 265,528',
+  '14': '265,528 766,202 766,348 265,649',
+  '13': '265,649 766,348 766,494 265,752',
+  '12': '265,752 766,494 766,644 265,901',
+  '11': '265,901 766,644 766,795 265,1026',
+  '10': '265,1026 766,795 766,945 265,1154',
+  '9': '265,1154 766,945 766,1097 265,1284',
+  '8': '265,1284 766,1097 766,1248 265,1415',
+  '7': '265,1415 766,1248 766,1398 265,1547',
+  '6': '265,1547 766,1398 766,1550 265,1680',
+  '5': '265,1680 766,1550 766,1704 265,1816',
+  '4': '265,1816 766,1704 766,1855 265,1921',
+  '3': '265,1921 766,1855 766,2009 265,2058',
+  '2': '265,2058 766,2009 766,2165 265,2199',
+  '1': '265,2199 766,2165 766,2324 265,2336',
+  G: '265,2336 766,2324 766,2510 265,2517',
 };
 
 function zoneFor(id: string): Zone {
   if (id === 'G') return ZONES.arrival;
   const n = Number(id);
-  if (n === 14) return ZONES.penthouse;
-  if (n >= 12) return ZONES.sky;
+  if (n === 15) return ZONES.penthouse;
+  if (n >= 13) return ZONES.sky;
   if (n === 1) return ZONES.podium;
   return ZONES.residences;
 }
@@ -80,7 +81,7 @@ export type Floor = {
   points: Point[];
 };
 
-const ORDER = ['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'G'];
+const ORDER = ['15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', 'G'];
 
 export const FLOORS: Floor[] = ORDER.map((id) => {
   const ground = id === 'G';
@@ -95,7 +96,7 @@ export const FLOORS: Floor[] = ORDER.map((id) => {
   };
 });
 
-export const DEFAULT_FLOOR = '9';
+export const DEFAULT_FLOOR = '10';
 
 export function getFloor(id: string): Floor | undefined {
   return FLOORS.find((f) => f.id === id);

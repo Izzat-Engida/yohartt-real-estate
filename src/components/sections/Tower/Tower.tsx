@@ -5,7 +5,7 @@ import { FloorExplorer } from '../../FloorExplorer';
 export function TowerFacts() {
   return (
     <dl className="facts" data-reveal="">
-      <div><dt><span data-count="14">14</span></dt><dd>Levels of homes</dd></div>
+      <div><dt><span data-count="15">15</span></dt><dd>Levels of homes</dd></div>
       <div><dt>G</dt><dd>Covered parking &amp; arrival</dd></div>
       <div><dt>Glass</dt><dd>Full-width glazing</dd></div>
       <div><dt>AA</dt><dd>Addis Ababa, Ethiopia</dd></div>
