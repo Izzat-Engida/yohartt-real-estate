@@ -5,11 +5,10 @@ import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 
 import mapBase from '@/assets/home/around/axonometric-map.webp';
-import britishEmbassyImg from '@/assets/home/around/british-embassy.jpg';
-import centuryMallImg from '@/assets/home/around/century-mall.jpg';
-import megenagnaTransitImg from '@/assets/home/around/megenagna-transit.jpg';
-import zefmeshMallImg from '@/assets/home/around/zefmesh-mall.jpg';
-import panoramaHotelImg from '@/assets/home/around/panorama-hotel.jpg';
+import cambridgeAcademyImg from '@/assets/home/around/cambridge-academy.jpg';
+import saudiEmbassyImg from '@/assets/home/around/saudi-embassy.jpg';
+import pepsiFactoryImg from '@/assets/home/around/pepsi-factory.jpg';
+import sweatboxGymImg from '@/assets/home/around/sweatbox-gym.jpg';
 
 type Place = {
   id: string;
@@ -27,54 +26,44 @@ type Place = {
 
 const PLACES: Place[] = [
   {
-    id: 'british-embassy',
-    name: 'British Embassy',
-    car: '1 min',
-    walk: '3 min',
-    description:
-      'The historic Embassy of the United Kingdom in Addis Ababa is situated directly adjacent to the site along Comoros Street, featuring lush diplomatic parklands, top-tier security, and mature green tree canopies.',
-    image: britishEmbassyImg,
-    pin: { x: 49.0, y: 8.7 },
-  },
-  {
-    id: 'century-mall',
-    name: 'Century Mall',
+    id: 'cambridge-academy',
+    name: 'Cambridge Academy',
     car: '3 min',
     walk: '8 min',
     description:
-      "One of Megenagna's premier modern commercial destinations at Gurd Shola, hosting a multi-screen cinema, international retail boutiques, vibrant cafes, and family entertainment amenities.",
-    image: centuryMallImg,
-    pin: { x: 78.0, y: 43.2 },
+      'A leading international British Curriculum school in Addis Ababa, delivering early years through pre-university education (IGCSE and A-Levels) with modern academic and sports facilities.',
+    image: cambridgeAcademyImg,
+    pin: { x: 16.2, y: 15.6 },
   },
   {
-    id: 'megenagna-transit',
-    name: 'Megenagna Transit Hub',
-    car: '4 min',
-    walk: '10 min',
+    id: 'saudi-embassy',
+    name: 'Embassy of Saudi Arabia',
+    car: '2 min',
+    walk: '6 min',
     description:
-      "Addis Ababa's vital eastern transit interchange, seamlessly connecting the East-West Light Rail Transit (LRT) network with key city bus corridors, rapid taxis, and direct routes toward Bole and Kazanchis.",
-    image: megenagnaTransitImg,
-    pin: { x: 45.0, y: 56.8 },
+      'A prestigious diplomatic compound situated along the primary boulevard, reinforcing the neighborhood’s international standing, enhanced security, and long-term residential appeal.',
+    image: saudiEmbassyImg,
+    pin: { x: 64.6, y: 33.1 },
   },
   {
-    id: 'zefmesh-mall',
-    name: 'Zefmesh Grand Mall',
+    id: 'pepsi-factory',
+    name: 'Summit PEPSI Factory',
     car: '4 min',
     walk: '12 min',
     description:
-      'A bustling multi-level shopping and commercial center at the center of Megenagna, housing hundreds of specialty retailers, electronics stores, banking hubs, and traditional dining options.',
-    image: zefmeshMallImg,
-    pin: { x: 40.0, y: 48.2 },
+      'One of the Summit district’s major commercial landmarks near the eastern roundabout, anchoring regional distribution, economic activity, and urban connectivity.',
+    image: pepsiFactoryImg,
+    pin: { x: 90.8, y: 16.2 },
   },
   {
-    id: 'panorama-hotel',
-    name: 'Panorama Hotel',
-    car: '2 min',
-    walk: '5 min',
+    id: 'sweatbox-gym',
+    name: 'Sweatbox Performance Gym',
+    car: '1 min',
+    walk: '3 min',
     description:
-      'A distinguished 4-star hospitality landmark located just south of Megenagna along Equatorial Guinea Street, offering international dining, rooftop lounges, and premium guest accommodations.',
-    image: panoramaHotelImg,
-    pin: { x: 38.0, y: 67.9 },
+      'Addis Ababa’s premier CrossFit and high-performance training facility at Semit, offering Olympic lifting platforms, functional HIIT conditioning, coaching, and wellness recovery just steps from home.',
+    image: sweatboxGymImg,
+    pin: { x: 44.6, y: 80.0 },
   },
 ];
 
@@ -360,10 +349,10 @@ export function NearbySection() {
           </div>
 
           {/* Map with dots */}
-          <div className="relative mt-12 aspect-[1300/800] w-full overflow-visible">
+          <div className="relative mt-8 aspect-[1300/800] w-full overflow-visible">
             <Image
               src={mapBase}
-              alt="Map of Megenagna and British Embassy area"
+              alt="Map of Summit and Semit district around Yohartt Tower"
               fill
               priority
               sizes="100vw"
@@ -374,8 +363,8 @@ export function NearbySection() {
             <div
               className="pointer-events-none absolute z-20 flex flex-col items-center"
               style={{
-                left: '35%',
-                top: '12.5%',
+                left: '44.2%',
+                top: '49.5%',
                 transform: 'translate(-50%, -100%)',
               }}
             >
@@ -401,11 +390,11 @@ export function NearbySection() {
                     Yohartt Tower
                   </p>
                   <p className="text-[7px] text-[#e8dac7] font-medium">
-                    Behind British Embassy
+                    Summit · Semit District
                   </p>
                 </div>
               </div>
-              <div className="h-4 w-0.5 bg-[#7d6342]" />
+              <div className="h-3 w-0.5 bg-[#7d6342]" />
             </div>
 
             {/* Dots on map matching reference */}
@@ -484,88 +473,90 @@ export function NearbySection() {
             ============================================================ */}
         <div className="reveal-content wrapper relative z-10 hidden h-full lg:flex">
           {/* Left Column: Typography List & Info Card */}
-          <div className="relative z-30 w-5/12 pt-6 max-xl:w-1/2">
-            <p
-              className="kicker uppercase"
-              style={{
-                color: '#AD824B',
-                letterSpacing: '0.08em',
-                fontWeight: 500,
-                fontSize: '0.9rem',
-              }}
-            >
-              What&apos;s around
-            </p>
-
-            {/* Places List */}
-            <div className="list relative border-b border-[#AD824B]/30 pt-8 pb-10">
-              {/* Active Marker Indicator */}
-              <div
-                className="pointer-events-none absolute top-0 -left-4 w-0.5 transition-all duration-300"
+          <div className="relative z-30 flex flex-col justify-between w-5/12 pt-4 pb-6 max-xl:w-1/2 min-h-[580px]">
+            <div>
+              <p
+                className="kicker uppercase"
                 style={{
-                  height: `${marker.height}px`,
-                  transform: `translateY(${marker.top}px)`,
-                  backgroundColor: '#AD824B',
-                  opacity: 1,
+                  color: '#AD824B',
+                  letterSpacing: '0.08em',
+                  fontWeight: 500,
+                  fontSize: '0.85rem',
                 }}
-              />
-              {PLACES.map((place, index) => {
-                const isCurrent = activeIndex === index;
-                const isHovered = hoveredPin === index;
-                return (
-                  <div
-                    key={place.id}
-                    ref={(element) => {
-                      itemRefs.current[index] = element;
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-pressed={isCurrent}
-                    onMouseEnter={() => {
-                      setActiveIndex(index);
-                      setPinHover(index);
-                    }}
-                    onMouseLeave={() => setPinHover(null)}
-                    onFocus={() => setActiveIndex(index)}
-                    onClick={() => setActiveIndex(index)}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
+              >
+                What&apos;s around
+              </p>
+
+              {/* Places List */}
+              <div className="list relative pt-6">
+                {/* Active Marker Indicator */}
+                <div
+                  className="pointer-events-none absolute top-0 -left-4 w-0.5 transition-all duration-300"
+                  style={{
+                    height: `${marker.height}px`,
+                    transform: `translateY(${marker.top}px)`,
+                    backgroundColor: '#AD824B',
+                    opacity: 1,
+                  }}
+                />
+                {PLACES.map((place, index) => {
+                  const isCurrent = activeIndex === index;
+                  const isHovered = hoveredPin === index;
+                  return (
+                    <div
+                      key={place.id}
+                      ref={(element) => {
+                        itemRefs.current[index] = element;
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-pressed={isCurrent}
+                      onMouseEnter={() => {
                         setActiveIndex(index);
-                      }
-                    }}
-                    className="group relative cursor-pointer overflow-hidden py-2"
-                  >
-                    <p
-                      className="heading-2 leading-tight transition duration-300 group-hover:-translate-y-full"
-                      style={{
-                        fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
-                        color: isCurrent || isHovered ? '#AD824B' : '#a68150',
-                        fontWeight: 400,
-                        fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
-                        opacity: isCurrent || isHovered ? 1 : 0.8,
+                        setPinHover(index);
                       }}
-                    >
-                      {place.name}
-                    </p>
-                    <span
-                      className="heading-2 absolute left-0 top-full w-full leading-tight italic transition-all duration-300 group-hover:top-2"
-                      style={{
-                        fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
-                        color: '#AD824B',
-                        fontWeight: 400,
-                        fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
+                      onMouseLeave={() => setPinHover(null)}
+                      onFocus={() => setActiveIndex(index)}
+                      onClick={() => setActiveIndex(index)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActiveIndex(index);
+                        }
                       }}
+                      className="group relative cursor-pointer overflow-hidden py-1.5"
                     >
-                      {place.name}
-                    </span>
-                  </div>
-                );
-              })}
+                      <p
+                        className="heading-2 leading-tight transition duration-300 group-hover:-translate-y-full"
+                        style={{
+                          fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
+                          color: isCurrent || isHovered ? '#AD824B' : '#a68150',
+                          fontWeight: 400,
+                          fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
+                          opacity: isCurrent || isHovered ? 1 : 0.8,
+                        }}
+                      >
+                        {place.name}
+                      </p>
+                      <span
+                        className="heading-2 absolute left-0 top-full w-full leading-tight italic transition-all duration-300 group-hover:top-1.5"
+                        style={{
+                          fontFamily: 'var(--font-editorialOld), Cormorant Garamond, Bodoni Moda, serif',
+                          color: '#AD824B',
+                          fontWeight: 400,
+                          fontSize: 'clamp(2rem, 3.2vw, 3.25rem)',
+                        }}
+                      >
+                        {place.name}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Selected Place Details Card */}
-            <div className="relative mt-8 min-h-[14rem]">
+            <div className="relative mt-12 min-h-[9rem]">
               {PLACES.map((place, index) => (
                 <div
                   key={place.id}
@@ -578,17 +569,17 @@ export function NearbySection() {
                   aria-hidden={activeIndex !== index}
                 >
                   <p
-                    className="kicker mb-3 uppercase"
+                    className="kicker mb-2 uppercase"
                     style={{
                       color: '#AD824B',
                       fontWeight: 600,
-                      letterSpacing: '0.06em',
-                      fontSize: '0.875rem',
+                      letterSpacing: '0.08em',
+                      fontSize: '0.8rem',
                     }}
                   >
                     {place.name}
                   </p>
-                  <div className="flex divide-x divide-[#AD824B]/30 pb-3">
+                  <div className="flex divide-x divide-[#AD824B]/30 pb-2.5">
                     <div
                       className="paragraph flex items-center gap-2 pr-4 text-sm font-medium"
                       style={{ color: '#4a4435' }}
@@ -604,7 +595,7 @@ export function NearbySection() {
                       </div>
                     ) : null}
                   </div>
-                  <p className="paragraph mt-2 text-2xl leading-relaxed" style={{ color: '#6b6350' }}>
+                  <p className="paragraph mt-1.5 text-[0.95rem] leading-[1.65] max-w-[420px]" style={{ color: '#5c5344' }}>
                     {place.description}
                   </p>
                 </div>
@@ -617,7 +608,7 @@ export function NearbySection() {
             ref={mapContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative select-none [container-type:size] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[68vw]"
+            className="relative select-none [container-type:size] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[72vw]"
             style={{ perspective: 1200 }}
           >
             {/* 3D Map Plane with Mouse Follow Transform */}
@@ -638,20 +629,20 @@ export function NearbySection() {
               <div className="absolute inset-0">
                 <Image
                   src={mapBase}
-                  alt="Axonometric Perspective Map of Megenagna and British Embassy area"
+                  alt="Axonometric Perspective Map of Summit and Semit district around Yohartt Tower"
                   fill
                   priority
-                  sizes="68vw"
+                  sizes="72vw"
                   className="pointer-events-none object-contain"
                 />
               </div>
 
-              {/* CENTER LOCATION BADGE: Yohartt Tower · Behind British Embassy Megenagna */}
+              {/* CENTER LOCATION BADGE: Yohartt Tower · Summit & Semit */}
               <div
                 className="pointer-events-none absolute z-20 flex flex-col items-center"
                 style={{
-                  left: '35%',
-                  top: '12.5%',
+                  left: '44.2%',
+                  top: '49.5%',
                   transform: 'translate(-50%, -100%) translateZ(28px)',
                 }}
               >
@@ -679,12 +670,12 @@ export function NearbySection() {
                       Yohartt Tower
                     </p>
                     <p className="text-[9px] text-[#e8dac7] font-medium">
-                      Behind British Embassy
+                      Summit · Semit District
                     </p>
                   </div>
                 </div>
                 {/* Vertical Pole */}
-                <div className="h-6 w-0.5 bg-[#7d6342]" />
+                <div className="h-4 w-0.5 bg-[#7d6342]" />
               </div>
 
               {/* 5 Interactive Pins with Pin-Point Accuracy */}

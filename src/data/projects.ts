@@ -112,12 +112,12 @@ export const projects: Project[] = [
     status: 'Accepting enquiries',
     type: 'Residential tower',
     location: 'Addis Ababa, Ethiopia',
-    tagline: 'Fourteen levels of light-filled homes above a landscaped arrival court.',
+    tagline: 'Fifteen levels of light-filled homes above a landscaped arrival court.',
     summary:
-      'A G+14 residential tower with full-width glazing and a private balcony on every level. Explore it floor by floor below, then tell us which level you would like to call home.',
+      'A G+15 residential tower with full-width glazing and a private balcony on every level. Explore it floor by floor below, then tell us which level you would like to call home.',
     cover: photos.towerDusk,
     specs: [
-      { label: 'Configuration', value: 'G+14' },
+      { label: 'Configuration', value: 'G+15' },
       { label: 'Type', value: 'Residential apartments' },
       { label: 'Parking', value: 'Covered, ground level' },
       { label: 'Facade', value: 'Full-width glazing & balconies' },
@@ -126,7 +126,7 @@ export const projects: Project[] = [
     highlights: [
       'Private balcony on residential levels',
       'Floor-to-ceiling glazing',
-      'Sky residences and a penthouse level',
+      'Sky residences',
       'Covered parking and landscaped arrival court',
     ],
     gallery: [photos.towerRender, photos.interior, photos.balconyView, photos.entranceLobby],
