@@ -1065,8 +1065,22 @@ export default function ScrollAnimations() {
           overwrite: "auto" as const,
         };
 
-        const eX = (progress: number): string =>
-          `${100 * progress}% top`;
+        const scrollerEl = gsap.utils.toArray<HTMLElement>(
+          `${eU} .roots-scroller`
+        )[0];
+
+        const h = scrollerEl ? scrollerEl.offsetHeight : 0;
+
+        const dist =
+          h > 0
+            ? Math.max(1, h - window.innerHeight)
+            : Math.max(
+                1,
+                200 * (window.innerHeight / 100) - window.innerHeight
+              );
+
+        const Y = (progress: number): string =>
+          `top+=${Math.round(progress * dist)} top`;
 
         const huge = split(`${eU} .roots-huge`, {
           type: "chars, words",
@@ -1077,13 +1091,13 @@ export default function ScrollAnimations() {
         });
 
         gsap.set(huge.chars, {
-          x: "100vw",
+          y: "1.5rem",
           opacity: 0,
           filter: "blur(4px)",
         });
 
         gsap.set(`${eU} .roots-image`, {
-          scale: 1.1,
+          scale: 1.05,
           opacity: 0,
           filter: "blur(4px)",
         });
@@ -1105,12 +1119,12 @@ export default function ScrollAnimations() {
         const charsTl = gsap
           .timeline({ paused: true })
           .to(huge.chars, {
-            x: 0,
+            y: 0,
             opacity: 1,
             filter: "blur(0px)",
-            duration: 1.5,
-            stagger: 0.08,
-            ease: "power2.inOut",
+            duration: 0.45,
+            stagger: 0.02,
+            ease: "power1.inOut",
           });
 
         const imgTl = gsap
@@ -1119,10 +1133,10 @@ export default function ScrollAnimations() {
             scale: 1,
             opacity: 1,
             filter: "blur(0px)",
-            duration: 1.2,
-            stagger: 0.3,
-            ease: "power2.inOut",
-            delay: 1.5,
+            duration: 0.45,
+            stagger: 0.08,
+            ease: "power1.inOut",
+            delay: 0.05,
           });
 
         const eZ = `${eU} .roots-scroller`;
@@ -1130,15 +1144,15 @@ export default function ScrollAnimations() {
         q(
           ScrollTrigger.create({
             trigger: eZ,
-            start: eX(0),
-            end: eX(0.45),
+            start: "top top",
+            end: Y(0.48),
             onEnter: () => {
-              charsTl.restart();
-              imgTl.restart();
+              charsTl.play();
+              imgTl.play();
             },
             onEnterBack: () => {
-              charsTl.restart();
-              imgTl.restart();
+              charsTl.play();
+              imgTl.play();
             },
             onLeave: () => {
               charsTl.reverse();
@@ -1156,19 +1170,19 @@ export default function ScrollAnimations() {
           .timeline({ paused: true })
           .to(paragraph.words, {
             ...eY,
-            duration: 0.8,
-            stagger: 0.05,
+            duration: 0.45,
+            stagger: 0.02,
           })
           .to(
             `${eU} .roots-button`,
-            { ...eY, duration: 0.8 },
-            0.15
+            { ...eY, duration: 0.4 },
+            0.1
           );
 
         q(
           ScrollTrigger.create({
             trigger: eZ,
-            start: eX(0.5),
+            start: Y(0.5),
             end: "bottom bottom",
             onEnter: () => textTl.play(),
             onEnterBack: () => textTl.play(),

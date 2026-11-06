@@ -5,7 +5,7 @@ import finishedBuilding from '@/assets/img/completed-residence.jpg';
 export default function RootsMobile() {
   return (
     <section id="RootsMobile" className="relative z-1 hidden overflow-clip bg-navy max-md:block">
-      <div className="roots-scroller relative h-[400vh]">
+      <div className="roots-scroller relative h-[200vh]">
         <div className="sticky top-0 left-0 flex h-screen w-full flex-col justify-center overflow-clip">
           <div className="pointer-events-none absolute top-36 left-0 z-20 w-full px-6">
             <p className="kicker text-accent uppercase">The way of living</p>
